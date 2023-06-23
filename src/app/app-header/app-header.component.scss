@@ -7,13 +7,17 @@
   background: var(--main-color);
   border-bottom: 1px solid black;
 
+  h1 {
+    font-size: 25px;
+  }
+
   .navigation {
     display: flex;
     gap: 10px;
 
     a {
       font-weight: 400;
-      color: #000;
+      color: var(--main-black);
       text-decoration: none;
 
       &:hover {

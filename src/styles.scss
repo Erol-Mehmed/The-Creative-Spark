@@ -1,9 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+html, body { height: 100%; }
+
 body {
   margin: 0;
-  font-family: 'Merriweather', serif;
+  font-family: 'Merriweather', Roboto, "Helvetica Neue", sans-serif;
+}
+
+mat-dialog-container#modal-component {
+  border: 3px solid #262626;
+  border-radius: 11px;
+  background-color: #1a1a1a;
 }
 
 :root {
   --main-color: #B9F3E4;
+  --main-black: #000;
 }
