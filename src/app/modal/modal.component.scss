@@ -1,0 +1,59 @@
+.model-content-wrapper {
+  padding: 60px;
+  text-align: center;
+
+  header {
+    h1 {
+      font-size: 20px;
+      margin-top: 50px;
+    }
+  }
+
+  section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 60px;
+    gap: 12px;
+    
+    button {
+      width: 230px;
+      height: 40px;
+      font-size: 14px;
+      background: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-family: unset;
+    }
+
+    .sing-in-create-one {
+      display: flex;
+      gap: 5px;
+      margin-top: 40px;
+
+      p {
+        font-size: 15px;
+        margin: 0;
+      }
+
+      button {
+        width: unset;
+        height: unset;
+        font-size: 15px;
+        border: none;
+        padding: 0;
+        color: var(--green);
+        
+        &:hover {
+          font-weight: 600;
+          color: var(--darker-green);
+        }
+        
+        &:active {
+          font-weight: 600;
+          color: var(--even-darker-green);
+        }
+      }
+    }
+  }
+}

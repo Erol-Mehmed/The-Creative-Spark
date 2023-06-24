@@ -1,1 +1,17 @@
-<p>modal works!</p>
+<div class="model-content-wrapper">
+    <header>
+      <h1>{{ loginRegister }}</h1>
+    </header>
+    <section>
+      <button>Sign up with email</button>
+      <button>Sign up with Google</button>
+      <button>Sign up with Facebook</button>
+      <div class="sing-in-create-one">
+        <p>Already have an account?</p>
+        <button (click)="modalChange(register)">{{ loginRegister }}</button>
+      </div>
+    </section>
+    <footer>
+      <p>Click “{{ loginRegister }}” to agree to The Creative Spark’s Terms of Service and acknowledge that The Creative Spark’s Privacy Policy applies to you.</p>
+    </footer>
+</div>

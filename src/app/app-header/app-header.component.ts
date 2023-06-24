@@ -13,10 +13,10 @@ export class AppHeaderComponent {
 
   openModal() {
     const dialogConfig = new MatDialogConfig;
-
+    
     dialogConfig.id = 'modal-component';
-    dialogConfig.width = '600px';
-    dialogConfig.height = '350px';
+    dialogConfig.width = '550px';
+    dialogConfig.height = '650px';
     
     this.matDialog.open(ModalComponent, dialogConfig);
   }

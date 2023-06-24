@@ -5,6 +5,20 @@ import { Component } from '@angular/core';
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss']
 })
-export class ModalComponent {
 
+export class ModalComponent {
+  loginRegister = {};
+  
+  modalChange(register) {
+    this.loginRegister = 
+    register 
+    ? {
+      title: 'Welcome back.',
+      signInUp: 'SignIn'
+    }
+    : {
+      title: 'Join The Creative Spark.',
+      signInUp: 'SignUp'
+    };
+  }
 }

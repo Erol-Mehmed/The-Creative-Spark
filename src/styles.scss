@@ -4,15 +4,23 @@ html, body { height: 100%; }
 body {
   margin: 0;
   font-family: 'Merriweather', Roboto, "Helvetica Neue", sans-serif;
+
+  .cdk-overlay-container {
+    .cdk-overlay-dark-backdrop {
+      background: rgba(255, 255, 255, 0.95);
+      opacity: 0.8;
+    }
+  }
 }
 
 mat-dialog-container#modal-component {
-  border: 3px solid #262626;
-  border-radius: 11px;
-  background-color: #1a1a1a;
+  border-radius: 12px;
 }
 
 :root {
   --main-color: #B9F3E4;
   --main-black: #000;
+  --green: #4CAF50;
+  --darker-green: #3e8e41;
+  --even-darker-green: #2e6b31;
 }
