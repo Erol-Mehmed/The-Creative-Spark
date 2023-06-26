@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
@@ -7,18 +6,28 @@ import { Component } from '@angular/core';
 })
 
 export class ModalComponent {
-  loginRegister = {};
-  
-  modalChange(register) {
-    this.loginRegister = 
-    register 
-    ? {
-      title: 'Welcome back.',
-      signInUp: 'SignIn'
+  register = true;
+
+  loginRegister = {
+    title:  'Join The Creative Spark.',
+    upIn: 'up',
+    signInCreateOne: 'Sign in',
+    signInUp: 'SignUp',
+  };
+
+  modalChange() {
+    if (this.register) {
+      this.loginRegister.title = 'Welcome back.',
+      this.loginRegister.upIn = 'in';
+      this.loginRegister.signInCreateOne = 'Create one',
+      this.loginRegister.signInUp = 'Sign in';
+    } else {
+      this.loginRegister.title = 'Join The Creative Spark.',
+      this.loginRegister.upIn = 'up';
+      this.loginRegister.signInCreateOne = 'Sign in',
+      this.loginRegister.signInUp = 'Sign up';
     }
-    : {
-      title: 'Join The Creative Spark.',
-      signInUp: 'SignUp'
-    };
+
+    this.register = !this.register;
   }
 }

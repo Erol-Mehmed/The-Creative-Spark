@@ -1,17 +1,17 @@
 <div class="model-content-wrapper">
     <header>
-      <h1>{{ loginRegister }}</h1>
+      <h1>{{ loginRegister.title }}</h1>
     </header>
     <section>
-      <button>Sign up with email</button>
-      <button>Sign up with Google</button>
-      <button>Sign up with Facebook</button>
+      <button>Sign {{ loginRegister.upIn }} with email</button>
+      <button>Sign {{ loginRegister.upIn }} with Google</button>
+      <button>Sign {{ loginRegister.upIn }} with Facebook</button>
       <div class="sing-in-create-one">
         <p>Already have an account?</p>
-        <button (click)="modalChange(register)">{{ loginRegister }}</button>
+        <button (click)="modalChange()">{{ loginRegister.signInCreateOne }}</button>
       </div>
     </section>
     <footer>
-      <p>Click “{{ loginRegister }}” to agree to The Creative Spark’s Terms of Service and acknowledge that The Creative Spark’s Privacy Policy applies to you.</p>
+      <p>Click “{{ loginRegister.signInUp }}” to agree to The Creative Spark’s Terms of Service and acknowledge that The Creative Spark’s Privacy Policy applies to you.</p>
     </footer>
 </div>

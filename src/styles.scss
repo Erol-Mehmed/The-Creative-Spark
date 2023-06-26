@@ -10,6 +10,10 @@ body {
       background: rgba(255, 255, 255, 0.95);
       opacity: 0.8;
     }
+
+    .mat-mdc-dialog-surface {
+      padding: 60px;
+    }
   }
 }
 
