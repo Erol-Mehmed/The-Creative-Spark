@@ -7,17 +7,16 @@ import { ModalComponent } from '../modal/modal.component';
   templateUrl: './app-header.component.html',
   styleUrls: ['./app-header.component.scss']
 })
-export class AppHeaderComponent {
 
+export class AppHeaderComponent {
   constructor(public matDialog: MatDialog) { }
 
-  openModal(signInCreateOne: boolean) {
+  openModal() {
     const dialogConfig = new MatDialogConfig;
     
     dialogConfig.id = 'modal-component';
     dialogConfig.width = '550px';
     dialogConfig.height = '650px';
-    dialogConfig.data = {register: signInCreateOne};
     
     this.matDialog.open(ModalComponent, dialogConfig);
   }

@@ -13,7 +13,7 @@ import { ModalComponent } from './modal/modal.component';
   declarations: [
     AppComponent,
     AppHeaderComponent,
-    ModalComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
