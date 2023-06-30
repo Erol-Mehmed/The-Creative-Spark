@@ -17,7 +17,10 @@
       "rules": {
         "semi": 2,
         "comma-dangle": 2,
-        "object-curly-spacing": ["error", "always"],
+        "object-curly-spacing": [
+          "error",
+          "always"
+        ],
         "@angular-eslint/directive-selector": [
           "error",
           {
@@ -45,14 +48,21 @@
         "plugin:@angular-eslint/template/accessibility"
       ],
       "rules": {}
+    },
+    {
+      "files": [
+        "*.ts"
+      ],
+      "extends": [
+        "plugin:@ngrx/recommended-requiring-type-checking"
+      ]
     }
   ],
-    "plugins": [
-      "css"
+  "plugins": [
+    "css"
   ],
   "extends": [
-      // add more generic rulesets here, such as:
-      "eslint:recommended",
-      "plugin:css/recommended"
+    "eslint:recommended",
+    "plugin:css/recommended"
   ]
 }
