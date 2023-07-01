@@ -1,8 +1,8 @@
 import { ActionReducerMap, createReducer, on } from "@ngrx/store";
-import { reverseBoolean } from "./actions";
+import { setModalVersion } from "./actions";
 
-interface IMainState {
-  registered: boolean;
+export interface IMainState {
+  signInGetStarted: string;
 }
 
 interface IAppState {
@@ -10,17 +10,19 @@ interface IAppState {
 }
 
 const mainInitialState: IMainState = {
-  registered: false
+  signInGetStarted: ''
 };
 
 const MainReducer = createReducer<IMainState> (
   mainInitialState,
-  on(reverseBoolean, (state) => {
-    const { registered } = state;
-    return { ...state, registered: !registered};
+  on(setModalVersion, (state): IMainState => {
+    const { signInGetStarted } = state;
+    console.log('on:', signInGetStarted, state);
+  
+    return { ...state, signInGetStarted: signInGetStarted };
   })
 );
 
-const reducers: ActionReducerMap<IAppState> = {
-  main:
+export const reducers: ActionReducerMap<IAppState> = {
+  main: MainReducer
 };

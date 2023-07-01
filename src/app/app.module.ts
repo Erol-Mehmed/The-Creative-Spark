@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ModalComponent } from './modal/modal.component';
 import { StoreModule } from '@ngrx/store';
+import { reducers } from './+store';
 
 @NgModule({
   declarations: [
@@ -22,9 +23,10 @@ import { StoreModule } from '@ngrx/store';
     BrowserAnimationsModule,
     MatButtonModule,
     MatDialogModule,
-    StoreModule.forRoot({}, {})
+    StoreModule.forRoot(reducers)
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+
+export class AppModule {}

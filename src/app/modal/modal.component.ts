@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { selectGetModalVersion } from '../+store/selectors';
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
@@ -6,7 +8,10 @@ import { Component } from '@angular/core';
 })
 
 export class ModalComponent {
+  constructor(private store: Store) {}
+
   register = true;
+  signInGetStarted$ = this.store.select(selectGetModalVersion);
   
   loginRegister = {
     title:  'Join The Creative Spark.',
@@ -17,6 +22,7 @@ export class ModalComponent {
   };
   
   modalChange() {
+    console.log("test:", this.signInGetStarted$);
     if (this.register) {
       this.loginRegister.title = 'Welcome back.';
       this.loginRegister.upIn = 'in';

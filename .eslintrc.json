@@ -57,12 +57,5 @@
         "plugin:@ngrx/recommended-requiring-type-checking"
       ]
     }
-  ],
-  "plugins": [
-    "css"
-  ],
-  "extends": [
-    "eslint:recommended",
-    "plugin:css/recommended"
   ]
 }
