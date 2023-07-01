@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ModalComponent } from '../modal/modal.component';
 import { Store } from '@ngrx/store';
-import { setModalVersion } from '../+store/actions';
+import { reverseRegisteredBoolean } from '../+store/actions';
 @Component({
   selector: 'app-app-header',
   templateUrl: './app-header.component.html',
@@ -12,9 +12,8 @@ import { setModalVersion } from '../+store/actions';
 export class AppHeaderComponent {
   constructor(public matDialog: MatDialog, private store: Store) {}
   
-  openModal(signInGetStarted: string) {
-    console.log(signInGetStarted);
-    this.store.dispatch(setModalVersion(signInGetStarted));
+  openModal() {
+    this.store.dispatch(reverseRegisteredBoolean());
 
     const dialogConfig = new MatDialogConfig;
     

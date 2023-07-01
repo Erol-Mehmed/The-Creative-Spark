@@ -9,7 +9,7 @@
       <div class="sing-in-create-one">
         <p>{{ loginRegister.question }}</p>
         <button (click)="modalChange()">{{ loginRegister.signInCreateOne }}</button>
-        <p>{{signInGetStarted$}}</p>
+        <p>{{ registered$ | async }}</p>
       </div>
     </section>
     <footer>

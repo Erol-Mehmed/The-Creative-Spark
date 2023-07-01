@@ -1,7 +1,7 @@
 import { createAction } from "@ngrx/store";
 
 const actionTypes = {
-   setModalVersion: 'SET_MODAL_VERSION'
+   reverseRegisteredBoolean: 'REVERSED'
 };
 
-export const setModalVersion = createAction(actionTypes.setModalVersion, (modalVersion: string) => ({ modalVersion }));
+export const reverseRegisteredBoolean = createAction(actionTypes.reverseRegisteredBoolean);

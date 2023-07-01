@@ -3,4 +3,4 @@ import { IMainState } from './index';
 
 const selectMainSelector = createFeatureSelector<IMainState>('main');
 
-export const selectGetModalVersion = createSelector(selectMainSelector, s => s.signInGetStarted);
+export const selectRegistered = createSelector(selectMainSelector, s => s.registered);
