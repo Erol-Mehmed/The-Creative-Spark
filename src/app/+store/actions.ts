@@ -1,7 +1,7 @@
-import { createAction } from "@ngrx/store";
+import { createAction, props } from "@ngrx/store";
 
 const actionTypes = {
-   reverseRegisteredBoolean: 'REVERSED'
+   setModalVersion: 'SET_MODAL_VERSION'
 };
 
-export const reverseRegisteredBoolean = createAction(actionTypes.reverseRegisteredBoolean);
+export const setModalVersion = createAction(actionTypes.setModalVersion, props<{ currentModalVersion: string }>());

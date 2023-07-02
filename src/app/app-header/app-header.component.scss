@@ -28,6 +28,11 @@
       &:hover {
         font-weight: 600;
       }
+
+      &:active {
+        font-weight: 600;
+        color: #676464;
+      }
     }
   }
 }

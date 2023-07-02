@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectRegistered } from '../+store/selectors';
+import { selectCurrentModalVersion } from '../+store/selectors';
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
@@ -8,22 +8,41 @@ import { selectRegistered } from '../+store/selectors';
 })
 
 export class ModalComponent {
-  constructor(private store: Store) {}
-
-  register = true;
-  registered$ = this.store.select(selectRegistered);
+  constructor(private store: Store) {
+    this.currentModalVersion$.subscribe(version => {
+      this.loginRegister = version === 'getStarted'
+       ?
+       {
+        title:  'Join The Creative Spark.',
+        upIn: 'up',
+        question: 'Already have an account?',
+        signInCreateOne: 'Sign in',
+        signInUp: 'SignUp'
+      }
+      :
+      {
+        title: 'Welcome back.',
+        upIn: 'in',
+        question: 'No account?',
+        signInCreateOne: 'Create one',
+        signInUp: 'Sign in'
+      };
+      this.registered = version === 'getStarted';
+    });
+  }
   
   loginRegister = {
-    title:  'Join The Creative Spark.',
-    upIn: 'up',
-    question: 'Already have an account?',
-    signInCreateOne: 'Sign in',
-    signInUp: 'SignUp'
+    title: '',
+    upIn: '',
+    question: '',
+    signInCreateOne: '',
+    signInUp: ''
   };
-  
-  modalChange() {
-    console.log("test:", this.registered$);
-    if (this.register) {
+  currentModalVersion$ = this.store.select(selectCurrentModalVersion);
+  registered = true;
+
+  modalChange() {    
+    if (this.registered) {
       this.loginRegister.title = 'Welcome back.';
       this.loginRegister.upIn = 'in';
       this.loginRegister.question = 'No account?';
@@ -37,6 +56,6 @@ export class ModalComponent {
       this.loginRegister.signInUp = 'Sign up';
     }
 
-    this.register = !this.register;
+    this.registered = !this.registered;
   }
 }
