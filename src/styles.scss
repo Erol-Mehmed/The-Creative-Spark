@@ -5,6 +5,9 @@ body {
   margin: 0;
   font-family: 'Merriweather', Roboto, "Helvetica Neue", sans-serif;
 
+  background-image: url('./assets/images/base-background.jpg');
+  background-size: 100% 100%;
+
   .cdk-overlay-container {
     .cdk-overlay-dark-backdrop {
       background: rgba(255, 255, 255, 0.95);
@@ -22,7 +25,7 @@ mat-dialog-container#modal-component {
 }
 
 :root {
-  --main-color: #B9F3E4;
+  --main-color: #e6b05d;
   --main-black: #000;
   --green: #4CAF50;
   --darker-green: #3e8e41;

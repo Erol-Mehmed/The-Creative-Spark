@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { selectCurrentModalVersion } from '../+store/selectors';
+import { SocialAuthService } from "@abacritt/angularx-social-login";
+import { FacebookLoginProvider } from "@abacritt/angularx-social-login";
+
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
@@ -8,7 +11,7 @@ import { selectCurrentModalVersion } from '../+store/selectors';
 })
 
 export class ModalComponent {
-  constructor(private store: Store) {
+  constructor(private store: Store, private authService: SocialAuthService) {
     this.currentModalVersion$.subscribe(version => {
       this.loginRegister = version === 'getStarted'
        ?
@@ -40,6 +43,16 @@ export class ModalComponent {
   };
   currentModalVersion$ = this.store.select(selectCurrentModalVersion);
   registered = true;
+
+  signInWithFB(): void {
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    console.log('works');
+    
+  }
+
+  signOut(): void {
+    this.authService.signOut();
+  }
 
   modalChange() {    
     if (this.registered) {
