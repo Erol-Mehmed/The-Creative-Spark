@@ -1,11 +1,11 @@
-import dotenv from 'dotenv';
+const dotenv = require('dotenv');
 dotenv.config();
 
-import express from 'express';
-import mongoose from 'mongoose';
-// import { router as routes }  from './routes/routes';
+const express = require('express');
+const mongoose = require('mongoose');
+const routes =  require('./routes/routes');
 
-const mongoString: string = process.env['DATABASE_URL'] !== undefined ? process.env['DATABASE_URL'] : '';
+const mongoString = process.env['DATABASE_URL'];
 
 mongoose.connect(mongoString);
 const database = mongoose.connection;
@@ -21,7 +21,7 @@ database.once('connected', () => {
 const app = express();
 
 app.use(express.json());
-// app.use('/api', routes);
+app.use('/api', routes);
 
 app.listen(3000, () => {
   console.log(`Server started at ${3000}`);

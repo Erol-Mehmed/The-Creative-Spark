@@ -1,11 +1,10 @@
 {
   "name": "the-creative-spark",
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "start-server": "nodemon --exec ts-node --esm ./backend/index.ts",
+    "start-server": "nodemon ./backend/index.js",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
@@ -33,7 +32,6 @@
     "mongoose": "^7.3.2",
     "nodemon": "^3.0.1",
     "rxjs": "~7.8.0",
-    "ts-node": "^10.9.1",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
   },
@@ -47,6 +45,7 @@
     "@angular/cli": "~16.0.4",
     "@angular/compiler-cli": "^16.0.0",
     "@ngrx/eslint-plugin": "^16.0.1",
+    "@types/bcrypt": "^5.0.0",
     "@types/jasmine": "~4.3.0",
     "eslint": "^8.43.0",
     "eslint-plugin-css": "^0.8.0",
