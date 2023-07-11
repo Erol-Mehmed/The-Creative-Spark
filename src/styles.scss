@@ -3,7 +3,7 @@ html, body { height: 100%; }
 
 body {
   margin: 0;
-  font-family: 'Merriweather', Roboto, "Helvetica Neue", sans-serif;
+  font-family: var(--main-font-family);
 
   background-image: url('./assets/images/base-background.jpg');
   background-size: 100% 100%;
@@ -27,6 +27,7 @@ mat-dialog-container#modal-component {
 :root {
   --main-color: #e6b05d;
   --main-black: #000;
+  --main-font-family: 'Merriweather', Roboto, "Helvetica Neue", sans-serif;
   --green: #4CAF50;
   --darker-green: #3e8e41;
   --even-darker-green: #2e6b31;

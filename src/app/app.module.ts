@@ -12,6 +12,7 @@ import { StoreModule } from '@ngrx/store';
 import { reducers } from './+store';
 import { SocialLoginModule, SocialAuthServiceConfig  } from '@abacritt/angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from '@abacritt/angularx-social-login';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { GoogleLoginProvider, FacebookLoginProvider } from '@abacritt/angularx-s
     MatButtonModule,
     MatDialogModule,
     StoreModule.forRoot(reducers),
-    SocialLoginModule
+    SocialLoginModule,
+    ReactiveFormsModule
   ],
   providers: [
     {

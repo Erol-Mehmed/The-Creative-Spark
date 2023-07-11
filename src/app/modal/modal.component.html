@@ -2,14 +2,41 @@
     <header>
       <h1>{{ loginRegister.title }}</h1>
     </header>
-    <section>
-      <button>Sign {{ loginRegister.upIn }} with email</button>
+    <section *ngIf="!openLoginRegisterForm" class="options">
+      <button (click)="loginRegisterForm()">Sign {{ loginRegister.upIn }}</button>
       <button>Sign {{ loginRegister.upIn }} with Google</button>
       <button (click)="signInWithFB()">Sign {{ loginRegister.upIn }} with Facebook</button>
       <div class="sing-in-create-one">
         <p>{{ loginRegister.question }}</p>
         <button (click)="modalChange()">{{ loginRegister.signInCreateOne }}</button>
       </div>
+    </section>
+
+    <section *ngIf="openLoginRegisterForm" class="login-register">
+      <p class="subtitle">{{ loginRegisterFormSubtitle }}</p>
+      <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+        <div class="input-message">
+          <input formControlName="name" placeholder="Username" *ngIf="currentModalVersionLocal === 'getStarted'" type="text">
+          <div *ngIf="myForm.get('name')?.invalid && (myForm.get('name')?.dirty || myForm.get('name')?.touched)" class="invalid-input">
+            <p>Please provide a name.</p>
+          </div>
+        </div>
+        <div class="input-message">
+          <input formControlName="email" placeholder="Email" type="text">
+          <div *ngIf="myForm.get('email')?.invalid && (myForm.get('email')?.dirty || myForm.get('email')?.touched)" class="invalid-input">
+            <p>Please provide a valid email address.</p>
+          </div>
+        </div>
+        <div class="input-message">
+          <input formControlName="password" placeholder="Password" type="text">
+          <div *ngIf="myForm.get('password')?.invalid && (myForm.get('password')?.dirty || myForm.get('password')?.touched)" class="invalid-input">
+            <p>Password must be at least 6 characters long.</p>
+          </div>
+        </div>
+        <button type="submit" [disabled]="myForm.invalid">
+          {{ loginRegister.signInUp }}
+        </button>
+      </form>
     </section>
     <footer>
       <p>Click “{{ loginRegister.signInUp }}” to agree to The Creative Spark’s Terms of Service and acknowledge that The Creative Spark’s Privacy Policy applies to you.</p>
