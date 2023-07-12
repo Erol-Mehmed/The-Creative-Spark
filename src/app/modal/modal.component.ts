@@ -4,6 +4,7 @@ import { selectCurrentModalVersion } from '../+store/selectors';
 import { SocialAuthService } from "@abacritt/angularx-social-login";
 import { FacebookLoginProvider } from "@abacritt/angularx-social-login";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-modal',
@@ -37,6 +38,9 @@ export class ModalComponent implements OnInit {
       };
       this.registered = version === 'getStarted';
       this.currentModalVersionLocal = version;
+      this.loginRegisterFormSubtitle = version === 'getStarted'
+      ? 'Enter your username, email and password to create an account.'
+      : 'Enter your email and password to sing in.';
     });
   }
   
@@ -52,13 +56,15 @@ export class ModalComponent implements OnInit {
   registered = true;
   openLoginRegisterForm: boolean = false;
   currentModalVersionLocal: string = '';
-  loginRegisterFormSubtitle: string = this.currentModalVersionLocal === 'getStarted'
-  ? 'Enter your username, email and password to create an account.'
-  : 'Enter your email and password to sing in.';
+  loginRegisterFormSubtitle: string = '';
 
   loginRegisterForm() {
     this.openLoginRegisterForm = true;
-    this.loginRegister.title = `${this.loginRegister.signInUp}`;
+    this.loginRegister.title = `${this.loginRegister.signInUp}`;    
+  }
+
+  toPreviousModalVersion() {
+    this.openLoginRegisterForm = false;
   }
 
   signInWithFB(): void {
@@ -71,6 +77,9 @@ export class ModalComponent implements OnInit {
 
   modalChange() {
     this.currentModalVersionLocal = this.currentModalVersionLocal === 'getStarted' ? 'signIn' : 'getStarted';
+    this.loginRegisterFormSubtitle = this.currentModalVersionLocal === 'getStarted'
+    ? 'Enter your username, email and password to create an account.'
+    : 'Enter your email and password to sing in.';
     
     if (this.registered) {
       this.loginRegister.title = 'Welcome back.';
@@ -89,13 +98,27 @@ export class ModalComponent implements OnInit {
     this.registered = !this.registered;
   }
 
-  ngOnInit() {
+  noWhiteSpaceValidator(control: AbstractControl): Promise<{ [key: string]: boolean } | null> {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        if (control.value && control.value.trim().length === 0) {
+          
+          resolve({ 'whitespace': true });
+        }
+        
+        resolve(null);
+
+      }, 2000);
+    });
+  }
+
+  ngOnInit() {    
     this.myForm = this.fb.group({
       name: this.loginRegister.signInUp === 'Sign Up' 
-      ? ['', Validators.required]
+      ? ['', Validators.required, this.noWhiteSpaceValidator]
       : '',
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]] 
+      email: ['', [Validators.required, Validators.email, this.noWhiteSpaceValidator]],
+      password: ['', [Validators.required, Validators.minLength(6), this.noWhiteSpaceValidator]] 
     });
   }
 
