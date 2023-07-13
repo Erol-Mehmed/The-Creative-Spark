@@ -23,8 +23,8 @@ const registerUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
   try {
-    // check if username exists
-    const user = await Login.findOne({ username: req.body.username });
+    // check if email exists
+    const user = await Login.findOne({ email: req.body.email });
 
     // compare the input and the actual password
     const match = await bcrypt.compare(req.body.password, user.password);
@@ -37,7 +37,7 @@ const loginUser = async (req, res) => {
     const token = jwt.sign(
       {
         userId: user._id,
-        username: user.username
+        email: user.email
       },
       process.env.JWT_SECRET,
       { expiresIn:"24h" }
@@ -51,7 +51,7 @@ const loginUser = async (req, res) => {
 
   } catch (error) {
     res.status(404).send({
-      message: 'Username not found',
+      message: 'Email not found',
       error
     });
   }

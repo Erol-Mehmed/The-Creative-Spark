@@ -4,7 +4,10 @@ import { selectCurrentModalVersion } from '../+store/selectors';
 import { SocialAuthService } from "@abacritt/angularx-social-login";
 import { FacebookLoginProvider } from "@abacritt/angularx-social-login";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AbstractControl } from '@angular/forms';
+import { noWhiteSpaceValidator } from 'src/shared/whitespace.validator';
+import { passwordsMatchCheck } from 'src/shared/passwords-match.validator';
+// @ts-ignore
+import { register, login } from '../../../backend/services/users';
 
 @Component({
   selector: 'app-modal',
@@ -65,6 +68,7 @@ export class ModalComponent implements OnInit {
 
   toPreviousModalVersion() {
     this.openLoginRegisterForm = false;
+    this.myForm.reset();
   }
 
   signInWithFB(): void {
@@ -98,27 +102,16 @@ export class ModalComponent implements OnInit {
     this.registered = !this.registered;
   }
 
-  noWhiteSpaceValidator(control: AbstractControl): Promise<{ [key: string]: boolean } | null> {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        if (control.value && control.value.trim().length === 0) {
-          
-          resolve({ 'whitespace': true });
-        }
-        
-        resolve(null);
-
-      }, 2000);
-    });
-  }
-
-  ngOnInit() {    
+  ngOnInit() {
     this.myForm = this.fb.group({
-      name: this.loginRegister.signInUp === 'Sign Up' 
-      ? ['', Validators.required, this.noWhiteSpaceValidator]
+      name: this.loginRegister.signInUp === 'Sign Up'
+      ? ['', [Validators.required, noWhiteSpaceValidator]]
       : '',
-      email: ['', [Validators.required, Validators.email, this.noWhiteSpaceValidator]],
-      password: ['', [Validators.required, Validators.minLength(6), this.noWhiteSpaceValidator]] 
+      email: ['', [Validators.required, Validators.email, noWhiteSpaceValidator]],
+      password: ['', [Validators.required, Validators.minLength(6), noWhiteSpaceValidator]],
+      confirmPassword: this.loginRegister.signInUp === 'Sign Up'
+      ? ['', [Validators.required, Validators.minLength(6), noWhiteSpaceValidator]]
+      : ''
     });
   }
 
@@ -127,5 +120,12 @@ export class ModalComponent implements OnInit {
     console.log('Name', form.value.name);
     console.log('Email', form.value.email);
     console.log('Password', form.value.password);
+    console.log('Confirm Password', form.value.confirmPassword);
+
+    if (this.currentModalVersionLocal === 'getStarted') {
+      register(form.value.name, form.value.email, form.value.password);
+    } else {
+      login(form.value.email, form.value.password);
+    }
   }
 }
