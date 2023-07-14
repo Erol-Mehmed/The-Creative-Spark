@@ -1,0 +1,22 @@
+.container {
+  padding: 20px 200px;
+  border-bottom: 1px solid lightgray;
+
+  .heading {
+    font-size: 14px;
+  }
+
+  .articles {
+    display: grid;
+    grid-template-areas: 
+    'one two three'
+    'four five six';
+  }
+}
+
+.article-1 { grid-area: one; }
+.article-2 { grid-area: two; }
+.article-3 { grid-area: three; }
+.article-4 { grid-area: four; }
+.article-5 { grid-area: five; }
+.article-6 { grid-area: six; }

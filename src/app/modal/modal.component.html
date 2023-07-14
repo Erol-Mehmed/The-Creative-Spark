@@ -2,58 +2,65 @@
     <header>
       <h1>{{ loginRegister.title }}</h1>
     </header>
-    <section *ngIf="!openLoginRegisterForm" class="options">
-      <button (click)="loginRegisterForm()">Sign {{ loginRegister.upIn }}</button>
-      <button>Sign {{ loginRegister.upIn }} with Google</button>
-      <button (click)="signInWithFB()">Sign {{ loginRegister.upIn }} with Facebook</button>
+    <section class="login-register">
+      <p class="subtitle">{{ loginRegisterFormSubtitle }}</p>
+
+      <form *ngIf="currentModalVersionLocal === 'getStarted'; else elseBlock" [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm)">
+        <div class="input-message">
+          <input formControlName="name" placeholder="Username" type="text">
+          <div *ngIf="registerForm.get('name')?.invalid && (registerForm.get('name')?.dirty || registerForm.get('name')?.touched)" class="invalid-input">
+            <p *ngIf="!registerForm.get('name')?.hasError('whitespace')">Please provide a name.</p>
+            <p *ngIf="registerForm.get('name')?.hasError('whitespace')">Username cannot be only spaces.</p>
+          </div>
+        </div>
+        <div class="input-message">
+          <input formControlName="email" placeholder="Email" type="text">
+          <div *ngIf="registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)" class="invalid-input">
+            <p>Please provide a valid email address.</p>
+          </div>
+        </div>
+        <div class="input-message">
+          <input class="passwords" formControlName="password" placeholder="Password" type="text">
+          <div *ngIf="registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)" class="invalid-input">
+            <p *ngIf="!registerForm.get('password')?.hasError('whitespace')">Password must be at least 6 characters long.</p>
+            <p *ngIf="registerForm.get('password')?.hasError('whitespace')">Password cannot be only spaces.</p>
+          </div>
+        </div>
+        <div class="input-message">
+          <input class="passwords" formControlName="confirmPassword" placeholder="Confirm Password" type="text">
+          <div *ngIf="registerForm.get('confirmPassword')?.invalid && (registerForm.get('confirmPassword')?.dirty || registerForm.get('confirmPassword')?.touched)" class="invalid-input">
+            <p>Passwords does not match.</p>
+          </div>
+        </div>
+        <button type="submit" [disabled]="registerForm.invalid">
+          Sign Up
+        </button>
+      </form>
+
+      <ng-template #elseBlock>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm)">
+          <div class="input-message">
+            <input formControlName="email" placeholder="Email" type="text">
+            <div *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)" class="invalid-input">
+              <p>Please provide a valid email address.</p>
+            </div>
+          </div>
+          <div class="input-message">
+            <input class="passwords" formControlName="password" placeholder="Password" type="text">
+            <div *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)" class="invalid-input">
+              <p *ngIf="!loginForm.get('password')?.hasError('whitespace')">Password must be at least 6 characters long.</p>
+              <p *ngIf="loginForm.get('password')?.hasError('whitespace')">Password cannot be only spaces.</p>
+            </div>
+          </div>
+          <button type="submit" [disabled]="loginForm.invalid">
+            Sign In
+          </button>
+        </form>
+      </ng-template>
+      
       <div class="sing-in-create-one">
         <p>{{ loginRegister.question }}</p>
         <button (click)="modalChange()">{{ loginRegister.signInCreateOne }}</button>
       </div>
     </section>
-
-    <section *ngIf="openLoginRegisterForm" class="login-register">
-      <p class="subtitle">{{ loginRegisterFormSubtitle }}</p>
-
-      <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
-        <div class="input-message">
-          <input formControlName="name" placeholder="Username" *ngIf="currentModalVersionLocal === 'getStarted'" type="text">
-          <div *ngIf="myForm.get('name')?.invalid && (myForm.get('name')?.dirty || myForm.get('name')?.touched)" class="invalid-input">
-            <p *ngIf="!myForm.get('name')?.hasError('whitespace')">Please provide a name.</p>
-            <p *ngIf="myForm.get('name')?.hasError('whitespace')">Username cannot be only spaces.</p>
-          </div>
-        </div>
-        <div class="input-message">
-          <input formControlName="email" placeholder="Email" type="text">
-          <div *ngIf="myForm.get('email')?.invalid && (myForm.get('email')?.dirty || myForm.get('email')?.touched)" class="invalid-input">
-            <p>Please provide a valid email address.</p>
-          </div>
-        </div>
-        <div class="input-message">
-          <input formControlName="password" placeholder="Password" type="text">
-          <div *ngIf="myForm.get('password')?.invalid && (myForm.get('password')?.dirty || myForm.get('password')?.touched)" class="invalid-input">
-            <p *ngIf="!myForm.get('password')?.hasError('whitespace')">Password must be at least 6 characters long.</p>
-            <p *ngIf="myForm.get('password')?.hasError('whitespace')">Password cannot be only spaces.</p>
-          </div>
-        </div>
-        <div class="input-message" *ngIf="currentModalVersionLocal === 'getStarted'">
-          <input formControlName="confirmPassword" placeholder="Confirm Password" type="text">
-          <div *ngIf="myForm.get('confirmPassword')?.invalid && (myForm.get('confirmPassword')?.dirty || myForm.get('confirmPassword')?.touched)" class="invalid-input">
-            <p>Passwords does not match.</p>
-          </div>
-        </div>
-        <button type="submit" [disabled]="myForm.invalid">
-          {{ loginRegister.signInUp }}
-        </button>
-      </form>
-
-      <button (click)="toPreviousModalVersion()" class="return-to-options">
-        <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M15 7L10 12L15 17" stroke="#1A8917" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-        </svg>All <span class="dynamic-text">{{ loginRegister.signInUp }}</span> options
-      </button>
-    </section>
-    <footer *ngIf="!openLoginRegisterForm">
-      <p>Click “{{ loginRegister.signInUp }}” to agree to The Creative Spark’s Terms of Service and acknowledge that The Creative Spark’s Privacy Policy applies to you.</p>
-    </footer>
 </div>

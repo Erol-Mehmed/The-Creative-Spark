@@ -4,9 +4,7 @@ html, body { height: 100%; }
 body {
   margin: 0;
   font-family: var(--main-font-family);
-
-  background-image: url('./assets/images/base-background.jpg');
-  background-size: 100% 100%;
+  background: #f8f8ff;
 
   .cdk-overlay-container {
     .cdk-overlay-dark-backdrop {
