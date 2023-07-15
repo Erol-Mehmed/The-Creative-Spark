@@ -1,5 +1,5 @@
 .container {
-  padding: 20px 200px;
+  padding: 40px 200px;
   border-bottom: 1px solid lightgray;
 
   .heading {
@@ -11,6 +11,13 @@
     grid-template-areas: 
     'one two three'
     'four five six';
+
+    .number {
+      font-size: 32px;
+      line-height: 38px;
+      font-weight: 500;
+      color: #c7bcbc;
+    }
   }
 }
 

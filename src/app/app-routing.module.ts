@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TrendingArticlesComponent } from './trending-articles/trending-articles.component';
+import { MostClappedArticlesComponent } from './most-clapped-articles/most-clapped-articles.component';
 
 const routes: Routes = [
-  { path: '', component: TrendingArticlesComponent }
+  { path: '', component: MostClappedArticlesComponent }
 ];
 
 @NgModule({

@@ -11,14 +11,14 @@ import { ModalComponent } from './modal/modal.component';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from './+store';
 import { ReactiveFormsModule } from '@angular/forms';
-import { TrendingArticlesComponent } from './trending-articles/trending-articles.component';
+import { MostClappedArticlesComponent } from './most-clapped-articles/most-clapped-articles.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AppHeaderComponent,
     ModalComponent,
-    TrendingArticlesComponent
+    MostClappedArticlesComponent
   ],
   imports: [
     BrowserModule,
