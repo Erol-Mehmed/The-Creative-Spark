@@ -76,7 +76,7 @@ export class ModalComponent implements OnInit {
     this.registered = !this.registered;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.registerForm = this.fb.group({
       name: ['', [Validators.required, noWhiteSpaceValidator]],
       email: ['', [Validators.required, Validators.email, noWhiteSpaceValidator]],
