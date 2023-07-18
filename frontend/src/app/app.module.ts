@@ -12,6 +12,7 @@ import { StoreModule } from '@ngrx/store';
 import { reducers } from './+store';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MostClappedArticlesComponent } from './most-clapped-articles/most-clapped-articles.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { MostClappedArticlesComponent } from './most-clapped-articles/most-clapp
     MatButtonModule,
     MatDialogModule,
     StoreModule.forRoot(reducers),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   bootstrap: [AppComponent]
 })
