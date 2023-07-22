@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectCurrentModalVersion } from '../+store/selectors';
+import { selectCurrentModalVersion } from '../../store/selectors';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { noWhiteSpaceValidator } from 'src/shared/whitespace.validator';
 import { passwordsMatchCheck } from 'src/shared/passwords-match.validator';

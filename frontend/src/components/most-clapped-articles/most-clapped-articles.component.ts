@@ -7,9 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class MostClappedArticlesComponent implements OnInit {
-  mostLikedArticles: any = [];
+  mostClappedArticles: any = [];
 
   ngOnInit(): void {
-    
+
   }
 }
