@@ -13,6 +13,7 @@ import { reducers } from '../store';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MostClappedArticlesComponent } from '../components/most-clapped-articles/most-clapped-articles.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CoreModule } from 'src/core/core.module';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatDialogModule,
     StoreModule.forRoot(reducers),
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    CoreModule
   ],
   bootstrap: [AppComponent]
 })

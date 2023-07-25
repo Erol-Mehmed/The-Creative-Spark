@@ -4,6 +4,7 @@ import { selectCurrentModalVersion } from '../../store/selectors';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { noWhiteSpaceValidator } from 'src/shared/whitespace.validator';
 import { passwordsMatchCheck } from 'src/shared/passwords-match.validator';
+import { UserService } from 'src/core/services/user.service';
 
 @Component({
   selector: 'app-modal',
@@ -14,7 +15,8 @@ import { passwordsMatchCheck } from 'src/shared/passwords-match.validator';
 export class ModalComponent implements OnInit {
   constructor (
     private store: Store,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private userService: UserService
     ) {
     this.currentModalVersion$.subscribe(version => {
       this.loginRegister = version === 'getStarted'
@@ -94,5 +96,16 @@ export class ModalComponent implements OnInit {
     console.log('Email', form.value.email);
     console.log('Password', form.value.password);
     console.log('Confirm Password', form.value.confirmPassword);
+
+    if (this.currentModalVersionLocal === 'getStarted') {
+      this.userService.register$({ username: form.value.name, email: form.value.email, password: form.value.password }).subscribe({
+        next: () => {
+          console.log('user registered');
+        },
+        error: (err) => {
+          console.log(err.message);
+        }
+      });
+    }
   }
 }
