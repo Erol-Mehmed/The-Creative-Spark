@@ -9,12 +9,15 @@ from .models import User, Article
 def getData(request):
     users = User.objects.all()
     articles = Article.objects.all()
-
+    arr = []
+    
     for user in users:
-        print(user.name)
+        arr.append(user.name)
 
     for article in articles:
-        print(article.content)
-        print(article.created_at)
+        arr.append(article.content)
 
-    return Response("It works!")
+    print(arr)
+
+    # return Response('From the server!')
+    return Response(arr)

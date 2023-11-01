@@ -1,29 +1,34 @@
-.container {
-  padding: 40px 200px;
+.most-clapped {
+  padding: 50px 100px 0px;
   border-bottom: 1px solid lightgray;
 
   .heading {
     font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 16px;
+    padding-left: calc((var(--bs-gutter-x) * 0.5) * 2);
   }
 
   .articles {
-    display: grid;
-    grid-template-areas: 
-    'one two three'
-    'four five six';
+    .article {
+      height: 80px;
+      margin-bottom: 24px;
 
-    .number {
-      font-size: 32px;
-      line-height: 38px;
-      font-weight: 500;
-      color: #c7bcbc;
+      .number {
+        font-size: 25px;
+        margin: 0;
+        line-height: 38px;
+        font-weight: 500;
+        color: #c7bcbc;
+      }
+
+      .author-article-links {
+        .date-read-time {
+          p {
+            margin: 0;
+          }
+        }
+      }
     }
   }
 }
-
-.article-1 { grid-area: one; }
-.article-2 { grid-area: two; }
-.article-3 { grid-area: three; }
-.article-4 { grid-area: four; }
-.article-5 { grid-area: five; }
-.article-6 { grid-area: six; }

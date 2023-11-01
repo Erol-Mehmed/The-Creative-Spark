@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserService } from './services/user.service';
+import { appInterceptorProvider } from './app-interceptors';
 
 @NgModule({
   declarations: [],
@@ -9,6 +10,7 @@ import { UserService } from './services/user.service';
   ],
   providers: [
     UserService,
+    appInterceptorProvider,
   ],
 })
 export class CoreModule { }
