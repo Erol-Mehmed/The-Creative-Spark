@@ -10,11 +10,12 @@ import { HttpClient } from '@angular/common/http';
 export class MostClappedArticlesComponent implements OnInit {
   constructor (private http: HttpClient) {}
 
-  mostClappedArticles: any;
+  most_clapped_articles: any = [];
 
   ngOnInit(): void {
-    this.mostClappedArticles = this.http.get('/api').subscribe(test => { 
-      console.log('test:', test);
+   this.http.get('/api').subscribe(data => {
+      this.most_clapped_articles = data
+      console.log(this.most_clapped_articles);
     });
   }
 }

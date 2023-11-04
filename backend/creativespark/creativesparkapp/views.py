@@ -7,17 +7,38 @@ from .models import User, Article
 
 @api_view(["GET"])
 def getData(request):
-    users = User.objects.all()
-    articles = Article.objects.all()
-    arr = []
+    most_liked_articles = []
+    users = User.objects.all().order_by("id").values()
+    user_names = [user["name"] for user in users]
+    articles = Article.objects.all().order_by("-claps").values()
     
-    for user in users:
-        arr.append(user.name)
+    print(user_names)
 
-    for article in articles:
-        arr.append(article.content)
+    for i in range(6):
+        if i + 1 == 6 and articles[i]["claps"] == articles[i + 1]["claps"]:
+            if articles[i]["created_at"] > articles[i + 1]["created_at"]:
+                most_liked_articles.append(
+                    {
+                        "id": articles[i]["creator_id"],
+                        "name": user_names[articles[i]["creator_id"] - 1],
+                        "article": articles[i],
+                    },
+                )
+            else:
+                most_liked_articles.append(
+                    {
+                        "id": articles[i + 1]["creator_id"],
+                        "name": user_names[articles[i + 1]["creator_id"] - 1],
+                        "article": articles[i + 1],
+                    },
+                )
+        else:
+            most_liked_articles.append(
+                {
+                    "id": articles[i]["creator_id"],
+                    "name": user_names[articles[i]["creator_id"] - 1],
+                    "article": articles[i],
+                },
+            )
 
-    print(arr)
-
-    # return Response('From the server!')
-    return Response(arr)
+    return Response(most_liked_articles)

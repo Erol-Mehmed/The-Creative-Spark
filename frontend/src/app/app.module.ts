@@ -14,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MostClappedArticlesComponent } from '../components/most-clapped-articles/most-clapped-articles.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from 'src/core/core.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { CoreModule } from 'src/core/core.module';
     StoreModule.forRoot(reducers),
     ReactiveFormsModule,
     HttpClientModule,
-    CoreModule
+    CoreModule,
+    NgbModule
   ],
   bootstrap: [AppComponent]
 })
