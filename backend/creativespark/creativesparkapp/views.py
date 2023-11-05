@@ -7,38 +7,45 @@ from .models import User, Article
 
 @api_view(["GET"])
 def getData(request):
-    most_liked_articles = []
-    users = User.objects.all().order_by("id").values()
-    user_names = [user["name"] for user in users]
-    articles = Article.objects.all().order_by("-claps").values()
+    section = request.GET.get('section')
     
-    print(user_names)
+    if section == 'most-liked-articles':
+        users = User.objects.all().order_by("id").values()
+        sorted_articles = Article.objects.all().order_by("-claps").values()
+        most_liked_articles = []
+        user_names = [user["name"] for user in users]
 
-    for i in range(6):
-        if i + 1 == 6 and articles[i]["claps"] == articles[i + 1]["claps"]:
-            if articles[i]["created_at"] > articles[i + 1]["created_at"]:
-                most_liked_articles.append(
-                    {
-                        "id": articles[i]["creator_id"],
-                        "name": user_names[articles[i]["creator_id"] - 1],
-                        "article": articles[i],
-                    },
-                )
+        for i in range(6):
+            if (
+                i + 1 == 6
+                and sorted_articles[i]["claps"] == sorted_articles[i + 1]["claps"]
+            ):
+                if sorted_articles[i]["created_at"] > sorted_articles[i + 1]["created_at"]:
+                    most_liked_articles.append(
+                        {
+                            "id": sorted_articles[i]["creator_id"],
+                            "name": user_names[sorted_articles[i]["creator_id"] - 1],
+                            "article": sorted_articles[i],
+                        },
+                    )
+                else:
+                    most_liked_articles.append(
+                        {
+                            "id": sorted_articles[i + 1]["creator_id"],
+                            "name": user_names[sorted_articles[i + 1]["creator_id"] - 1],
+                            "article": sorted_articles[i + 1],
+                        },
+                    )
             else:
                 most_liked_articles.append(
                     {
-                        "id": articles[i + 1]["creator_id"],
-                        "name": user_names[articles[i + 1]["creator_id"] - 1],
-                        "article": articles[i + 1],
+                        "id": sorted_articles[i]["creator_id"],
+                        "name": user_names[sorted_articles[i]["creator_id"] - 1],
+                        "article": sorted_articles[i],
                     },
                 )
-        else:
-            most_liked_articles.append(
-                {
-                    "id": articles[i]["creator_id"],
-                    "name": user_names[articles[i]["creator_id"] - 1],
-                    "article": articles[i],
-                },
-            )
 
-    return Response(most_liked_articles)
+        return Response(most_liked_articles)
+    else:
+        all_articles = Article.objects.all().order_by("-created_at").values()
+        return Response(all_articles)

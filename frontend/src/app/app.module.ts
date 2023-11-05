@@ -11,7 +11,7 @@ import { ModalComponent } from '../components/modal/modal.component';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from '../store';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MostClappedArticlesComponent } from '../components/most-clapped-articles/most-clapped-articles.component';
+import { MostLikedArticlesComponent } from '../components/most-liked-articles/most-liked-articles.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from 'src/core/core.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -21,7 +21,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AppComponent,
     AppHeaderComponent,
     ModalComponent,
-    MostClappedArticlesComponent
+    MostLikedArticlesComponent
   ],
   imports: [
     BrowserModule,
