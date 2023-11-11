@@ -7,13 +7,14 @@ class User(models.Model):
     password = models.CharField(default=None)
     photo = models.ImageField(default=None, blank=True, null=True)
     bio = models.CharField(max_length=2000, default=None, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
 
 class Comment(models.Model):
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField(default=None)
     claps = models.IntegerField(default=0)
-    created_at = models.DateField(default=None)
+    created_at = models.DateTimeField(auto_now_add=True)
 
 
 class Article(models.Model):
@@ -25,4 +26,4 @@ class Article(models.Model):
         Comment, on_delete=models.CASCADE, blank=True, null=True
     )
     read_time = models.IntegerField(default=0)
-    created_at = models.DateField(default=None)
+    created_at = models.DateTimeField(auto_now_add=True)
