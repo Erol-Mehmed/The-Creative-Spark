@@ -4,12 +4,12 @@ import { ModalComponent } from '../modal/modal.component';
 import { Store } from '@ngrx/store';
 import { setModalVersion } from '../../store/actions';
 @Component({
-  selector: 'app-app-header',
-  templateUrl: './app-header.component.html',
-  styleUrls: ['./app-header.component.scss']
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss']
 })
 
-export class AppHeaderComponent {
+export class HeaderComponent {
   constructor(public matDialog: MatDialog, private store: Store) {}
   
   openModal(currentModalVersion: string) {

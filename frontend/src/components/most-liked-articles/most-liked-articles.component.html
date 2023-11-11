@@ -1,80 +1,37 @@
 <div class="most-liked container">
   <h2 class="heading row">Most liked on The Creative Spark</h2>
-  <p>Test {{ mostLikedArticles }}</p>
   <div class="articles row container">
     <div class="row">
-      <div class="col-4 article">
-        <p class="col-1 number">01</p>
+      <div
+        class="col-4 article-wrapper"
+        *ngFor="let articleObj of mostLikedArticles.slice(0, 3); index as i"
+      >
+        <p class="col-1 number">0{{ i + 1 }}</p>
         <div class="author-article-links">
-          <a class="author" routerLink=""></a>
-          <a class="article" routerLink=""></a>
+          <a class="author" routerLink="">{{ articleObj.author }}</a>
+          <a class="article" routerLink="">{{ articleObj.article.title }}</a>
           <div class="date-read-time">
-            <p class="date"></p>
-            <p>-</p>
-            <p class="read-time"></p>
-          </div>
-        </div>
-      </div>
-      <div class="col-4 article">
-        <p class="col-1 number">02</p>
-        <div class="author-article-links">
-          <a class="author" routerLink=""></a>
-          <a class="article" routerLink=""></a>
-          <div class="date-read-time">
-            <p class="date"></p>
-            <p>-</p>
-            <p class="read-time"></p>
-          </div>
-        </div>
-      </div>
-      <div class="col-4 article">
-        <p class="col-1 number">03</p>
-        <div class="author-article-links">
-          <a class="author" routerLink=""></a>
-          <a class="article" routerLink=""></a>
-          <div class="date-read-time">
-            <p class="date"></p>
-            <p>-</p>
-            <p class="read-time"></p>
+            <p class="date">{{ articleObj.article.created_at }}</p>
+            <p class="hyphen">-</p>
+            <p class="read-time">{{ articleObj.article.read_time }} min read</p>
           </div>
         </div>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-4 article">
-        <p class="col-1 number">04</p>
+      <div
+        class="col-4 article-wrapper"
+        *ngFor="let articleObj of mostLikedArticles.slice(3); index as i"
+      >
+        <p class="col-1 number">0{{ i + 4 }}</p>
         <div class="author-article-links">
-          <a class="author" routerLink=""></a>
-          <a class="article" routerLink=""></a>
+          <a class="author" routerLink="">{{ articleObj.author }}</a>
+          <a class="article" routerLink="">{{ articleObj.article.title }}</a>
           <div class="date-read-time">
-            <p class="date"></p>
-            <p>-</p>
-            <p class="read-time"></p>
-          </div>
-        </div>
-      </div>
-      <div class="col-4 article">
-        <p class="col-1 number">05</p>
-        <div class="author-article-links">
-          <a class="author" routerLink=""></a>
-          <a class="article" routerLink=""></a>
-          <div class="date-read-time">
-            <p class="date"></p>
-            <p>-</p>
-            <p class="read-time"></p>
-          </div>
-        </div>
-      </div>
-      <div class="col-4 article">
-        <p class="col-1 number">06</p>
-        <div class="author-article-links">
-          <a class="author" routerLink=""></a>
-          <a class="article" routerLink=""></a>
-          <div class="date-read-time">
-            <p class="date"></p>
-            <p>-</p>
-            <p class="read-time"></p>
+            <p class="date">{{ articleObj.article.created_at }}</p>
+            <p class="hyphen">-</p>
+            <p class="read-time">{{ articleObj.article.read_time }} min read</p>
           </div>
         </div>
       </div>

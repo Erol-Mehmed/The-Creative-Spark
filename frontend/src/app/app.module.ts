@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AppHeaderComponent } from '../components/app-header/app-header.component';
+import { HeaderComponent } from '../components/header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -15,13 +15,17 @@ import { MostLikedArticlesComponent } from '../components/most-liked-articles/mo
 import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from 'src/core/core.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AllArticlesComponent } from 'src/components/all-articles/all-articles.component';
+import { HomeComponent } from 'src/components/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AppHeaderComponent,
+    HeaderComponent,
     ModalComponent,
-    MostLikedArticlesComponent
+    MostLikedArticlesComponent,
+    AllArticlesComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

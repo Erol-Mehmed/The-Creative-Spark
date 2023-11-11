@@ -24,7 +24,7 @@ def getData(request):
                     most_liked_articles.append(
                         {
                             "id": sorted_articles[i]["creator_id"],
-                            "name": user_names[sorted_articles[i]["creator_id"] - 1],
+                            "author": user_names[sorted_articles[i]["creator_id"] - 1],
                             "article": sorted_articles[i],
                         },
                     )
@@ -32,7 +32,7 @@ def getData(request):
                     most_liked_articles.append(
                         {
                             "id": sorted_articles[i + 1]["creator_id"],
-                            "name": user_names[sorted_articles[i + 1]["creator_id"] - 1],
+                            "author": user_names[sorted_articles[i + 1]["creator_id"] - 1],
                             "article": sorted_articles[i + 1],
                         },
                     )
@@ -40,7 +40,7 @@ def getData(request):
                 most_liked_articles.append(
                     {
                         "id": sorted_articles[i]["creator_id"],
-                        "name": user_names[sorted_articles[i]["creator_id"] - 1],
+                        "author": user_names[sorted_articles[i]["creator_id"] - 1],
                         "article": sorted_articles[i],
                     },
                 )
