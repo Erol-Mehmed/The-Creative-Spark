@@ -37,9 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'creativesparkapp',
+    'most_liked_articles_app',
+    'login_signup_app',
+    'all_articles_app',
     'rest_framework',
     'corsheaders',
+    'django_rename_app',
 ]
 
 MIDDLEWARE = [
