@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'most_liked_articles_app',
     'login_signup_app',
     'all_articles_app',
+    'comments_app',
     'rest_framework',
     'corsheaders',
     'django_rename_app',
@@ -81,17 +82,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'creativespark.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 
 DATABASES = {
     'default': {
