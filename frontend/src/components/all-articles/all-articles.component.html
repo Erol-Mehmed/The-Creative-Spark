@@ -1,1 +1,5 @@
-<p>all-articles works!</p>
+<div class="all-articles container">
+  <div class="row" *ngFor="let article of allArticles; index as i">
+    <p>{{ article.author }}</p>
+  </div>
+</div>

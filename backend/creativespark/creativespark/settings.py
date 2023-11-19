@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'most_liked_articles_app',
     'login_signup_app',
     'all_articles_app',
     'comments_app',

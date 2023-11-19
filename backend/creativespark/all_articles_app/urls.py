@@ -2,5 +2,5 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path("", views.getMostLikedArticles),
+    path("", views.get_articles),
 ]
