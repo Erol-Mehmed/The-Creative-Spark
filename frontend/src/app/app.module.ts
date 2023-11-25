@@ -17,6 +17,7 @@ import { CoreModule } from 'src/core/core.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AllArticlesComponent } from 'src/components/all-articles/all-articles.component';
 import { HomeComponent } from 'src/components/home/home.component';
+import { TopicsComponent } from 'src/components/topics/topics.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { HomeComponent } from 'src/components/home/home.component';
     ModalComponent,
     MostLikedArticlesComponent,
     AllArticlesComponent,
-    HomeComponent
+    HomeComponent,
+    TopicsComponent,
   ],
   imports: [
     BrowserModule,

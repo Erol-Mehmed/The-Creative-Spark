@@ -2,16 +2,30 @@
   padding: 50px 100px 0px;
   border-bottom: 1px solid lightgray;
 
-  .heading {
-    font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 16px;
-    padding-left: calc((var(--bs-gutter-x) * 0.5) * 2);
+  .heading-image {
+    display: flex;
+    align-items: flex-end;
+    margin: 0 0 16px 85px;
+
+    .heading {
+      font-size: 14px;
+      font-weight: 500;
+      margin: 0 0 0 10px;
+    }
+
+    img {
+      width: 19px;
+      height: 19px;
+      border: 1px solid var(--main-black);
+      border-radius: 50%;
+      padding-right: 2px;
+    }
   }
 
-  .articles {
+  .articles .row {
     .article-wrapper {
       display: flex;
+      justify-content: center;
       gap: 12px;
       height: 80px;
       margin-bottom: 24px;
