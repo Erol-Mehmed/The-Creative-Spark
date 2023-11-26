@@ -1,6 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
+html,
+body {
+  height: 100%;
+}
 
 body {
   margin: 0;
@@ -15,6 +18,7 @@ body {
 
     .mat-mdc-dialog-surface {
       padding: 60px;
+      border-radius: 10px;
     }
   }
 
@@ -24,20 +28,31 @@ body {
   }
 }
 
-mat-dialog-container#modal-component {
-  border-radius: 12px;
-}
-
 :root {
   --main-color: #85c5ef;
   --main-color-2: #73bbeb;
   --main-color-3: #5eaadd;
   --main-black: #000;
-  --main-font-family: 'Merriweather', Roboto, "Helvetica Neue", sans-serif;
-  --green: #1A8917;
+  --main-font-family: "Merriweather", Roboto, "Helvetica Neue", sans-serif;
+  --green: #1a8917;
   --green-2: #176d14;
   --green-3: #156612;
 }
 
-/* Importing Bootstrap SCSS file. */
-@import 'bootstrap/scss/bootstrap';
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

@@ -33,7 +33,7 @@
           border: 1px solid grey;
           border-radius: 5px;
           outline: none;
-  
+
           &:focus {
             border: 1.8px solid black;
           }
@@ -75,6 +75,10 @@
         &:active {
           background: var(--main-color-3);
         }
+
+        &:disabled {
+          cursor: not-allowed;
+        }
       }
     }
 
@@ -98,12 +102,12 @@
         background: none;
         color: var(--green);
         cursor: pointer;
-        
+
         &:hover {
           font-weight: 600;
           color: var(--green-2);
         }
-        
+
         &:active {
           font-weight: 600;
           color: var(--green-3);

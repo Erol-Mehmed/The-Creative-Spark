@@ -14,10 +14,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MostLikedArticlesComponent } from '../components/most-liked-articles/most-liked-articles.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from 'src/core/core.module';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AllArticlesComponent } from 'src/components/all-articles/all-articles.component';
 import { HomeComponent } from 'src/components/home/home.component';
-import { TopicsComponent } from 'src/components/topics/topics.component';
+import { TopicsComponent } from 'src/components/topics/topics.component'; 
 
 @NgModule({
   declarations: [
@@ -39,7 +38,6 @@ import { TopicsComponent } from 'src/components/topics/topics.component';
     ReactiveFormsModule,
     HttpClientModule,
     CoreModule,
-    NgbModule
   ],
   bootstrap: [AppComponent]
 })
