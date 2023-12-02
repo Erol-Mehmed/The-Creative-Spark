@@ -2,60 +2,86 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 20px;
 
   .row {
     .article-wrapper {
       display: flex;
-      flex-direction: column;
-      gap: 2px;
-      margin-top: 8px;
+      align-items: center;
+      gap: 16px;
+      padding-left: 111px;
 
-      .author {
-        color: rgb(36, 36, 36);
-      }
-
-      .article {
-        color: var(--main-black);
-      }
-
-      .author {
-        font-size: 12px;
-        text-decoration: none;
-
-        &:hover {
-          color: var(--main-color-2);
-          font-weight: 600;
-        }
-
-        &:active {
-          color: var(--main-color-3);
-        }
-      }
-
-      .article {
-        font-size: 15px;
-        font-weight: 600;
-        text-decoration: none;
-
-        &:hover {
-          color: var(--main-color-2);
-        }
-
-        &:active {
-          color: var(--main-color-3);
-        }
-      }
-
-      .date-read-time {
+      .author-article-links {
         display: flex;
+        flex-direction: column;
+        gap: 2px;
+        margin-top: 8px;
+        padding-left: 50px;
 
-        p {
-          font-size: 13px;
-          margin: 0;
+        .article {
+          color: var(--main-black);
         }
 
-        .hyphen {
-          margin: 0 4px;
+        .author-container {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+
+          img {
+            width: 18px;
+            height: 18px;
+          }
+
+          .name {
+            font-size: 12px;
+            text-decoration: none;
+            color: rgb(36, 36, 36);
+
+            &:hover {
+              color: var(--main-color-2);
+              font-weight: 600;
+            }
+
+            &:active {
+              color: var(--main-color-3);
+            }
+          }
+        }
+
+        .article {
+          font-size: 15px;
+          font-weight: 600;
+          text-decoration: none;
+
+          &:hover {
+            color: var(--main-color-2);
+          }
+
+          &:active {
+            color: var(--main-color-3);
+          }
+        }
+
+        .date-read-time {
+          display: flex;
+
+          p {
+            font-size: 13px;
+            margin: 0;
+          }
+
+          .hyphen {
+            margin: 0 4px;
+          }
+        }
+      }
+
+      .article-image {
+        a {
+          img {
+            width: 200px;
+            height: 134px;
+          }
         }
       }
     }

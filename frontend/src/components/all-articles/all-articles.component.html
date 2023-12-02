@@ -1,7 +1,14 @@
 <div class="all-articles container">
-  <div class="row" *ngFor="let articleObj of allArticles; index as i">
+  <div class="row col-12" *ngFor="let articleObj of allArticles; index as i">
     <div class="article-wrapper">
-        <a class="author" routerLink="">{{ articleObj.author }}</a>
+      <div class="author-article-links col-8">
+        <div class="author-container">
+          <img
+            src="../../assets/images/user-placeholder.jpg"
+            alt="Article author image."
+          />
+          <a class="name" routerLink="">{{ articleObj.author }}</a>
+        </div>
         <a class="article" routerLink="">{{ articleObj.article.title }}</a>
         <div class="date-read-time">
           <p class="date">{{ articleObj.article.created_at }}</p>
@@ -9,5 +16,12 @@
           <p class="read-time">{{ articleObj.article.read_time }} min read</p>
         </div>
       </div>
+
+      <div class="article-image">
+        <a routerLink="">
+          <img src="../../assets/images/article-placeholder.jpg" alt="Article image." />
+        </a>
+      </div>
+    </div>
   </div>
 </div>

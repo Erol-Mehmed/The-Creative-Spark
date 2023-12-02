@@ -9,7 +9,7 @@ import { DatePipe } from '@angular/common';
   providers: [DatePipe],
 })
 export class MostLikedArticlesComponent implements OnInit {
-  constructor(private http: HttpClient, private datePipe: DatePipe) {};
+  constructor(private http: HttpClient, private datePipe: DatePipe) {}
 
   mostLikedArticles: any = [];
 
@@ -21,9 +21,13 @@ export class MostLikedArticlesComponent implements OnInit {
       error: (err) => {
         console.error(err);
       },
-      complete: () => {        
+      complete: () => {
         for (let i = 0; i < this.mostLikedArticles.length; i += 1) {
-          this.mostLikedArticles[i].article.created_at = this.datePipe.transform(this.mostLikedArticles[i].article.created_at, 'MMMM dd');
+          this.mostLikedArticles[i].article.created_at =
+            this.datePipe.transform(
+              this.mostLikedArticles[i].article.created_at,
+              'MMMM dd'
+            );
         }
 
         console.log('most liked articles:', this.mostLikedArticles);

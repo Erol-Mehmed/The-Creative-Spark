@@ -5,8 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from '../components/header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
 import { ModalComponent } from '../components/modal/modal.component';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from '../store';
@@ -16,7 +14,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from 'src/core/core.module';
 import { AllArticlesComponent } from 'src/components/all-articles/all-articles.component';
 import { HomeComponent } from 'src/components/home/home.component';
-import { TopicsComponent } from 'src/components/topics/topics.component'; 
+import { TopicsComponent } from 'src/components/topics/topics.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap'; 
 
 @NgModule({
   declarations: [
@@ -32,12 +31,11 @@ import { TopicsComponent } from 'src/components/topics/topics.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatButtonModule,
-    MatDialogModule,
     StoreModule.forRoot(reducers),
     ReactiveFormsModule,
     HttpClientModule,
     CoreModule,
+    NgbModule,
   ],
   bootstrap: [AppComponent]
 })

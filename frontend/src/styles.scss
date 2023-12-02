@@ -10,18 +10,6 @@ body {
   font-family: var(--main-font-family);
   background: #f8f8ff;
 
-  .cdk-overlay-container {
-    .cdk-overlay-dark-backdrop {
-      background: rgba(255, 255, 255, 0.95);
-      opacity: 0.8;
-    }
-
-    .mat-mdc-dialog-surface {
-      padding: 60px;
-      border-radius: 10px;
-    }
-  }
-
   .container-fluid {
     display: block;
     padding: 0;
@@ -56,3 +44,6 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';
