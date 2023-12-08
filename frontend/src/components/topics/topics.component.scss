@@ -1,0 +1,25 @@
+.topics-container {
+  h1 {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .topics {
+    .badge {
+      padding: 6px 12px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--main-black);
+      background: var(--main-color);
+      cursor: pointer;
+
+      &:hover {
+        background: var(--main-color-2);
+      }
+
+      &:active {
+        background: var(--main-color-3);
+      }
+    }
+  }
+}

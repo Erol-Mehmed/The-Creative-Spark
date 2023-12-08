@@ -3,17 +3,21 @@ import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-all-articles',
-  templateUrl: './all-articles.component.html',
-  styleUrls: ['./all-articles.component.scss'],
+  selector: 'app-articles',
+  templateUrl: './articles.component.html',
+  styleUrls: ['./articles.component.scss'],
   providers: [DatePipe],
 })
-export class AllArticlesComponent implements OnInit {
+export class ArticlesComponent implements OnInit {
   constructor(private http: HttpClient, private datePipe: DatePipe) {}
 
   allArticles: any = [];
+  displayedArticles: any = [];
+  articlesToShow: number = 10;
 
-  loadMoreArticles() {};
+  loadMoreArticles() {
+    this.displayedArticles = this.allArticles.slice(0, this.articlesToShow += 10);
+  };
 
   ngOnInit(): void {
     this.http.get('/api?section=all-articles').subscribe({
@@ -31,8 +35,11 @@ export class AllArticlesComponent implements OnInit {
           );
         }
 
+        this.displayedArticles = this.allArticles.slice(0, 10);
         console.log('all articles:', this.allArticles);
+        console.log('displayed articles:', this.displayedArticles);
       },
     });
+
   }
 }
