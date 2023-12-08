@@ -8,17 +8,18 @@
     .badge {
       padding: 6px 12px;
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 400;
       color: var(--main-black);
-      background: var(--main-color);
+      background: #F2F2F2;
+      border: 1px solid #F2F2F2;
       cursor: pointer;
 
       &:hover {
-        background: var(--main-color-2);
+        background: #dbdada;
       }
 
       &:active {
-        background: var(--main-color-3);
+        background: #b8b7b7;
       }
     }
   }

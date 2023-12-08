@@ -48,22 +48,25 @@
           }
         }
 
-        .article {
-          font-size: 15px;
-          font-weight: 600;
-          text-decoration: none;
-
-          &:hover {
-            color: var(--main-color-2);
-          }
-
-          &:active {
-            color: var(--main-color-3);
+        .article-link {
+          .link {
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+  
+            &:hover {
+              color: var(--main-color-2);
+            }
+  
+            &:active {
+              color: var(--main-color-3);
+            }
           }
         }
 
         .date-read-time {
           display: flex;
+          align-items: center;
 
           p {
             font-size: 13px;
@@ -72,6 +75,24 @@
 
           .hyphen {
             margin: 0 4px;
+          }
+
+          .badge {
+            padding: 6px 12px;
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--main-black);
+            background: #F2F2F2;
+            border: 1px solid #F2F2F2;
+            cursor: pointer;
+
+            &:hover {
+              background: #dbdada;
+            }
+      
+            &:active {
+              background: #b8b7b7;
+            }
           }
         }
       }

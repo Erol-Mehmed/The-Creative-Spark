@@ -9,11 +9,15 @@
           />
           <a class="name" routerLink="">{{ articleObj.author }}</a>
         </div>
-        <a class="article" routerLink="">{{ articleObj.article.title }}</a>
+        <div class="article-link">
+          <a class="link" routerLink="">{{ articleObj.article.title }}</a>
+        </div>
         <div class="date-read-time">
           <p class="date">{{ articleObj.article.created_at }}</p>
           <p class="hyphen">-</p>
           <p class="read-time">{{ articleObj.article.read_time }} min read</p>
+          <p class="hyphen">-</p>
+          <p class="badge">{{ articleObj.article.topic }}</p>
         </div>
       </div>
 
