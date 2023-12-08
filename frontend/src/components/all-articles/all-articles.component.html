@@ -1,4 +1,4 @@
-<div class="all-articles container">
+<div class="all-articles container" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="loadMoreArticles()">
   <div class="row col-12" *ngFor="let articleObj of allArticles; index as i">
     <div class="article-wrapper">
       <div class="author-article-links col-8">

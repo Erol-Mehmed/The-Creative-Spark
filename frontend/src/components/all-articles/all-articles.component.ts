@@ -13,6 +13,8 @@ export class AllArticlesComponent implements OnInit {
 
   allArticles: any = [];
 
+  loadMoreArticles() {};
+
   ngOnInit(): void {
     this.http.get('/api?section=all-articles').subscribe({
       next: (data) => {

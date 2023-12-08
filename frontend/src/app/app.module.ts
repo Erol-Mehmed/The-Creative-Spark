@@ -15,7 +15,8 @@ import { CoreModule } from 'src/core/core.module';
 import { AllArticlesComponent } from 'src/components/all-articles/all-articles.component';
 import { HomeComponent } from 'src/components/home/home.component';
 import { TopicsComponent } from 'src/components/topics/topics.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap'; 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HttpClientModule,
     CoreModule,
     NgbModule,
+    InfiniteScrollModule,
   ],
   bootstrap: [AppComponent]
 })
