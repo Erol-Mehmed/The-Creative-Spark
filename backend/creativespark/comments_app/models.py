@@ -1,5 +1,5 @@
 from django.db import models
-from login_signup_app.models import User
+from users_app.models import User
 from all_articles_app.models import Article
 
 

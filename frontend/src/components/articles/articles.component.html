@@ -1,5 +1,14 @@
-<div class="articles container" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="loadMoreArticles()">
-  <div class="row col-12" *ngFor="let articleObj of displayedArticles; index as i">
+<div
+  class="articles container"
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="50"
+  (scrolled)="loadMoreArticles()"
+>
+  <div
+    class="row col-12"
+    *ngFor="let articleObj of displayedArticles; index as i"
+  >
     <div class="article-wrapper">
       <div class="author-article-links col-8">
         <div class="author-container">
@@ -7,10 +16,18 @@
             src="../../assets/images/user-placeholder.jpg"
             alt="Article author image."
           />
-          <a class="name" routerLink="">{{ articleObj.author }}</a>
+          <a
+            class="name"
+            [routerLink]="'author/' + encodeURI(articleObj.author)"
+            [queryParams]="{ id: articleObj.article.author_id }"
+            >{{ articleObj.author }}</a
+          >
         </div>
         <div class="article-link">
           <a class="link" routerLink="">{{ articleObj.article.title }}</a>
+        </div>
+        <div class="content-beginning">
+          <p>{{ articleObj.article.content }}</p>
         </div>
         <div class="date-read-time">
           <p class="date">{{ articleObj.article.created_at }}</p>
@@ -23,7 +40,10 @@
 
       <div class="article-image">
         <a routerLink="">
-          <img src="../../assets/images/article-placeholder.jpg" alt="Article image." />
+          <img
+            src="../../assets/images/article-placeholder.jpg"
+            alt="Article image."
+          />
         </a>
       </div>
     </div>

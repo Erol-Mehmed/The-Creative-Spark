@@ -1,5 +1,5 @@
 from django.db import models
-from login_signup_app.models import User
+from users_app.models import User
 
 
 class Article(models.Model):
@@ -7,7 +7,7 @@ class Article(models.Model):
     title = models.CharField(max_length=500, default=None)
     content = models.TextField(default=None)
     topic = models.CharField(max_length=100, default=None)
-    image = models.ImageField(upload_to='article_images/')
+    image = models.ImageField(upload_to="article_images/")
     claps = models.IntegerField(default=0)
     read_time = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)

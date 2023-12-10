@@ -19,6 +19,10 @@ export class ArticlesComponent implements OnInit {
     this.displayedArticles = this.allArticles.slice(0, this.articlesToShow += 10);
   };
 
+  encodeURI(uri: string) {
+    return uri.replace(/ /g, '-').toLowerCase();
+  }
+
   ngOnInit(): void {
     this.http.get('/api?section=all-articles').subscribe({
       next: (data) => {
