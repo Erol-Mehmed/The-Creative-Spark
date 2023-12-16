@@ -16,12 +16,9 @@
             src="../../assets/images/user-placeholder.jpg"
             alt="Article author image."
           />
-          <a
-            class="name"
-            [routerLink]="'author/' + encodeURI(articleObj.author)"
-            [queryParams]="{ id: articleObj.article.author_id }"
-            >{{ articleObj.author }}</a
-          >
+          <a class="name" [routerLink]="articleObj.author">{{
+            articleObj.author
+          }}</a>
         </div>
         <div class="article-link">
           <a class="link" routerLink="">{{ articleObj.article.title }}</a>

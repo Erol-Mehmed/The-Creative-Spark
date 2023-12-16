@@ -4,6 +4,7 @@ from users_app.models import User
 
 class Article(models.Model):
     author = models.ForeignKey(User, on_delete=models.PROTECT)
+    author_slug = models.CharField(default=User.slug, editable=False)
     title = models.CharField(max_length=500, default=None)
     content = models.TextField(default=None)
     topic = models.CharField(max_length=100, default=None)

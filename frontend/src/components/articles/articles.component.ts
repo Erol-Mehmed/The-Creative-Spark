@@ -16,11 +16,10 @@ export class ArticlesComponent implements OnInit {
   articlesToShow: number = 10;
 
   loadMoreArticles() {
-    this.displayedArticles = this.allArticles.slice(0, this.articlesToShow += 10);
-  };
-
-  encodeURI(uri: string) {
-    return uri.replace(/ /g, '-').toLowerCase();
+    this.displayedArticles = this.allArticles.slice(
+      0,
+      (this.articlesToShow += 10)
+    );
   }
 
   ngOnInit(): void {
@@ -44,6 +43,5 @@ export class ArticlesComponent implements OnInit {
         console.log('displayed articles:', this.displayedArticles);
       },
     });
-
   }
 }
