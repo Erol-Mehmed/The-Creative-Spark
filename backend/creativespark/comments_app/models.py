@@ -9,3 +9,4 @@ class Comment(models.Model):
     content = models.TextField(default=None)
     claps = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(default=None, blank=True, null=True)

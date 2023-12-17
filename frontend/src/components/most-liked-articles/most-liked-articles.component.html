@@ -13,7 +13,7 @@
         <div class="author-article-links">
           <div class="author-container">
             <img src="../../assets/images/user-placeholder.jpg" alt="Article author image.">
-            <a class="name" routerLink="">{{ articleObj.author }}</a>
+            <a class="name" [routerLink]="articleObj.author.slug">{{ articleObj.author.name }}</a>
           </div>
           <a class="article" routerLink="">{{ articleObj.article.title }}</a>
           <div class="date-read-time">
@@ -34,7 +34,7 @@
         <div class="author-article-links">
           <div class="author-container">
             <img src="../../assets/images/user-placeholder.jpg" alt="Article author image.">
-            <a class="name" routerLink="">{{ articleObj.author }}</a>
+            <a class="name" [routerLink]="articleObj.author.slug">{{ articleObj.author.name }}</a>
           </div>
           <a class="article" routerLink="">{{ articleObj.article.title }}</a>
           <div class="date-read-time">

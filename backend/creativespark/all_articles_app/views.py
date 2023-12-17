@@ -35,8 +35,14 @@ def get_articles(request):
                 articles_arr.append(
                     {
                         "id": current_articles_arr[i]["author_id"],
-                        "author": user_names[current_articles_arr[i]["author_id"] - 1],
-                        "slug": users[i]["slug"],
+                        "author": {
+                            "name": user_names[
+                                current_articles_arr[i]["author_id"] - 1
+                            ],
+                            "slug": User.objects.filter(
+                                id=current_articles_arr[i]["author_id"]
+                            ).values()[0]["slug"],
+                        },
                         "article": current_articles_arr[i],
                     },
                 )
@@ -44,10 +50,14 @@ def get_articles(request):
                 articles_arr.append(
                     {
                         "id": current_articles_arr[i + 1]["author_id"],
-                        "author": user_names[
-                            current_articles_arr[i + 1]["author_id"] - 1
-                        ],
-                        "slug": users[i + 1]["slug"],
+                        "author": {
+                            "name": user_names[
+                                current_articles_arr[i + 1]["author_id"] - 1
+                            ],
+                            "slug": User.objects.filter(
+                                id=current_articles_arr[i + 1]["author_id"]
+                            ).values()[0]["slug"],
+                        },
                         "article": current_articles_arr[i + 1],
                     },
                 )
@@ -55,20 +65,22 @@ def get_articles(request):
             articles_arr.append(
                 {
                     "id": current_articles_arr[i]["author_id"],
-                    "author": user_names[current_articles_arr[i]["author_id"] - 1],
-                    "slug": users[i]["slug"],
+                    "author": {
+                        "name": user_names[current_articles_arr[i]["author_id"] - 1],
+                        "slug": User.objects.filter(
+                            id=current_articles_arr[i]["author_id"]
+                        ).values()[0]["slug"],
+                    },
                     "article": current_articles_arr[i],
                 },
             )
 
     return Response(articles_arr)
 
+
 @api_view(["GET"])
-def get_articles_by_user(request):
-    author_id = request.GET.get("id")
-    author_articles = Article.objects.filter(author_id=author_id).order_by("-created_at").values()
-   
-    # print(author_articles)
-    
-    return Response('test')
-    
+def get_articles_by_user(request, slug):
+    id = User.objects.filter(slug=slug).values()[0]["id"]
+    articles = Article.objects.filter(author_id=id).order_by("-created_at").values()
+
+    return Response(articles)

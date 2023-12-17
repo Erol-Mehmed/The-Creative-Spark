@@ -16,8 +16,8 @@
             src="../../assets/images/user-placeholder.jpg"
             alt="Article author image."
           />
-          <a class="name" [routerLink]="articleObj.author">{{
-            articleObj.author
+          <a class="name" [routerLink]="articleObj.author.slug">{{
+            articleObj.author.name
           }}</a>
         </div>
         <div class="article-link">

@@ -11,9 +11,10 @@ export class AuthorComponent implements OnInit {
   constructor(private http: HttpClient, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    const id = this.route.snapshot.queryParams['id'];
+    const slug = this.route.snapshot.params['slug'];
+    console.log('slug:', slug);
 
-    this.http.get(`/api/author?id=${id}`).subscribe({
+    this.http.get(`/api/${slug}`).subscribe({
       next: (data) => {
         console.log('author:', data);
       },
