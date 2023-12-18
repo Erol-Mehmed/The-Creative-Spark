@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 
@@ -8,12 +8,23 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./articles.component.scss'],
   providers: [DatePipe],
 })
-export class ArticlesComponent implements OnInit {
+export class ArticlesComponent implements OnInit, OnChanges {
   constructor(private http: HttpClient, private datePipe: DatePipe) {}
 
-  allArticles: any = [];
+  @Input() allArticles: any = [];
   displayedArticles: any = [];
   articlesToShow: number = 10;
+
+  transformDateTimeSetDisplayedArticles() {
+    for (let i = 0; i < this.allArticles.length; i += 1) {
+      this.allArticles[i].article.created_at = this.datePipe.transform(
+        this.allArticles[i].article.created_at,
+        'MMMM dd'
+      );
+    }
+
+    this.displayedArticles = this.allArticles.slice(0, 10);
+  }
 
   loadMoreArticles() {
     this.displayedArticles = this.allArticles.slice(
@@ -22,26 +33,33 @@ export class ArticlesComponent implements OnInit {
     );
   }
 
-  ngOnInit(): void {
-    this.http.get('/api?section=all-articles').subscribe({
-      next: (data) => {
-        this.allArticles = data;
-      },
-      error: (err) => {
-        console.log(err);
-      },
-      complete: () => {
-        for (let i = 0; i < this.allArticles.length; i += 1) {
-          this.allArticles[i].article.created_at = this.datePipe.transform(
-            this.allArticles[i].article.created_at,
-            'MMMM dd'
-          );
-        }
+  getSetArticles() {
+    console.log('all articles:', this.allArticles);
 
-        this.displayedArticles = this.allArticles.slice(0, 10);
-        console.log('all articles:', this.allArticles);
-        console.log('displayed articles:', this.displayedArticles);
-      },
-    });
+    if (this.allArticles.length === 0) {
+      this.http.get('/api?section=all-articles').subscribe({
+        next: (data) => {
+          this.allArticles = data;
+        },
+        error: (err) => {
+          console.log(err);
+        },
+        complete: () => {
+          this.transformDateTimeSetDisplayedArticles();
+        },
+      });
+    } else {
+      this.transformDateTimeSetDisplayedArticles();
+    }
+  }
+
+  ngOnInit(): void {
+    this.getSetArticles();
+  }
+
+  ngOnChanges(): void {
+    console.log('on changes');
+    
+    this.getSetArticles();
   }
 }
