@@ -21,7 +21,7 @@ export class AppInterceptor implements HttpInterceptor {
       return next.handle(
         req.clone({
           url: req.url.replace('/api', Api_Url),
-          withCredentials: true,
+          withCredentials: false,
         })
       );
     }

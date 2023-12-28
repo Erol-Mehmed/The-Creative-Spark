@@ -37,9 +37,10 @@ export class ArticlesComponent implements OnInit, OnChanges {
     console.log('all articles:', this.allArticles);
 
     if (this.allArticles.length === 0) {
-      this.http.get('/api?section=all-articles').subscribe({
+      this.http.get('/api').subscribe({
         next: (data) => {
           this.allArticles = data;
+          console.log('all articles:', this.allArticles);
         },
         error: (err) => {
           console.log(err);
