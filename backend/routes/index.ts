@@ -1,11 +1,9 @@
 import { Router } from 'express';
-import allArticles from '../controllers/all-articles';
+import articles from '../controllers/articles';
+import requestHandler from '../utils/request-handler';
 
 const router = Router();
 
-router.get('/', (req, res) => {
-  console.log('router');
-  res.send(allArticles);
-});
+router.get('/', articles.getArticles);
 
 export default router;
