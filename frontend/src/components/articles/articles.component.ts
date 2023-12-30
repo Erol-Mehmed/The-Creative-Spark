@@ -34,10 +34,8 @@ export class ArticlesComponent implements OnInit, OnChanges {
   }
 
   getSetArticles() {
-    console.log('all articles:', this.allArticles);
-
     if (this.allArticles.length === 0) {
-      this.http.get('/api').subscribe({
+      this.http.get('/api?section=all-articles').subscribe({
         next: (data) => {
           this.allArticles = data;
           console.log('all articles:', this.allArticles);

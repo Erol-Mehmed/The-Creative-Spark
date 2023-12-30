@@ -1,7 +1,9 @@
 import db from '../db';
 
-const users = async () => {
-  await db.query('SELECT * FROM users', []);
-};
+export default {
+  getUsers: async () => {
+    const result = await db.query('SELECT * FROM users', []);
 
-export default users;
+    return result.rows;
+  },
+};
