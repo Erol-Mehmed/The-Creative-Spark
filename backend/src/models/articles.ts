@@ -1,5 +1,5 @@
 import { QueryResult } from 'pg';
-import db from '../db';
+import db from '../configs/db';
 
 export default {
   getArticles: async (section: string) => {
