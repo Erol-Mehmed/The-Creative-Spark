@@ -3,14 +3,14 @@
     <div class="col-8 articles">
       <div class="name-navigation">
         <h2 class="name">
-          <!-- {{ authorData[0].author.name }} -->
+          {{ authorData[0]?.author.name }}
         </h2>
         <ul ngbNav #nav="ngbNav" class="nav-tabs navigation">
           <li ngbNavItem class="home">
             <button ngbNavLink>Home</button>
             <ng-template ngbNavContent>
               <app-articles
-                [allArticles]="authorData"
+                [authorArticles]="true"
               ></app-articles>
             </ng-template>
           </li>

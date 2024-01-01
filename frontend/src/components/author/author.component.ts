@@ -15,7 +15,7 @@ export class AuthorComponent implements OnInit {
   ngOnInit(): void {
     const slug = this.route.snapshot.params['slug'];
 
-    this.http.get(`/api/${slug}`).subscribe({
+    this.http.get(`/api/${slug}?section=author-articles`).subscribe({
       next: (data) => {
         this.authorData = data;
       },

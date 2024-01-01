@@ -11,7 +11,8 @@ import { DatePipe } from '@angular/common';
 export class ArticlesComponent implements OnInit, OnChanges {
   constructor(private http: HttpClient, private datePipe: DatePipe) {}
 
-  @Input() allArticles: any = [];
+  @Input() authorArticles: boolean = false;
+  allArticles: any = [];
   displayedArticles: any = [];
   articlesToShow: number = 10;
 
@@ -34,6 +35,7 @@ export class ArticlesComponent implements OnInit, OnChanges {
   }
 
   getSetArticles() {
+
     if (this.allArticles.length === 0) {
       this.http.get('/api?section=all-articles').subscribe({
         next: (data) => {
@@ -55,10 +57,10 @@ export class ArticlesComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.getSetArticles();
   }
-
+  
   ngOnChanges(): void {
-    console.log('on changes');
-    
+    console.log('author data:', this.authorArticles);
+
     this.getSetArticles();
   }
 }
