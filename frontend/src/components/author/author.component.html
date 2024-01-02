@@ -1,29 +1,24 @@
 <div class="container">
   <div class="row">
-    <div class="col-8 articles">
-      <div class="name-navigation">
-        <h2 class="name">
-          {{ authorData[0]?.author.name }}
-        </h2>
-        <ul ngbNav #nav="ngbNav" class="nav-tabs navigation">
-          <li ngbNavItem class="home">
-            <button ngbNavLink>Home</button>
-            <ng-template ngbNavContent>
-              <app-articles
-                [authorArticles]="true"
-              ></app-articles>
-            </ng-template>
-          </li>
-          <li ngbNavItem class="about">
-            <button ngbNavLink>About</button>
-            <ng-template ngbNavContent>
-              <p>about</p>
-            </ng-template>
-          </li>
-        </ul>
-        <div [ngbNavOutlet]="nav"></div>
-      </div>
+    <div class="col-8 author-articles">
+      <h2 class="name">
+        {{ authorInfo.name }}
+      </h2>
+      <app-articles
+        [authorArticles]="true"
+        (authorInfo)="setAuthorInfo($event)"
+      ></app-articles>
     </div>
-    <div class="col-4 info"></div>
+    <div class="col-4 info">
+      <div class="img-name">
+        <img src="../../assets/images/user-placeholder.jpg" alt="">
+        <p>
+          {{ authorInfo.name }}
+        </p>
+      </div>
+        <p class="description">
+          {{ authorInfo.description }}
+        </p>
+    </div>
   </div>
 </div>

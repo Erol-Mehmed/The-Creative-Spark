@@ -1,6 +1,15 @@
-import { Component, OnInit, OnChanges, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnChanges,
+  Input,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { AuthorInfoObject } from '../../shared/interfaces/authorInfo';
 
 @Component({
   selector: 'app-articles',
@@ -9,38 +18,53 @@ import { DatePipe } from '@angular/common';
   providers: [DatePipe],
 })
 export class ArticlesComponent implements OnInit, OnChanges {
-  constructor(private http: HttpClient, private datePipe: DatePipe) {}
+  constructor(
+    private http: HttpClient,
+    private datePipe: DatePipe,
+    private route: ActivatedRoute
+  ) {}
 
   @Input() authorArticles: boolean = false;
-  allArticles: any = [];
+  @Output() authorInfo = new EventEmitter<AuthorInfoObject>();
+
+  currentArticles: any = [];
   displayedArticles: any = [];
   articlesToShow: number = 10;
 
   transformDateTimeSetDisplayedArticles() {
-    for (let i = 0; i < this.allArticles.length; i += 1) {
-      this.allArticles[i].article.created_at = this.datePipe.transform(
-        this.allArticles[i].article.created_at,
+    for (let i = 0; i < this.currentArticles.length; i += 1) {
+      this.currentArticles[i].article.created_at = this.datePipe.transform(
+        this.currentArticles[i].article.created_at,
         'MMMM dd'
       );
     }
 
-    this.displayedArticles = this.allArticles.slice(0, 10);
+    if (this.authorArticles) {
+      this.authorInfo.emit({
+        name: this.currentArticles[0].author.name,
+        description: this.currentArticles[0].author.description,
+      });
+    }
+
+    this.displayedArticles = this.currentArticles.slice(0, 10);
   }
 
   loadMoreArticles() {
-    this.displayedArticles = this.allArticles.slice(
+    this.displayedArticles = this.currentArticles.slice(
       0,
       (this.articlesToShow += 10)
     );
   }
 
   getSetArticles() {
+    if (this.currentArticles.length === 0) {
+      const currentSection = this.authorArticles
+        ? `/${this.route.snapshot.params['slug']}/?section=author-articles`
+        : '/?section=all-articles';
 
-    if (this.allArticles.length === 0) {
-      this.http.get('/api?section=all-articles').subscribe({
+      this.http.get(`/api${currentSection}`).subscribe({
         next: (data) => {
-          this.allArticles = data;
-          console.log('all articles:', this.allArticles);
+          this.currentArticles = data;
         },
         error: (err) => {
           console.log(err);
@@ -57,10 +81,8 @@ export class ArticlesComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.getSetArticles();
   }
-  
-  ngOnChanges(): void {
-    console.log('author data:', this.authorArticles);
 
+  ngOnChanges(): void {
     this.getSetArticles();
   }
 }

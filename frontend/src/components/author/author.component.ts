@@ -1,30 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { Component } from '@angular/core';
+import { AuthorInfoObject } from '../../shared/interfaces/authorInfo';
 
 @Component({
   selector: 'app-author',
   templateUrl: './author.component.html',
   styleUrls: ['./author.component.scss'],
 })
-export class AuthorComponent implements OnInit {
-  constructor(private http: HttpClient, private route: ActivatedRoute) {}
 
-  authorData: any = {};
+export class AuthorComponent {
+  authorInfo: AuthorInfoObject = {
+    name: '',
+    description: '',
+  };
 
-  ngOnInit(): void {
-    const slug = this.route.snapshot.params['slug'];
-
-    this.http.get(`/api/${slug}?section=author-articles`).subscribe({
-      next: (data) => {
-        this.authorData = data;
-      },
-      error: (err) => {
-        console.log(err);
-      },
-      complete: () => {
-        console.log('author data:', this.authorData);
-      },
-    });
-  }
+  setAuthorInfo($event: AuthorInfoObject) {    
+    this.authorInfo = $event;
+  };
 }

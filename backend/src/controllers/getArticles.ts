@@ -5,7 +5,7 @@ import  articles from '../models/articles';
 import users from '../models/users';
 
 const getArticles = async (req: Request, res: Response) => {
-  const section = req.query.section?.toString() || '';
+  const section = req.query.section?.toString() || '';  
   const usersLocal = await users.getUsers();
   const currentArticles = await articles.getArticles(section === 'author-articles' ? 'all-articles' : section);
   const result = resultCreation(section, usersLocal, currentArticles, req.params.slug);
@@ -27,22 +27,28 @@ const resultCreation = (section: string, usersLocal: any[], currentArticles: any
 const creationLoop = (authorArticles: boolean, usersLocal: any[], currentArticles: any[], author: any) => {
   const result: object[] = [];
   let user = authorArticles ? author : {};
+  let authorInfo: object = {};
 
   for (let i = 0; i < currentArticles.length; i += 1) {
     if (!authorArticles) {
       user = usersLocal.find(obj => obj.id === currentArticles[i].author_id);
+      authorInfo = {
+        name: user.name,
+        slug: user.slug,
+        image: user.image,
+      };
+    } else {
+      authorInfo = {
+        name: user.name,
+        description: user.description,
+        image: user.image,
+      };
     }
 
-    result.push(
-      {
-        author: {
-          name: user.name,
-          slug: user.slug,
-          image: user.image,
-        },
-        article: currentArticles[i],
-      }
-    );
+    result.push({
+      author: authorInfo,
+      article: currentArticles[i],
+    });
   }
 
   return result;
