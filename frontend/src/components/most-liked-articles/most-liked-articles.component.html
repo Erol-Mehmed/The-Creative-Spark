@@ -12,7 +12,7 @@
         <p class="col-1 number">0{{ i + 1 }}</p>
         <div class="author-article-links">
           <div class="author-container">
-            <img src="../../assets/images/user-placeholder.jpg" alt="Article author image.">
+            <img src="../../assets/images/user-placeholder.jpg" alt="Article author image." [routerLink]="articleObj.author.slug">
             <a class="name" [routerLink]="articleObj.author.slug">{{ articleObj.author.name }}</a>
           </div>
           <a class="article" routerLink="">{{ articleObj.article.title }}</a>
@@ -33,7 +33,7 @@
         <p class="col-1 number">0{{ i + 4 }}</p>
         <div class="author-article-links">
           <div class="author-container">
-            <img src="../../assets/images/user-placeholder.jpg" alt="Article author image.">
+            <img src="../../assets/images/user-placeholder.jpg" alt="Article author image." [routerLink]="articleObj.author.slug">
             <a class="name" [routerLink]="articleObj.author.slug">{{ articleObj.author.name }}</a>
           </div>
           <a class="article" routerLink="">{{ articleObj.article.title }}</a>

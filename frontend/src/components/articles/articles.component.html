@@ -11,15 +11,24 @@
   >
     <div class="article-wrapper">
       <div class="author-article-links col-8">
-        <div class="author-container">
+        <div
+          class="author-container"
+          *ngIf="!authorArticles; else elseBlock"
+        >
           <img
             src="../../assets/images/user-placeholder.jpg"
             alt="Article author image."
+            [routerLink]="articleObj.author.slug"
           />
           <a class="name" [routerLink]="articleObj.author.slug">{{
             articleObj.author.name
           }}</a>
         </div>
+        <ng-template #elseBlock>
+          <p class="published-date">
+            Published on {{ articleObj.article.created_at }}
+          </p>
+        </ng-template>
         <div class="article-link">
           <a class="link" routerLink="">{{ articleObj.article.title }}</a>
         </div>

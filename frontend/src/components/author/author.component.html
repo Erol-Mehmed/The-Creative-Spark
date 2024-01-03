@@ -4,21 +4,27 @@
       <h2 class="name">
         {{ authorInfo.name }}
       </h2>
+      <h3 class="articles-header">Stories</h3>
       <app-articles
         [authorArticles]="true"
         (authorInfo)="setAuthorInfo($event)"
       ></app-articles>
     </div>
     <div class="col-4 info">
-      <div class="img-name">
-        <img src="../../assets/images/user-placeholder.jpg" alt="">
-        <p>
-          {{ authorInfo.name }}
-        </p>
-      </div>
+      <div class="sticky-wrapper">
+        <div class="img-name">
+          <img
+            src="../../assets/images/user-placeholder.jpg"
+            alt="Article author image."
+          />
+          <p>
+            {{ authorInfo.name }}
+          </p>
+        </div>
         <p class="description">
           {{ authorInfo.description }}
         </p>
+      </div>
     </div>
   </div>
 </div>

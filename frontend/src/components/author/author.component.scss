@@ -1,7 +1,7 @@
 .container {
   .row {
     .author-articles {
-      padding: 0 100px;
+      padding: 0 100px 75px;
 
       ::ng-deep .articles {
         padding: 0;
@@ -11,6 +11,26 @@
 
           .author-article-links {
             padding: 0;
+
+            .published-date {
+              font-size: 14px;
+              margin: 0;
+            }
+
+            .article-link .link {
+              font-size: 20px !important;
+            }
+
+            .date-read-time {
+              flex-direction: row-reverse;
+              justify-content: start;
+              gap: 8px;
+
+              .date,
+              .hyphen {
+                display: none;
+              }
+            }
           }
         }
       }
@@ -18,6 +38,11 @@
       .name {
         font-size: 32px;
         margin: 50px 0;
+      }
+
+      .articles-header {
+        font-size: 16px;
+        margin-bottom: 20px;
       }
 
       .navigation {
@@ -37,16 +62,26 @@
     }
 
     .info {
+      min-height: 100vh;
       padding: 0 24px 0 40px;
       border-left: 1px solid #dee2e6;
 
-      .img-name {
+      .sticky-wrapper {
+        position: sticky;
+        top: 40px;
         margin-top: 40px;
 
-        img {
-          width: 90px;
-          border: 1px solid transparent;
-          border-radius: 50%;
+        .img-name {
+          p {
+            font-weight: 500;
+            margin: 10px 0 20px;
+          }
+  
+          img {
+            width: 90px;
+            border: 1px solid transparent;
+            border-radius: 50%;
+          }
         }
       }
     }
