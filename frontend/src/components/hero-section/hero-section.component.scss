@@ -1,0 +1,30 @@
+.hero-section {
+  display: flex;
+  justify-content: center;
+  background: var(--main-color);
+  padding: 80px 0;
+  border-bottom: 1px solid black;
+
+  .sub-heading {
+    font-size: 14px;
+  }
+
+  button {
+    border: 0;
+    border-radius: 10px;
+    padding: 2px 28px;
+    background: var(--main-black);
+    color: var(--main-white);
+    font-weight: 500;
+
+    &:hover {
+      background: var(--main-white);
+      color: var(--main-black);
+    }
+
+    &:active {
+      background: var(--main-color-2);
+      color: var(--main-white);
+    }
+  }
+}

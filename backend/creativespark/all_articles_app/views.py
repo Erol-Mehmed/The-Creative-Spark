@@ -8,72 +8,82 @@ from users_app.models import User
 @api_view(["GET"])
 def get_articles(request):
     section = request.GET.get("section")
-    current_author_articles = []
-    users = User.objects.all().order_by("id").values()
-    user_names = [user["name"] for user in users]
+    articles = Article.objects.all()
+    author_ids = [article.author_id for article in articles]
+    users = User.objects.filter(id__in=author_ids).values()
+    user_names = {user["id"]: user["name"] for user in users}
     author_articles = []
 
     if section == "most-liked-articles":
-        current_author_articles = Article.objects.all().order_by("-claps").values()
+        articles = articles.order_by("-claps").values()
     else:
-        current_author_articles = Article.objects.all().order_by("-created_at").values()
+        articles = articles.order_by("-created_at").values()
 
-    current_author_articles_length = (
-        6 if section == "most-liked-articles" else len(current_author_articles)
-    )
-
-    for i in range(current_author_articles_length):
-        if (
-            i + 1 == 6
-            and section == "most-liked-articles"
-            and current_author_articles[i]["claps"]
-            == current_author_articles[i + 1]["claps"]
-        ):
+    if section == "most-liked-articles":
+        for i in range(6):
             if (
-                current_author_articles[i]["created_at"]
-                > current_author_articles[i + 1]["created_at"]
+                i == 5
+                and articles[i]["claps"]
+                == articles[i + 1]["claps"]
             ):
+                if (
+                    articles[i]["created_at"]
+                    > articles[i + 1]["created_at"]
+                ):
+                    author_articles.append(
+                        {
+                            "author": {
+                                "name": user_names[articles[i]["author_id"]],
+                                "slug": User.objects.filter(
+                                    id=articles[i]["author_id"]
+                                ).values()[0]["slug"],
+                            },
+                            "article": articles[i],
+                        },
+                    )
+                else:
+                    author_articles.append(
+                        {
+                            "author": {
+                                "name": user_names[articles[i + 1]["author_id"]],
+                                "slug": User.objects.filter(
+                                    id=articles[i + 1]["author_id"]
+                                ).values()[0]["slug"],
+                            },
+                            "article": articles[i + 1],
+                        },
+                    )
+            elif i < len(articles):
                 author_articles.append(
                     {
                         "author": {
-                            "name": user_names[
-                                current_author_articles[i]["author_id"] - 1
-                            ],
+                            "name": user_names[articles[i]["author_id"]],
                             "slug": User.objects.filter(
-                                id=current_author_articles[i]["author_id"]
+                                id=articles[i]["author_id"]
                             ).values()[0]["slug"],
                         },
-                        "article": current_author_articles[i],
+                        "article": articles[i],
                     },
                 )
             else:
-                author_articles.append(
-                    {
-                        "author": {
-                            "name": user_names[
-                                current_author_articles[i + 1]["author_id"] - 1
-                            ],
-                            "slug": User.objects.filter(
-                                id=current_author_articles[i + 1]["author_id"]
-                            ).values()[0]["slug"],
-                        },
-                        "article": current_author_articles[i + 1],
-                    },
-                )
-        else:
+                return Response(author_articles)
+
+        return Response(author_articles)
+    else:
+        for i in range(len(articles)):
             author_articles.append(
                 {
                     "author": {
-                        "name": user_names[current_author_articles[i]["author_id"] - 1],
+                        "name": user_names[articles[i]["author_id"]],
                         "slug": User.objects.filter(
-                            id=current_author_articles[i]["author_id"]
+                            id=articles[i]["author_id"]
                         ).values()[0]["slug"],
                     },
-                    "article": current_author_articles[i],
+                    "article": articles[i],
                 },
             )
 
-    return Response(author_articles)
+        return Response(author_articles)
 
 
 @api_view(["GET"])

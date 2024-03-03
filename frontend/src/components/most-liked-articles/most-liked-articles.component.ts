@@ -29,8 +29,6 @@ export class MostLikedArticlesComponent implements OnInit {
               'MMMM dd'
             );
         }
-
-        console.log('most liked articles:', this.mostLikedArticles);
       },
     });
   }
