@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthorInfoObject } from '../../shared/interfaces/authorInfo';
 
 @Component({
@@ -7,10 +7,14 @@ import { AuthorInfoObject } from '../../shared/interfaces/authorInfo';
   styleUrls: ['./author.component.scss'],
 })
 
-export class AuthorComponent {
+export class AuthorComponent implements OnInit {
   authorInfo: AuthorInfoObject = {
     name: '',
     description: '',
+  };
+
+  ngOnInit() {
+    window.scrollTo(0, 0);
   };
 
   setAuthorInfo($event: AuthorInfoObject) {    

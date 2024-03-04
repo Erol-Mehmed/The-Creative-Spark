@@ -26,7 +26,7 @@ export class MostLikedArticlesComponent implements OnInit {
           this.mostLikedArticles[i].article.created_at =
             this.datePipe.transform(
               this.mostLikedArticles[i].article.created_at,
-              'MMMM dd'
+              'MMM dd, yyyy'
             );
         }
       },

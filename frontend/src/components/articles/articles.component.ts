@@ -35,7 +35,7 @@ export class ArticlesComponent implements OnInit, OnChanges {
     for (let i = 0; i < this.currentArticles.length; i += 1) {
       this.currentArticles[i].article.created_at = this.datePipe.transform(
         this.currentArticles[i].article.created_at,
-        'MMMM dd'
+        'MMM dd, yyyy'
       );
     }
 
