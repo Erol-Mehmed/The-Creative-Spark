@@ -29,7 +29,7 @@
             Published on {{ articleObj.article.created_at }}
           </p>
         </ng-template>
-        <div class="article-link">
+        <div class="article-link" [routerLink]="articleObj.article.slug">
           <p class="title">{{ articleObj.article.title }}</p>
           <p class="content">{{ articleObj.article.content }}</p>
         </div>

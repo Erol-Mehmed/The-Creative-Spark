@@ -15,7 +15,7 @@
             <img src="../../assets/images/user-placeholder.jpg" alt="Article author image." [routerLink]="articleObj.author.slug">
             <a class="name" [routerLink]="articleObj.author.slug">{{ articleObj.author.name }}</a>
           </div>
-          <a class="article" routerLink="">{{ articleObj.article.title }}</a>
+          <a class="article" [routerLink]="articleObj.article.slug">{{ articleObj.article.title }}</a>
           <div class="date-read-time">
             <p class="date">{{ articleObj.article.created_at }}</p>
             <p class="hyphen">-</p>
