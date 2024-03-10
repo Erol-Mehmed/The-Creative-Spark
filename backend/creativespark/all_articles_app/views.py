@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
-from all_articles_app.models import Article
+from article_app.models import Article
 from users_app.models import User
 
 

@@ -1,6 +1,6 @@
 from django.db import models
 from users_app.models import User
-from all_articles_app.models import Article
+from article_app.models import Article
 
 
 class Comment(models.Model):

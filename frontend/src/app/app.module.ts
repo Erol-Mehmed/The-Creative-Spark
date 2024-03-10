@@ -19,6 +19,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { AuthorComponent } from '../components/author/author.component';
 import { HeroSectionComponent } from 'src/components/hero-section/hero-section.component';
+import { ArticleComponent } from 'src/components/article/article.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { HeroSectionComponent } from 'src/components/hero-section/hero-section.c
     TopicsComponent,
     AuthorComponent,
     HeroSectionComponent,
+    ArticleComponent,
   ],
   imports: [
     BrowserModule,
