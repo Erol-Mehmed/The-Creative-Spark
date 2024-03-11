@@ -5,16 +5,16 @@
   [infiniteScrollThrottle]="50"
   (scrolled)="loadMoreArticles()"
 >
-  <ng-template *ngIf="displayedArticles.length > 0; else noArticles">
+  <div *ngIf="displayedArticles.length > 0; else noArticles">
   <div
     class="row col-12"
     *ngFor="let articleObj of displayedArticles; index as i"
   >
     <div class="article-wrapper">
       <div class="author-article-links col-8">
-        <ng-template
+        <div
           class="author-container"
-          *ngIf="!authorArticles; else authorArticles"
+          *ngIf="!authorArticles; else showAuthorArticles"
         >
           <img
             src="../../assets/images/user-placeholder.jpg"
@@ -24,8 +24,8 @@
           <a class="name" [routerLink]="articleObj.author.slug">{{
             articleObj.author.name
           }}</a>
-        </ng-template>
-        <ng-template #authorArticles>
+        </div>
+        <ng-template #showAuthorArticles>
           <p class="published-date">
             Published on {{ articleObj.article.created_at }}
           </p>
@@ -53,7 +53,7 @@
       </div>
     </div>
   </div>
-  </ng-template>
+  </div>
   <ng-template #noArticles>
     <div class="no-articles">
       <p>No articles found.</p>

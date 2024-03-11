@@ -1,3 +1,9 @@
-from django.shortcuts import render
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
 
-# Create your views here.
+from article_app.models import Article
+
+
+@api_view(["GET"])
+def get_article(request):
+    print("get_articles")
