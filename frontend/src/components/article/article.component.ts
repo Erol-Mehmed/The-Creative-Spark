@@ -17,12 +17,14 @@ export class ArticleComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const username = this.route;
-    const slug = this.route.snapshot.paramMap.get('slug');
+    let authorSlug: string = '';
+    let articleSlug: string = '';
 
-    console.log(username, slug);
+    this.route.url.subscribe((data) => {
+      [authorSlug, articleSlug] = data.map((x) => x.path);
+    });
 
-    this.http.get(`/api/${username}/${slug}`).subscribe({
+    this.http.get(`/api/${authorSlug}/${articleSlug}`).subscribe({
       next: (data) => {
         console.log(data);
       },

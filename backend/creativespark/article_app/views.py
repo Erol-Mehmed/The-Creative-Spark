@@ -7,3 +7,5 @@ from article_app.models import Article
 @api_view(["GET"])
 def get_article(request):
     print("get_articles")
+
+    return Response('works')
