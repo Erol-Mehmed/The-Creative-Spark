@@ -17,8 +17,12 @@
               margin: 0;
             }
 
-            .article-link .link {
-              font-size: 20px !important;
+            .article-link {
+              margin-left: 0;
+
+              .link {
+                font-size: 20px !important;
+              }
             }
 
             .date-read-time {

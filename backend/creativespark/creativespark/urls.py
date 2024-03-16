@@ -21,5 +21,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("all_articles_app.urls")),
     path("<str:author_username>", include("all_articles_app.urls")),
-    path("<str:author_slug>/<str:article_slug>/", include("article_app.urls"), name="article_slug"),
+    path("<str:author_slug>/<str:article_slug>", include("article_app.urls")),
 ]
