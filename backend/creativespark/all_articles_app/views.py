@@ -13,6 +13,7 @@ def get_articles(request):
     users = User.objects.filter(id__in=author_ids).values()
     user_names = {user["id"]: user["name"] for user in users}
     author_articles = []
+    current_articles_length = len(articles) if len(articles) < 6 else 6
 
     if section == "most-liked-articles":
         articles = articles.order_by("-claps").values()
@@ -20,9 +21,8 @@ def get_articles(request):
         articles = articles.order_by("-created_at").values()
 
     if section == "most-liked-articles":
-        for i in range(6):
+        for i in range(current_articles_length):
             next_article_claps = articles[i + 1]["claps"] if i + 1 < len(articles) else False
-            print("next_article:", next_article_claps)
 
             if (
                 i == 5
@@ -69,6 +69,7 @@ def get_articles(request):
                     },
                 )
             else:
+                print("i is greater than len(articles", i)
                 return Response(author_articles)
 
         return Response(author_articles)

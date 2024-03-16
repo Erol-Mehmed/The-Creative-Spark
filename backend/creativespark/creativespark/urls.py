@@ -18,8 +18,8 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
+    path("<slug:author_username>/<slug:article_name>", include("article_app.urls")),
     path("admin/", admin.site.urls),
     path("", include("all_articles_app.urls")),
-    path("<str:author_username>", include("all_articles_app.urls")),
-    path("<str:author_slug>/<str:article_slug>", include("article_app.urls")),
+    path("<slug:author_username>", include("all_articles_app.urls")),
 ]

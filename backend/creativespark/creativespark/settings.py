@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'users_app',
     'rest_framework',
     'corsheaders',
-    'django_rename_app',
 ]
 
 MIDDLEWARE = [
