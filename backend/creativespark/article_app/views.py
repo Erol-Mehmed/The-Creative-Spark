@@ -5,7 +5,7 @@ from article_app.models import Article
 
 
 @api_view(["GET"])
-def get_article(request):
-    print("get_articles")
+def get_article(request, article_slug):
+    print("get_articles:", article_slug)
 
     return Response('works')

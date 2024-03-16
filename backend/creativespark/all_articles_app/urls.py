@@ -3,5 +3,5 @@ from . import views
 
 urlpatterns = [
     path("", views.get_articles),
-    path("<str:slug>", views.get_articles_by_user),
+    path("<str:author_username>", views.get_articles_by_user),
 ]

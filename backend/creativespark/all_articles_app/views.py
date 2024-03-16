@@ -21,10 +21,13 @@ def get_articles(request):
 
     if section == "most-liked-articles":
         for i in range(6):
+            next_article_claps = articles[i + 1]["claps"] if i + 1 < len(articles) else False
+            print("next_article:", next_article_claps)
+
             if (
                 i == 5
                 and articles[i]["claps"]
-                == articles[i + 1]["claps"]
+                == next_article_claps
             ):
                 if (
                     articles[i]["created_at"]
@@ -87,8 +90,8 @@ def get_articles(request):
 
 
 @api_view(["GET"])
-def get_articles_by_user(request, slug):
-    author_id = User.objects.filter(slug=slug).values()[0]["id"]
+def get_articles_by_user(request, author_username):
+    author_id = User.objects.filter(slug=author_username).values()[0]["id"]
     author_data = User.objects.filter(id=author_id).values()[0]
     articles = (
         Article.objects.filter(author_id=author_id).order_by("-created_at").values()
