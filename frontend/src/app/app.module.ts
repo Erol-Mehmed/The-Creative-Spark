@@ -20,6 +20,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { AuthorComponent } from '../components/author/author.component';
 import { HeroSectionComponent } from 'src/components/hero-section/hero-section.component';
 import { ArticleComponent } from 'src/components/article/article.component';
+import {NgOptimizedImage} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -34,17 +35,18 @@ import { ArticleComponent } from 'src/components/article/article.component';
     HeroSectionComponent,
     ArticleComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    StoreModule.forRoot(reducers),
-    ReactiveFormsModule,
-    HttpClientModule,
-    CoreModule,
-    NgbModule,
-    InfiniteScrollModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        StoreModule.forRoot(reducers),
+        ReactiveFormsModule,
+        HttpClientModule,
+        CoreModule,
+        NgbModule,
+        InfiniteScrollModule,
+        NgOptimizedImage,
+    ],
   bootstrap: [AppComponent]
 })
 

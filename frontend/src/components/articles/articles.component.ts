@@ -9,7 +9,7 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { AuthorInfoObject } from '../../shared/interfaces/authorInfo';
+import { Author } from '../../shared/interfaces/authorArticle';
 
 @Component({
   selector: 'app-articles',
@@ -25,7 +25,7 @@ export class ArticlesComponent implements OnInit, OnChanges {
   ) {}
 
   @Input() authorArticles: boolean = false;
-  @Output() authorInfo = new EventEmitter<AuthorInfoObject>();
+  @Output() author = new EventEmitter<Author>();
 
   currentArticles: any = [];
   displayedArticles: any = [];
@@ -40,7 +40,7 @@ export class ArticlesComponent implements OnInit, OnChanges {
     }
 
     if (this.authorArticles) {
-      this.authorInfo.emit({
+      this.author.emit({
         name: this.currentArticles[0].author.name,
         description: this.currentArticles[0].author.description,
       });

@@ -1,9 +1,23 @@
 <div class="container">
   <div class="row header">
-    <div class="col-md-12">
-      <h2>Test</h2>
+    <div class="col-6 title-info">
+      <h1>{{article.title}}</h1>
+      <div class="author-article-info">
+        <img [src]="article.author.image" alt="Article author." [routerLink]="'/' + article.author.slug">
+        <div class="info">
+          <a class="author-name" [routerLink]="'/' + article.author.slug">
+            {{article.author.name}}
+          </a>
+          <div class="date-read-time">
+          <p class="date">{{ article.created_at }}</p>
+          <p class="hyphen">-</p>
+          <p class="read-time">{{ article.readTime }} min read</p>
+        </div>
+        </div>
+        </div>
+        <div class="claps-comments-topics">
+        </div>
     </div>
   </div>
-  <div class="row"></div>
   <div class="row"></div>
 </div>

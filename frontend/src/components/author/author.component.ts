@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthorInfoObject } from '../../shared/interfaces/authorInfo';
+import { Author } from '../../shared/interfaces/authorArticle';
 
 @Component({
   selector: 'app-author',
@@ -8,7 +8,7 @@ import { AuthorInfoObject } from '../../shared/interfaces/authorInfo';
 })
 
 export class AuthorComponent implements OnInit {
-  authorInfo: AuthorInfoObject = {
+  author: Author = {
     name: '',
     description: '',
   };
@@ -17,7 +17,7 @@ export class AuthorComponent implements OnInit {
     window.scrollTo(0, 0);
   };
 
-  setAuthorInfo($event: AuthorInfoObject) {    
-    this.authorInfo = $event;
+  setAuthorInfo($event: Author) {
+    this.author = $event;
   };
 }
