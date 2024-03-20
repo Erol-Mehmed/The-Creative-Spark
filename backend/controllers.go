@@ -6,6 +6,9 @@ import (
 
 func GetUsers(c *gin.Context) {
 	// Implement logic to fetch users
+	c.JSON(200, gin.H{
+		"message": "Erol Mehmed",
+	})
 }
 
 func GetUser(c *gin.Context) {
