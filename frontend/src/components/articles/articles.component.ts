@@ -60,7 +60,7 @@ export class ArticlesComponent implements OnInit, OnChanges {
     if (this.currentArticles.length === 0) {
       const currentSection = this.authorArticles
         ? `/${this.route.snapshot.params['slug']}`
-        : '/?section=all-articles';
+        : '/api/v1/?section=all-articles';
 
       this.http.get(`/api${currentSection}`).subscribe({
         next: (data) => {
