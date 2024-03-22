@@ -1,8 +1,11 @@
 package controllers
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
+)
 
-func GetAllArticles(c *gin.Context) {
+func GetAllArticles(c *gin.Context, db *gorm.DB) {
 	type ArticleStruct struct {
 		Title     string
 		Content   string

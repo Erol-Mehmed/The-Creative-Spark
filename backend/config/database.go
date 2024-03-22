@@ -1,11 +1,23 @@
 package config
 
 import (
-	"database/sql"
-	_ "github.com/lib/pq"
+	"creative-spark/models"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
-func ConnectDB() (*sql.DB, error) {
-	connStr := "host=localhost port=5432 user=postgres password=123456 dbname=creative_spark"
-	return sql.Open("postgres", connStr)
+func ConnectDB() (*gorm.DB, error) {
+	db, err := gorm.Open(postgres.Open("host=localhost user=postgres password=123456 dbname=creative_spark"), &gorm.Config{})
+
+	if err != nil {
+		return nil, err
+	}
+
+	autoMigrateError := db.AutoMigrate(&models.User{}, &models.Article{})
+
+	if autoMigrateError != nil {
+		return nil, autoMigrateError
+	}
+
+	return db, nil
 }

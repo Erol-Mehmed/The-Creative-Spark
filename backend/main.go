@@ -1,7 +1,16 @@
 package main
 
-import "creative-spark/routes"
+import (
+	"creative-spark/config"
+	"creative-spark/routes"
+)
 
 func main() {
-	routes.Router()
+	db, dbError := config.ConnectDB()
+
+	if dbError != nil {
+		return
+	}
+
+	routes.Router(db)
 }
