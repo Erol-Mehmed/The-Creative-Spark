@@ -31,10 +31,23 @@ export class ArticlesComponent implements OnInit, OnChanges {
   displayedArticles: any = [];
   articlesToShow: number = 10;
 
-  transformDateTimeSetDisplayedArticles() {
+  transformCurrentArticles() {
+    // @ts-ignore
+    this.currentArticles = this.currentArticles.map(obj => {
+      obj.Author = Object.fromEntries(
+          Object.entries(obj.Author).map(([k, v]) => [k.toLowerCase(), v])
+      );
+
+      return Object.fromEntries(
+        Object.entries(obj).map(([k, v]) => [k.toLowerCase(), v])
+      );
+    });
+
+    console.log(this.currentArticles)
+
     for (let i = 0; i < this.currentArticles.length; i += 1) {
-      this.currentArticles[i].article.created_at = this.datePipe.transform(
-        this.currentArticles[i].article.created_at,
+      this.currentArticles[i].createdat = this.datePipe.transform(
+        this.currentArticles[i].createdat,
         'MMM dd, yyyy'
       );
     }
@@ -70,11 +83,11 @@ export class ArticlesComponent implements OnInit, OnChanges {
           console.log(err);
         },
         complete: () => {
-          this.transformDateTimeSetDisplayedArticles();
+          this.transformCurrentArticles();
         },
       });
     } else {
-      this.transformDateTimeSetDisplayedArticles();
+      this.transformCurrentArticles();
     }
   }
 

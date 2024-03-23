@@ -27,19 +27,19 @@
         </div>
         <ng-template #showAuthorArticles>
           <p class="published-date">
-            Published on {{ articleObj.article.created_at }}
+            Published on {{ articleObj.createdat }}
           </p>
         </ng-template>
-        <div class="article-link" [routerLink]="authorArticles ? articleObj.article.slug : [articleObj.author.slug, articleObj.article.slug]">
-          <p class="title">{{ articleObj.article.title }}</p>
-          <p class="content">{{ articleObj.article.content }}</p>
+        <div class="article-link" [routerLink]="authorArticles ? articleObj.slug : [articleObj.author.slug, articleObj.slug]">
+          <p class="title">{{ articleObj.title }}</p>
+          <p class="content">{{ articleObj.content }}</p>
         </div>
         <div class="date-read-time">
-          <p class="date">{{ articleObj.article.created_at }}</p>
+          <p class="date">{{ articleObj.createdat }}</p>
           <p class="hyphen">-</p>
-          <p class="read-time">{{ articleObj.article.read_time }} min read</p>
+          <p class="read-time">{{ articleObj.readtime }} min read</p>
           <p class="hyphen">-</p>
-          <p class="badge">{{ articleObj.article.topic }}</p>
+          <p class="badge">{{ articleObj.topic }}</p>
         </div>
       </div>
 

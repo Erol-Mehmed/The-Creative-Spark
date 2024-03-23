@@ -17,7 +17,7 @@ func Router(db *gorm.DB) {
 	v1 := router.Group("/api/v1")
 	{
 		v1.GET("/", func(c *gin.Context) {
-			controllers.GetAllArticles(c, db)
+			controllers.GetArticles(c, db)
 		})
 	}
 
