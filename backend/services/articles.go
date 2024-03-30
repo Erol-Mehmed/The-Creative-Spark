@@ -1,8 +1,8 @@
 package services
 
 import (
+	"database/sql"
 	"fmt"
-	"gorm.io/gorm"
 	"time"
 )
 
@@ -19,13 +19,29 @@ type Article struct {
 	UpdatedAt time.Time
 }
 
-func GetArticlesService(db *gorm.DB) ([]Article, error) {
+func GetArticlesService(db *sql.DB) ([]Article, error) {
 	var articles []Article
 
-	result := db.Find(&articles)
+	rows, err := db.Query(`SELECT * FROM articles ORDER BY created_at DESC`)
 
-	if result.Error != nil {
-		return nil, fmt.Errorf("failed to retrieve articles: %w", result.Error)
+	if err != nil {
+		return nil, err
+	}
+
+	defer func() {
+		if err := rows.Close(); err != nil {
+			fmt.Println("Failed to close rows:", err)
+		}
+	}()
+
+	fmt.Println("rows:", rows)
+
+	for rows.Next() {
+		var article Article
+		if err := rows.Scan(&article.ID, &article.AuthorID, &article.Title, &article.Content, &article.Image, &article.ReadTime, &article.Claps, &article.Slug, &article.CreatedAt, &article.UpdatedAt); err != nil {
+			return nil, err
+		}
+		articles = append(articles, article)
 	}
 
 	return articles, nil

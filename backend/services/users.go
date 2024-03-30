@@ -1,8 +1,7 @@
 package services
 
 import (
-	"fmt"
-	"gorm.io/gorm"
+	"database/sql"
 	"time"
 )
 
@@ -18,14 +17,8 @@ type User struct {
 	UpdatedAt   time.Time
 }
 
-func GetUsersService(db *gorm.DB) ([]User, error) {
+func GetUsersService(db *sql.DB) ([]User, error) {
 	var users []User
-
-	result := db.Find(&users)
-
-	if result.Error != nil {
-		return nil, fmt.Errorf("failed to retrieve users: %w", result.Error)
-	}
 
 	return users, nil
 }

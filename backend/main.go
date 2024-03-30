@@ -3,14 +3,22 @@ package main
 import (
 	"creative-spark/config"
 	"creative-spark/routes"
+	"github.com/gofiber/fiber/v2"
+	"log"
 )
 
 func main() {
+	app := fiber.New()
+
 	db, dbError := config.ConnectDB()
 
 	if dbError != nil {
-		return
+		log.Fatalf("Failed to connect to the database: %v", dbError)
+	} else {
+		log.Println("Connected to the database")
 	}
 
-	routes.Router(db)
+	routes.Router(app, db)
+
+	_ = app.Listen(":8080")
 }
