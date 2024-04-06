@@ -2,17 +2,16 @@ package controllers
 
 import (
 	"creative-spark/services"
-	"database/sql"
-	"fmt"
 	"github.com/gofiber/fiber/v2"
+	"gorm.io/gorm"
 )
 
-func GetArticles(c *fiber.Ctx, db *sql.DB) {
-	fmt.Println(services.GetArticlesService(db))
+func GetArticles(c *fiber.Ctx, db *gorm.DB) {
+	articles, _ := services.GetArticlesService(db)
 
-	//err := c.JSON(articles)
+	err := c.JSON(articles)
 
-	//if err != nil {
-	//	return
-	//}
+	if err != nil {
+		return
+	}
 }
