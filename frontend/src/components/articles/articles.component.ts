@@ -32,30 +32,19 @@ export class ArticlesComponent implements OnInit, OnChanges {
   articlesToShow: number = 10;
 
   transformCurrentArticles() {
-    // @ts-ignore
-    this.currentArticles = this.currentArticles.map(obj => {
-      obj.Author = Object.fromEntries(
-          Object.entries(obj.Author).map(([k, v]) => [k.toLowerCase(), v])
-      );
-
-      return Object.fromEntries(
-        Object.entries(obj).map(([k, v]) => [k.toLowerCase(), v])
-      );
-    });
-
-    console.log(this.currentArticles)
-
     for (let i = 0; i < this.currentArticles.length; i += 1) {
-      this.currentArticles[i].createdat = this.datePipe.transform(
-        this.currentArticles[i].createdat,
+      this.currentArticles[i].createdAt = this.datePipe.transform(
+        this.currentArticles[i].createdAt,
         'MMM dd, yyyy'
       );
     }
 
+    console.log('articles:', this.currentArticles);
+
     if (this.authorArticles) {
       this.author.emit({
-        name: this.currentArticles[0].author.name,
-        description: this.currentArticles[0].author.description,
+        name: this.currentArticles[0].authorName,
+        description: this.currentArticles[0].authorDescription,
       });
     }
 

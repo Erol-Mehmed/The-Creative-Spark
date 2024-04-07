@@ -7,19 +7,19 @@
     <div class="row">
       <div
         class="col-4 article-wrapper"
-        *ngFor="let articleObj of mostLikedArticles.slice(0, 3); index as i"
+        *ngFor="let article of mostLikedArticles.slice(0, 3); index as i"
       >
         <p class="col-1 number">0{{ i + 1 }}</p>
         <div class="author-article-links">
           <div class="author-container">
-            <img src="../../assets/images/user-placeholder.jpg" alt="Article author image." [routerLink]="articleObj.author.slug">
-            <a class="name" [routerLink]="articleObj.author.slug">{{ articleObj.author.name }}</a>
+            <img src="../../assets/images/user-placeholder.jpg" alt="Article author image." [routerLink]="article.authorSlug">
+            <a class="name" [routerLink]="article.authorSlug">{{ article.authorName }}</a>
           </div>
-          <a class="article" [routerLink]="[articleObj.author.slug, articleObj.article.slug]">{{ articleObj.article.title }}</a>
+          <a class="article" [routerLink]="[article.authorSlug, article.slug]">{{ article.title }}</a>
           <div class="date-read-time">
-            <p class="date">{{ articleObj.article.created_at }}</p>
+            <p class="date">{{ article.createdAt }}</p>
             <p class="hyphen">-</p>
-            <p class="read-time">{{ articleObj.article.read_time }} min read</p>
+            <p class="read-time">{{ article.readTime }} min read</p>
           </div>
         </div>
       </div>
@@ -28,19 +28,19 @@
     <div class="row">
       <div
         class="col-4 article-wrapper"
-        *ngFor="let articleObj of mostLikedArticles.slice(3); index as i"
+        *ngFor="let article of mostLikedArticles.slice(3); index as i"
       >
         <p class="col-1 number">0{{ i + 4 }}</p>
         <div class="author-article-links">
           <div class="author-container">
-            <img src="../../assets/images/user-placeholder.jpg" alt="Article author image." [routerLink]="articleObj.author.slug">
-            <a class="name" [routerLink]="articleObj.author.slug">{{ articleObj.author.name }}</a>
+            <img src="../../assets/images/user-placeholder.jpg" alt="Article author image." [routerLink]="article.authorSlug">
+            <a class="name" [routerLink]="article.authorSlug">{{ article.authorName }}</a>
           </div>
-          <a class="article" [routerLink]="[articleObj.author.slug, articleObj.article.slug]">{{ articleObj.article.title }}</a>
+          <a class="article" [routerLink]="[article.authorSlug, article.slug]">{{ article.title }}</a>
           <div class="date-read-time">
-            <p class="date">{{ articleObj.article.created_at }}</p>
+            <p class="date">{{ article.createdAt }}</p>
             <p class="hyphen">-</p>
-            <p class="read-time">{{ articleObj.article.read_time }} min read</p>
+            <p class="read-time">{{ article.readTime }} min read</p>
           </div>
         </div>
       </div>

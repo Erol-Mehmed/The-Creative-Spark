@@ -22,10 +22,12 @@ export class MostLikedArticlesComponent implements OnInit {
         console.error(err);
       },
       complete: () => {
+        console.log('most liked articles:', this.mostLikedArticles);
+
         for (let i = 0; i < this.mostLikedArticles.length; i += 1) {
-          this.mostLikedArticles[i].article.created_at =
+          this.mostLikedArticles[i].createdAt =
             this.datePipe.transform(
-              this.mostLikedArticles[i].article.created_at,
+              this.mostLikedArticles[i].createdAt,
               'MMM dd, yyyy'
             );
         }

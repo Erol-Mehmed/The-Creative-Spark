@@ -19,25 +19,25 @@
           <img
             src="../../assets/images/user-placeholder.jpg"
             alt="Article author."
-            [routerLink]="articleObj.author.slug"
+            [routerLink]="articleObj.authorSlug"
           />
-          <a class="name" [routerLink]="articleObj.author.slug">{{
-            articleObj.author.name
+          <a class="name" [routerLink]="articleObj.authorSlug">{{
+            articleObj.authorName
           }}</a>
         </div>
         <ng-template #showAuthorArticles>
           <p class="published-date">
-            Published on {{ articleObj.createdat }}
+            Published on {{ articleObj.createdAt }}
           </p>
         </ng-template>
-        <div class="article-link" [routerLink]="authorArticles ? articleObj.slug : [articleObj.author.slug, articleObj.slug]">
+        <div class="article-link" [routerLink]="authorArticles ? articleObj.slug : [articleObj.authorSlug, articleObj.slug]">
           <p class="title">{{ articleObj.title }}</p>
           <p class="content">{{ articleObj.content }}</p>
         </div>
         <div class="date-read-time">
-          <p class="date">{{ articleObj.createdat }}</p>
+          <p class="date">{{ articleObj.createdAt }}</p>
           <p class="hyphen">-</p>
-          <p class="read-time">{{ articleObj.readtime }} min read</p>
+          <p class="read-time">{{ articleObj.readTime }} min read</p>
           <p class="hyphen">-</p>
           <p class="badge">{{ articleObj.topic }}</p>
         </div>

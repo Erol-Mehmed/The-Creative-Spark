@@ -10,6 +10,7 @@ type Article struct {
 	Image     string    `json:"image"`
 	ReadTime  int       `json:"read_time" gorm:"not null"`
 	Claps     int       `json:"claps"`
+	Topic     string    `json:"topic" gorm:"not null"`
 	Slug      string    `json:"slug" gorm:"not null;unique"`
 	CreatedAt time.Time `json:"created_at" gorm:"not null;autoCreateTime"`
 	UpdatedAt time.Time `json:"updated_at"`
