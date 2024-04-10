@@ -6,6 +6,16 @@ import (
 	"gorm.io/gorm"
 )
 
+func HasArticlesCheck(c *fiber.Ctx, db *gorm.DB) {
+	hasArticles, _ := services.HasArticlesCheck(db)
+
+	err := c.JSON(hasArticles)
+
+	if err != nil {
+		return
+	}
+}
+
 func GetArticles(c *fiber.Ctx, db *gorm.DB) {
 	articles, _ := services.GetArticlesService(db)
 

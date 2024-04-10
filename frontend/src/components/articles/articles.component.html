@@ -5,23 +5,24 @@
   [infiniteScrollThrottle]="50"
   (scrolled)="loadMoreArticles()"
 >
-  <div *ngIf="displayedArticles.length > 0; else noArticles">
+  <div *ngIf="displayedArticles.length > 0; else noArticles" class="articles-wrapper d-flex flex-column align-items-center">
   <div
     class="row col-12"
     *ngFor="let articleObj of displayedArticles; index as i"
   >
-    <div class="article-wrapper">
-      <div class="author-article-links col-8">
+    <div class="article-wrapper d-flex align-items-center">
+      <div class="author-article-links col-8 d-flex flex-column mt-2">
         <div
-          class="author-container"
+          class="author-container d-flex align-items-center"
           *ngIf="!authorArticles; else showAuthorArticles"
         >
           <img
             src="../../assets/images/user-placeholder.jpg"
             alt="Article author."
+            role="button"
             [routerLink]="articleObj.authorSlug"
           />
-          <a class="name" [routerLink]="articleObj.authorSlug">{{
+          <a class="name text-decoration-none" [routerLink]="articleObj.authorSlug">{{
             articleObj.authorName
           }}</a>
         </div>
@@ -30,16 +31,16 @@
             Published on {{ articleObj.createdAt }}
           </p>
         </ng-template>
-        <div class="article-link" [routerLink]="authorArticles ? articleObj.slug : [articleObj.authorSlug, articleObj.slug]">
-          <p class="title">{{ articleObj.title }}</p>
-          <p class="content">{{ articleObj.content }}</p>
+        <div class="article-link" role="button" [routerLink]="authorArticles ? articleObj.slug : [articleObj.authorSlug, articleObj.slug]">
+          <p class="title text-black fw-semibold">{{ articleObj.title }}</p>
+          <p class="content m-0 overflow-hidden">{{ articleObj.content }}</p>
         </div>
-        <div class="date-read-time">
+        <div class="date-read-time d-flex align-items-center mt-2">
           <p class="date">{{ articleObj.createdAt }}</p>
-          <p class="hyphen">-</p>
+          <p class="mx-1">-</p>
           <p class="read-time">{{ articleObj.readTime }} min read</p>
-          <p class="hyphen">-</p>
-          <p class="badge">{{ articleObj.topic }}</p>
+          <p class="mx-1">-</p>
+          <p class="badge fw-normal text-black" role="button">{{ articleObj.topic }}</p>
         </div>
       </div>
 
@@ -55,8 +56,8 @@
   </div>
   </div>
   <ng-template #noArticles>
-    <div class="no-articles">
-      <p>No articles found.</p>
+    <div class="no-articles fs-3 fw-semibold">
+      <p class="text-black my-0 mx-auto">No articles found.</p>
     </div>
   </ng-template>
 </div>

@@ -4,13 +4,17 @@ import (
 	"creative-spark/controllers"
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
+	"strconv"
 )
 
 func Router(app *fiber.App, db *gorm.DB) {
 	app.Get("/", func(c *fiber.Ctx) error {
 		section := c.Query("section")
+		hasArticles, _ := strconv.ParseBool(c.Query("hasArticles"))
 
-		if section == "all-articles" {
+		if hasArticles {
+			controllers.HasArticlesCheck(c, db)
+		} else if section == "all-articles" {
 			controllers.GetArticles(c, db)
 		} else {
 			controllers.GetMostLikedArticles(c, db)

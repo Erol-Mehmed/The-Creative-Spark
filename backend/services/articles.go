@@ -23,6 +23,18 @@ type Article struct {
 	AuthorSlug        string    `gorm:"column:author_slug" json:"authorSlug"`
 }
 
+func HasArticlesCheck(db *gorm.DB) (bool, error) {
+	var count int64
+
+	err := db.Table("articles").Count(&count).Error
+
+	if err != nil {
+		return false, err
+	}
+
+	return count > 0, nil
+}
+
 func GetArticlesService(db *gorm.DB) ([]Article, error) {
 	var articles []Article
 
