@@ -1,9 +1,9 @@
 .articles {
   .articles-wrapper {
     gap: 20px;
+
     .row {
       .article-wrapper {
-        gap: 16px;
         padding-left: 53px;
 
         .author-article-links {
@@ -36,7 +36,6 @@
 
             .title {
               font-size: 15px;
-              margin-bottom: 4px;
             }
 
             .content {
