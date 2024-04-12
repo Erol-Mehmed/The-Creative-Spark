@@ -1,23 +1,16 @@
 .most-liked {
   padding: 50px 100px 0px;
-  border-bottom: 1px solid lightgray;
 
   .heading-image {
-    display: flex;
-    align-items: flex-end;
     margin: 0 0 16px 85px;
 
     .heading {
       font-size: 14px;
-      font-weight: 500;
-      margin: 0 0 0 10px;
     }
 
     img {
       width: 19px;
       height: 19px;
-      border: 1px solid var(--main-black);
-      border-radius: 50%;
       padding-right: 2px;
     }
   }
@@ -45,11 +38,11 @@
         flex-direction: column;
         gap: 2px;
         margin-top: 8px;
-        
+
         .article {
           color: var(--main-black);
         }
-        
+
         .author-container {
           display: flex;
           align-items: center;
@@ -64,12 +57,12 @@
             color: rgb(36, 36, 36);
             font-size: 12px;
             text-decoration: none;
-  
+
             &:hover {
               color: var(--main-color-2);
               font-weight: 600;
             }
-  
+
             &:active {
               color: var(--main-color-3);
             }

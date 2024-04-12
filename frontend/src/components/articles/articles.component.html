@@ -8,7 +8,7 @@
   <div *ngIf="displayedArticles.length > 0; else noArticles" class="articles-wrapper d-flex flex-column align-items-center">
   <div
     class="row col-12"
-    *ngFor="let articleObj of displayedArticles; index as i"
+    *ngFor="let article of displayedArticles; index as i"
   >
     <div class="article-wrapper d-flex align-items-center gap-3">
       <div class="author-article-links col-8 d-flex flex-column mt-2">
@@ -20,27 +20,27 @@
             src="../../assets/images/user-placeholder.jpg"
             alt="Article author."
             role="button"
-            [routerLink]="articleObj.authorSlug"
+            [routerLink]="article.authorSlug"
           />
-          <a class="name text-decoration-none" [routerLink]="articleObj.authorSlug">{{
-            articleObj.authorName
+          <a class="name text-decoration-none" [routerLink]="article.authorSlug">{{
+            article.authorName
           }}</a>
         </div>
         <ng-template #showAuthorArticles>
-          <p class="published-date">
-            Published on {{ articleObj.createdAt }}
+          <p class="published-date m-0">
+            Published on {{ article.createdAt }}
           </p>
         </ng-template>
-        <div class="article-link" role="button" [routerLink]="authorArticles ? articleObj.slug : [articleObj.authorSlug, articleObj.slug]">
-          <p class="title text-black fw-semibold mb-1">{{ articleObj.title }}</p>
-          <p class="content m-0 overflow-hidden">{{ articleObj.content }}</p>
+        <div class="article-link" role="button" [routerLink]="authorArticles ? article.slug : [article.authorSlug, article.slug]">
+          <p class="title text-black fw-semibold mb-1">{{ article.title }}</p>
+          <p class="content m-0 overflow-hidden">{{ article.content }}</p>
         </div>
         <div class="date-read-time d-flex align-items-center mt-2">
-          <p class="date">{{ articleObj.createdAt }}</p>
+          <p class="date">{{ article.createdAt }}</p>
           <p class="mx-1">-</p>
-          <p class="read-time">{{ articleObj.readTime }} min read</p>
+          <p class="read-time">{{ article.readTime }} min read</p>
           <p class="mx-1">-</p>
-          <p class="badge fw-normal text-black" role="button">{{ articleObj.topic }}</p>
+          <p class="badge fw-normal text-black" role="button">{{ article.topic }}</p>
         </div>
       </div>
 

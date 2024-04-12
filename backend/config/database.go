@@ -13,7 +13,7 @@ func ConnectDB() (*gorm.DB, error) {
 		return nil, err
 	}
 
-	autoMigrateError := db.AutoMigrate(&models.User{}, &models.Article{})
+	autoMigrateError := db.AutoMigrate(&models.User{}, &models.Article{}, &models.Comment{})
 
 	if autoMigrateError != nil {
 		return nil, autoMigrateError

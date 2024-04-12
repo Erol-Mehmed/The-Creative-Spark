@@ -1,21 +1,38 @@
 <div class="container">
-  <div class="row header">
+  <div class="row header d-flex justify-content-center">
     <div class="col-6 title-info">
       <h1>{{article.title}}</h1>
-      <div class="author-article-info">
-        <img [src]="article.author.image" alt="Article author." [routerLink]="'/' + article.author.slug">
+      <div class="author-article-info d-flex">
+        <img class="rounded-circle" [src]="article.author.image" alt="Article author." role="button" [routerLink]="'/' + article.author.slug">
         <div class="info">
-          <a class="author-name" [routerLink]="'/' + article.author.slug">
+          <a class="author-name text-decoration-none" [routerLink]="'/' + article.author.slug">
             {{article.author.name}}
           </a>
-          <div class="date-read-time">
+          <div class="date-read-time d-flex align-items-center">
           <p class="date">{{ article.created_at }}</p>
-          <p class="hyphen">-</p>
+          <p class="mx-1">-</p>
           <p class="read-time">{{ article.readTime }} min read</p>
         </div>
         </div>
         </div>
-        <div class="claps-comments-topics">
+        <div class="claps-comments-topics d-flex justify-content-between align-items-center">
+          <div class="d-flex gap-4">
+            <div class="d-flex gap-1">
+              <img src="../../assets/svg/clap.svg" alt="Two hands clapping icon.">
+              <p>
+                {{ article.claps }}
+              </p>
+            </div>
+            <div class="d-flex gap-1">
+            <img src="../../assets/svg/comment.svg" alt="Comments icon.">
+              <p>
+                {{ article.claps }}
+              </p>
+            </div>
+          </div>
+          <div class="">
+            <img src="../../assets/svg/bookmark.svg" alt="Add bookmark icon.">
+          </div>
         </div>
     </div>
   </div>

@@ -14,7 +14,6 @@
 
             .published-date {
               font-size: 14px;
-              margin: 0;
             }
 
             .article-link {
@@ -28,12 +27,7 @@
             .date-read-time {
               flex-direction: row-reverse;
               justify-content: start;
-              gap: 8px;
-
-              .date,
-              .hyphen {
-                display: none;
-              }
+              gap: 4px;
             }
           }
         }
