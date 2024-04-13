@@ -18,39 +18,27 @@ export class ArticleComponent implements OnInit {
   ) {
   }
 
-  article: Article = {
-      title: 'How to build Angular apps',
-      content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
-      topic: 'technology',
-      image: 'https://via.placeholder.com/150',
-      claps: 14,
-      readTime: 5,
-      created_at: 'Mar 16, 2024',
-      author: {
-        name: 'Erol Mehmed',
-        image: 'https://via.placeholder.com/150',
-        slug: 'erol-mehmed',
-      },
-    }
+  // @ts-ignore
+  article: Article;
 
   ngOnInit() {
-  const slugs = {
-    authorSlug: '',
-    articleSlug: '',
-  };
+    let authorSlug = '';
+    let articleSlug = '';
 
   this.route.url.subscribe((data) => {
-    [slugs.authorSlug, slugs.articleSlug] = data.map((x) => x.path);
+    [authorSlug, articleSlug] = data.map((x) => x.path);
   });
 
-    this.http.get(`/api/article-details?article=${slugs}`).subscribe({
+    this.http.get(`/api/article-details/?authorSlug=${authorSlug}&articleSlug=${articleSlug}`).subscribe({
       next: (data) => {
-        console.log(data);
+        // @ts-ignore
+        this.article = data;
       },
       error: (err) => {
         console.log(err);
       },
       complete: () => {
+        console.log('complete:', this.article);
       },
     });
   }

@@ -23,7 +23,7 @@ type Article struct {
 	AuthorSlug        string    `gorm:"column:author_slug" json:"authorSlug"`
 }
 
-func HasArticlesCheck(db *gorm.DB) (bool, error) {
+func DoesArticleTableHaveEntries(db *gorm.DB) (bool, error) {
 	var count int64
 
 	err := db.Table("articles").Count(&count).Error
@@ -35,7 +35,7 @@ func HasArticlesCheck(db *gorm.DB) (bool, error) {
 	return count > 0, nil
 }
 
-func GetArticlesService(db *gorm.DB) ([]Article, error) {
+func GetArticles(db *gorm.DB) ([]Article, error) {
 	var articles []Article
 
 	err := db.Raw(`
@@ -52,6 +52,25 @@ func GetArticlesService(db *gorm.DB) ([]Article, error) {
 	`).Scan(&articles).Error
 
 	return articles, err
+}
+
+func GetArticle(db *gorm.DB, authorSlug string, articleSlug string) (Article, error) {
+	var article Article
+
+	err := db.Raw(`
+		SELECT
+			articles.*,
+			users.name AS author_name,
+			users.image AS author_image
+		FROM
+		    articles
+		JOIN
+			users ON articles.author_id = users.id
+		WHERE
+			users.slug = ? AND articles.slug = ?
+	`, authorSlug, articleSlug).Scan(&article).Error
+
+	return article, err
 }
 
 func GetMostLikedArticles(db *gorm.DB) ([]Article, error) {

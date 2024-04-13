@@ -13,7 +13,7 @@ func Router(app *fiber.App, db *gorm.DB) {
 		hasArticles, _ := strconv.ParseBool(c.Query("hasArticles"))
 
 		if hasArticles {
-			controllers.HasArticlesCheck(c, db)
+			controllers.DoesArticleTableHaveEntries(c, db)
 		} else if section == "all-articles" {
 			controllers.GetArticles(c, db)
 		} else {
@@ -23,9 +23,19 @@ func Router(app *fiber.App, db *gorm.DB) {
 		return nil
 	})
 
-	app.Get("/:slug", func(c *fiber.Ctx) error {
-		slug := c.Params("slug")
-		controllers.GetAuthorArticles(c, db, slug)
+	app.Get("/author", func(c *fiber.Ctx) error {
+		author := c.Query("author")
+		controllers.GetAuthorArticles(c, db, author)
+
+		return nil
+	})
+
+	app.Get("/article-details", func(c *fiber.Ctx) error {
+		author := c.Query("authorSlug")
+		article := c.Query("articleSlug")
+
+		controllers.GetArticle(c, db, author, article)
+
 		return nil
 	})
 }

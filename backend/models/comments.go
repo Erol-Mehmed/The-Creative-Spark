@@ -7,6 +7,7 @@ type Comment struct {
 	Author    string    `json:"author" gorm:"not null"`
 	Content   string    `json:"content" gorm:"not null"`
 	Claps     int       `json:"claps"`
+	Replies   int       `json:"replies"`
 	CreatedAt time.Time `json:"created_at" gorm:"not null;autoCreateTime"`
 	UpdatedAt time.Time `json:"updated_at"`
 }

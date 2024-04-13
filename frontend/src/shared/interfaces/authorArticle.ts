@@ -10,12 +10,10 @@ interface Article {
   image: string;
   claps: number;
   readTime: number;
-  created_at: string;
-  author:{
-    name: string;
-    image: string;
-    slug: string;
-  }
+  createdAt: string;
+  authorName: string;
+  authorImage: string;
+  authorSlug: string;
 }
 
 export { Author, Article };

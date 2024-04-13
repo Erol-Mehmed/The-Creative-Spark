@@ -21,6 +21,7 @@ import { AuthorComponent } from '../components/author/author.component';
 import { HeroSectionComponent } from 'src/components/hero-section/hero-section.component';
 import { ArticleComponent } from 'src/components/article/article.component';
 import {NgOptimizedImage} from "@angular/common";
+import { FormatDatePipe } from './shared/pipes/format-date.pipe';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import {NgOptimizedImage} from "@angular/common";
     AuthorComponent,
     HeroSectionComponent,
     ArticleComponent,
+    FormatDatePipe,
   ],
     imports: [
         BrowserModule,

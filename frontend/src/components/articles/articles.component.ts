@@ -17,7 +17,7 @@ import { Author } from '../../shared/interfaces/authorArticle';
   styleUrls: ['./articles.component.scss'],
   providers: [DatePipe],
 })
-export class ArticlesComponent implements OnInit, OnChanges {
+export class ArticlesComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private datePipe: DatePipe,
@@ -58,33 +58,25 @@ export class ArticlesComponent implements OnInit, OnChanges {
     );
   }
 
-  getSetArticles() {
-    if (this.currentArticles.length === 0) {
-      const currentSection = this.authorArticles
-        ? `/${this.route.snapshot.params['slug']}`
-        : '/?section=all-articles';
+  getArticles() {
+    const currentSection = this.authorArticles
+      ? `/author/?author=${this.route.snapshot.params['slug']}`
+      : '/?section=all-articles';
 
-      this.http.get(`/api${currentSection}`).subscribe({
-        next: (data) => {
-          this.currentArticles = data;
-        },
-        error: (err) => {
-          console.log(err);
-        },
-        complete: () => {
-          this.transformCurrentArticles();
-        },
-      });
-    } else {
-      this.transformCurrentArticles();
-    }
+    this.http.get(`/api${currentSection}`).subscribe({
+      next: (data) => {
+        this.currentArticles = data;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+      complete: () => {
+        this.transformCurrentArticles();
+      },
+    });
   }
 
   ngOnInit(): void {
-    this.getSetArticles();
-  }
-
-  ngOnChanges(): void {
-    this.getSetArticles();
+    this.getArticles();
   }
 }

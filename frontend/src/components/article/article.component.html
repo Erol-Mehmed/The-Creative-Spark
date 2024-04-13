@@ -3,13 +3,13 @@
     <div class="col-6 title-info">
       <h1>{{article.title}}</h1>
       <div class="author-article-info d-flex">
-        <img class="rounded-circle" [src]="article.author.image" alt="Article author." role="button" [routerLink]="'/' + article.author.slug">
+        <img class="rounded-circle" [src]="article.authorImage" alt="Article author." role="button" [routerLink]="'/' + article.authorSlug">
         <div class="info">
-          <a class="author-name text-decoration-none" [routerLink]="'/' + article.author.slug">
-            {{article.author.name}}
+          <a class="author-name text-decoration-none" [routerLink]="'/' + article.authorSlug">
+            {{article.authorName}}
           </a>
           <div class="date-read-time d-flex align-items-center">
-          <p class="date">{{ article.created_at }}</p>
+          <p class="date">{{ article.createdAt }}</p>
           <p class="mx-1">-</p>
           <p class="read-time">{{ article.readTime }} min read</p>
         </div>
