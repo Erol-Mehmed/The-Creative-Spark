@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Author } from '../../shared/interfaces/authorArticle';
+import Author from '../../shared/interfaces/author';
 
 @Component({
   selector: 'app-author',

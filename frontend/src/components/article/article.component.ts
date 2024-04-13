@@ -1,25 +1,34 @@
 import {Component, OnInit} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from "@angular/router";
-import { Article } from "../../shared/interfaces/authorArticle";
+import {FormatDatePipe} from "../../shared/pipes/format-date.pipe";
 
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.scss'],
-  providers: [DatePipe],
+  providers: [FormatDatePipe],
 })
 export class ArticleComponent implements OnInit {
   constructor(
     private http: HttpClient,
-    private datePipe: DatePipe,
+    private formatDatePipe: FormatDatePipe,
     private route: ActivatedRoute
   ) {
   }
 
-  // @ts-ignore
-  article: Article;
+  article: any = {
+    title: '',
+    content: '',
+    topic: '',
+    image: '',
+    claps: 0,
+    readTime: 0,
+    createdAt: '',
+    authorName: '',
+    authorImage: '',
+    authorSlug: '',
+  };
 
   ngOnInit() {
     let authorSlug = '';
@@ -31,14 +40,13 @@ export class ArticleComponent implements OnInit {
 
     this.http.get(`/api/article-details/?authorSlug=${authorSlug}&articleSlug=${articleSlug}`).subscribe({
       next: (data) => {
-        // @ts-ignore
         this.article = data;
       },
       error: (err) => {
         console.log(err);
       },
       complete: () => {
-        console.log('complete:', this.article);
+        console.log('completed:', this.article);
       },
     });
   }

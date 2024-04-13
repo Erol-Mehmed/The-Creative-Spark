@@ -1,26 +1,25 @@
 import {
   Component,
   OnInit,
-  OnChanges,
   Input,
   Output,
   EventEmitter,
 } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { Author } from '../../shared/interfaces/authorArticle';
+import Author from '../../shared/interfaces/author';
+import { FormatDatePipe } from "../../shared/pipes/format-date.pipe";
 
 @Component({
   selector: 'app-articles',
   templateUrl: './articles.component.html',
   styleUrls: ['./articles.component.scss'],
-  providers: [DatePipe],
+  providers: [FormatDatePipe],
 })
 export class ArticlesComponent implements OnInit {
   constructor(
     private http: HttpClient,
-    private datePipe: DatePipe,
+    private formatDatePipe: FormatDatePipe,
     private route: ActivatedRoute
   ) {}
 
@@ -32,13 +31,6 @@ export class ArticlesComponent implements OnInit {
   articlesToShow: number = 10;
 
   transformCurrentArticles() {
-    for (let i = 0; i < this.currentArticles.length; i += 1) {
-      this.currentArticles[i].createdAt = this.datePipe.transform(
-        this.currentArticles[i].createdAt,
-        'MMM dd, yyyy'
-      );
-    }
-
     console.log('articles:', this.currentArticles);
 
     if (this.authorArticles) {

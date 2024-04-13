@@ -49,6 +49,8 @@ func GetArticles(db *gorm.DB) ([]Article, error) {
 		    articles
 		JOIN
 			users ON articles.author_id = users.id
+		ORDER BY
+		    articles.created_at DESC
 	`).Scan(&articles).Error
 
 	return articles, err

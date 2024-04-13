@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { DatePipe } from '@angular/common';
+import {FormatDatePipe} from "../../shared/pipes/format-date.pipe";
 
 @Component({
   selector: 'app-most-liked-articles',
   templateUrl: './most-liked-articles.component.html',
   styleUrls: ['./most-liked-articles.component.scss'],
-  providers: [DatePipe],
+  providers: [FormatDatePipe],
 })
 export class MostLikedArticlesComponent implements OnInit {
-  constructor(private http: HttpClient, private datePipe: DatePipe) {}
+  constructor(private http: HttpClient, private formatDatePipe: FormatDatePipe) {}
 
   mostLikedArticles: any = [];
 
@@ -23,14 +23,6 @@ export class MostLikedArticlesComponent implements OnInit {
       },
       complete: () => {
         console.log('most liked articles:', this.mostLikedArticles);
-
-        for (let i = 0; i < this.mostLikedArticles.length; i += 1) {
-          this.mostLikedArticles[i].createdAt =
-            this.datePipe.transform(
-              this.mostLikedArticles[i].createdAt,
-              'MMM dd, yyyy'
-            );
-        }
       },
     });
   }

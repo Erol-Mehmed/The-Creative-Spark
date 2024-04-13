@@ -20,8 +20,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { AuthorComponent } from '../components/author/author.component';
 import { HeroSectionComponent } from 'src/components/hero-section/hero-section.component';
 import { ArticleComponent } from 'src/components/article/article.component';
-import {NgOptimizedImage} from "@angular/common";
-import { FormatDatePipe } from './shared/pipes/format-date.pipe';
+import { NgOptimizedImage } from "@angular/common";
+import { SharedModule } from 'src/shared/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -35,7 +35,6 @@ import { FormatDatePipe } from './shared/pipes/format-date.pipe';
     AuthorComponent,
     HeroSectionComponent,
     ArticleComponent,
-    FormatDatePipe,
   ],
     imports: [
         BrowserModule,
@@ -48,6 +47,7 @@ import { FormatDatePipe } from './shared/pipes/format-date.pipe';
         NgbModule,
         InfiniteScrollModule,
         NgOptimizedImage,
+        SharedModule,
     ],
   bootstrap: [AppComponent]
 })

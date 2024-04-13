@@ -28,7 +28,7 @@
         </div>
         <ng-template #showAuthorArticles>
           <p class="published-date m-0">
-            Published on {{ article.createdAt }}
+            Published on {{ article.createdAt | formatDate }}
           </p>
         </ng-template>
         <div class="article-link" role="button" [routerLink]="authorArticles ? article.slug : [article.authorSlug, article.slug]">
@@ -36,7 +36,7 @@
           <p class="content m-0 overflow-hidden">{{ article.content }}</p>
         </div>
         <div class="date-read-time d-flex align-items-center mt-2">
-          <p class="date">{{ article.createdAt }}</p>
+          <p class="date">{{ article.createdAt | formatDate }}</p>
           <p class="mx-1">-</p>
           <p class="read-time">{{ article.readTime }} min read</p>
           <p class="mx-1">-</p>

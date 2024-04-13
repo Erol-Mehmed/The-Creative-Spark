@@ -8,10 +8,7 @@ export class FormatDatePipe implements PipeTransform {
 
   constructor(private datePipe: DatePipe) {}
 
-  transform(articles: any[]): any[] {
-    return articles.map(article => {
-      article.createdAt = this.datePipe.transform(article.createdAt, 'MMM dd, yyyy');
-      return article;
-    });
+  transform(date: string): string  {
+    return <string>this.datePipe.transform(date, 'MMM dd, yyyy');
   }
 }

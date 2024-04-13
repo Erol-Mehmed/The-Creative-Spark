@@ -9,7 +9,7 @@
             {{article.authorName}}
           </a>
           <div class="date-read-time d-flex align-items-center">
-          <p class="date">{{ article.createdAt }}</p>
+          <p class="date">{{ article.createdAt | formatDate }}</p>
           <p class="mx-1">-</p>
           <p class="read-time">{{ article.readTime }} min read</p>
         </div>
