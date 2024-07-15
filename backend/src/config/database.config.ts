@@ -1,8 +1,17 @@
-import * as process from "node:process";
+import { ConfigService } from '@nestjs/config';
+import { Injectable } from '@nestjs/common';
 
-export const databaseConfig = {
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
+@Injectable()
+export class DatabaseConfigService {
+  constructor(private configService: ConfigService) {}
+
+  get databaseConfig() {
+    return {
+      host: this.configService.get<string>('DB_HOST'),
+      port: this.configService.get<number>('DB_PORT'),
+      username: this.configService.get<string>('DB_USER'),
+      password: this.configService.get<string>('DB_PASSWORD'),
+      database: this.configService.get<string>('DB_NAME'),
+    };
+  }
 }
