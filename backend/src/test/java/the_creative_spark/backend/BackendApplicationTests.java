@@ -1,4 +1,4 @@
-package erol.backend;
+package the_creative_spark.backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

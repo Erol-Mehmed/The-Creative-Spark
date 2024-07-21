@@ -4,7 +4,7 @@ plugins {
     id("io.spring.dependency-management") version "1.1.6"
 }
 
-group = "erol"
+group = "the_creative_spark"
 version = "0.0.1-SNAPSHOT"
 
 java {
