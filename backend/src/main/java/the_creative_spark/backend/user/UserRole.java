@@ -1,6 +1,7 @@
 package the_creative_spark.backend.user;
 
 public class UserRole {
+
     // ADMIN: For administrative users who have full access to the system.
     public static final String ADMIN = "ADMIN";
 

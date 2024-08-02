@@ -4,20 +4,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Column;
-import jakarta.persistence.OneToMany;
-import the_creative_spark.backend.article.ArticleModel;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Table(name = "users")
 public class UserModel {
+
     @Id
     @Column(name = "id", nullable = false, unique = true)
     private String id;
-
-    @OneToMany(mappedBy = "author")
-    private List<ArticleModel> articles;
 
     @Column(name = "name", nullable = false, length = 100)
     private String name;
@@ -115,10 +110,5 @@ public class UserModel {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    // articles---------------------
-    public List<ArticleModel> getArticles() {
-        return articles;
     }
 }
