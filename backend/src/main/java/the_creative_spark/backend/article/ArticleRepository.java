@@ -8,4 +8,5 @@ import java.util.List;
 public interface ArticleRepository extends JpaRepository<ArticleModel, String> {
 
     List<ArticleModel> findAllByOrderByCreatedAtDesc();
+    List<ArticleModel> findAllByOrderByClapsDesc();
 }

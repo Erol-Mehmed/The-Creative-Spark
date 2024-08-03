@@ -58,6 +58,8 @@ export class ArticlesComponent implements OnInit {
     this.http.get(`/api${currentSection}`).subscribe({
       next: (data) => {
         this.currentArticles = data;
+
+        console.log('current articles:', this.currentArticles);
       },
       error: (err) => {
         console.log(err);

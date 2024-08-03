@@ -41,6 +41,7 @@ export class ArticleComponent implements OnInit {
     this.http.get(`/api/article-details/?authorSlug=${authorSlug}&articleSlug=${articleSlug}`).subscribe({
       next: (data) => {
         this.article = data;
+        console.log('article:', this.article);
       },
       error: (err) => {
         console.log(err);

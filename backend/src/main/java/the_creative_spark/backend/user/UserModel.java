@@ -23,8 +23,14 @@ public class UserModel {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "role", nullable = false, length = 50)
+    @Column(name = "role", nullable = false, length = 1)
     private String role;
+
+    @Column(name = "image")
+    private String image;
+
+    @Column(name = "slug", nullable = false)
+    private String slug;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
@@ -37,12 +43,14 @@ public class UserModel {
     }
 
     // Constructor to initialize all fields
-    public UserModel(String id, String name, String email, String password, String role, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public UserModel(String id, String name, String email, String password, String role, String image, String slug, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.image = image;
+        this.slug = slug;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -92,6 +100,24 @@ public class UserModel {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    // image---------------------
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    // slug---------------------
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
     }
 
     // created at---------------------

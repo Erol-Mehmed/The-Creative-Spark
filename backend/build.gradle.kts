@@ -27,6 +27,11 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
+// Enable Java 8+ parameter names at runtime
+tasks.withType<JavaCompile> {
+    options.compilerArgs.add("-parameters")
+}
+
 tasks.withType<Test> {
     useJUnitPlatform()
 }

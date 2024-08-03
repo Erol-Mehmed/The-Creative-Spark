@@ -31,6 +31,18 @@ public class ArticleModel {
     @Column(name = "topic", nullable = false)
     private String topic;
 
+    @Column(name = "image", nullable = false)
+    private String image;
+
+    @Column(name = "read_time", nullable = false)
+    private int readTime;
+
+    @Column(name = "claps", columnDefinition = "integer default 0", nullable = false)
+    private int claps;
+
+    @Column(name = "slug", nullable = false)
+    private String slug;
+
     @Column(name = "published", nullable = false)
     private boolean published;
 
@@ -45,12 +57,16 @@ public class ArticleModel {
     }
 
     // Constructor to initialize all fields
-    public ArticleModel(String id, UserModel author, String title, String content, String topic, boolean published, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public ArticleModel(String id, UserModel author, String title, String content, String topic, String image, Integer readTime, Integer claps, String slug, boolean published, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.author = author;
         this.title = title;
         this.content = content;
         this.topic = topic;
+        this.image = image;
+        this.readTime = readTime;
+        this.claps = claps;
+        this.slug = slug;
         this.published = published;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -69,6 +85,8 @@ public class ArticleModel {
 
     // authorId---------------------
     public UserModel getAuthor() {
+        System.out.println("---------------user model>>>" + author);
+
         return author;
     }
 
@@ -97,6 +115,42 @@ public class ArticleModel {
 
     public void setTopic(String topic) {
         this.topic = topic;
+    }
+
+    // image---------------------
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    // readTime---------------------
+    public int getReadTime() {
+        return readTime;
+    }
+
+    public void setReadTime(int readTime) {
+        this.readTime = readTime;
+    }
+
+    // claps---------------------
+    public int getClaps() {
+        return claps;
+    }
+
+    public void setClaps(int claps) {
+        this.claps = claps;
+    }
+
+    // slug---------------------
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
     }
 
     // published---------------------
