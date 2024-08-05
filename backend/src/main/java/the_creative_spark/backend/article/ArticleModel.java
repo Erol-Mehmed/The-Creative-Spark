@@ -5,7 +5,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Column;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.ForeignKey;
 import jakarta.persistence.JoinColumn;
 import the_creative_spark.backend.user.UserModel;
 import java.time.LocalDateTime;
@@ -19,7 +18,7 @@ public class ArticleModel {
     private String id;
 
     @ManyToOne
-    @JoinColumn(name = "author_id", nullable = false, foreignKey = @ForeignKey(name = "FK_AUTHOR_ID"))
+    @JoinColumn(name = "author_id", nullable = false)
     private UserModel author;
 
     @Column(name = "title", nullable = false, length = 100)

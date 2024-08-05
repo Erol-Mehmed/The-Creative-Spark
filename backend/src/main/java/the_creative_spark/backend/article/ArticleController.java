@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/")
@@ -21,17 +22,24 @@ public class ArticleController {
     }
 
     @GetMapping
-    public List<ArticleModel> getAllArticles(@RequestParam(required = false) String section) {
+    public List<ArticleResponse> getAllArticles(@RequestParam(required = false) String section) {
         String allOrMostLikedArticles = "all-articles".equals(section) ? "all" : "most-liked";
         List<ArticleModel> articles = articleService.getAllArticles(allOrMostLikedArticles);
 
-        System.out.println("---------------test1>>>" + allOrMostLikedArticles + articles);
-
-        for (ArticleModel article : articles) {
-            System.out.println("---------------test2>>>" + article.getAuthor().getSlug() + article.getAuthor().getName());
-        }
-
-        return articleService.getAllArticles(allOrMostLikedArticles);
+        return articles.stream().map(article -> {
+            ArticleResponse response = new ArticleResponse();
+            response.setId(article.getId());
+            response.setTitle(article.getTitle());
+            response.setContent(article.getContent());
+            response.setCreatedAt(article.getCreatedAt());
+            response.setClaps(article.getClaps());
+            response.setReadTime(article.getReadTime());
+            response.setTopic(article.getTopic());
+            response.setSlug(article.getSlug());
+            response.setAuthorName(article.getAuthor().getName());
+            response.setAuthorSlug(article.getAuthor().getSlug());
+            return response;
+        }).collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
