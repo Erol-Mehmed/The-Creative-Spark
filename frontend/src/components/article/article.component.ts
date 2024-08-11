@@ -31,17 +31,18 @@ export class ArticleComponent implements OnInit {
   };
 
   ngOnInit() {
-    let authorSlug = '';
     let articleSlug = '';
 
   this.route.url.subscribe((data) => {
-    [authorSlug, articleSlug] = data.map((x) => x.path);
+    [ ,articleSlug] = data.map((x) => x.path);
   });
 
-    this.http.get(`/api/article-details/?authorSlug=${authorSlug}&articleSlug=${articleSlug}`).subscribe({
+    console.log('articleSlug:', articleSlug, this.route.url);
+
+    this.http.get(`/api/article-details/?slug=${articleSlug}`).subscribe({
       next: (data) => {
         this.article = data;
-        console.log('article:', this.article);
+        console.log('article>>', this.article);
       },
       error: (err) => {
         console.log(err);

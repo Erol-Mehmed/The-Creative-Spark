@@ -8,6 +8,7 @@ public class ArticleResponse {
     private String title;
     private String content;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
     private String topic;
     private int claps;
     private int readTime;
@@ -51,6 +52,15 @@ public class ArticleResponse {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    // updatedAt---------------------
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     // claps---------------------

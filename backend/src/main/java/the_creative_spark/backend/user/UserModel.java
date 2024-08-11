@@ -29,7 +29,7 @@ public class UserModel {
     @Column(name = "image")
     private String image;
 
-    @Column(name = "slug", nullable = false)
+    @Column(name = "slug", unique = true, nullable = false)
     private String slug;
 
     @Column(name = "created_at", nullable = false)

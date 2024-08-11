@@ -15,6 +15,10 @@ public class ArticleService {
         this.articleRepository = articleRepository;
     }
 
+    public Boolean hasArticles() {
+        return articleRepository.count() > 0;
+    }
+
     public List<ArticleModel> getAllArticles(String allOrMostLikedArticles) {
         if ("all".equals(allOrMostLikedArticles)) {
             return articleRepository.findAllByOrderByCreatedAtDesc();
@@ -25,8 +29,7 @@ public class ArticleService {
         return null;
     }
 
-    public ArticleModel getArticleById(String id) {
-        // Dummy implementation
-        return new ArticleModel();
+    public ArticleModel getArticleBySlug(String slug) {
+        return articleRepository.findBySlug(slug);
     }
 }

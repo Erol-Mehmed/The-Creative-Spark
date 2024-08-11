@@ -39,7 +39,7 @@ public class ArticleModel {
     @Column(name = "claps", columnDefinition = "integer default 0", nullable = false)
     private int claps;
 
-    @Column(name = "slug", nullable = false)
+    @Column(name = "slug", unique = true, nullable = false)
     private String slug;
 
     @Column(name = "published", nullable = false)
@@ -84,8 +84,6 @@ public class ArticleModel {
 
     // authorId---------------------
     public UserModel getAuthor() {
-        System.out.println("---------------user model>>>" + author);
-
         return author;
     }
 

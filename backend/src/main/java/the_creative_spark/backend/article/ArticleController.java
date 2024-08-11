@@ -2,7 +2,6 @@ package the_creative_spark.backend.article;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,7 +21,24 @@ public class ArticleController {
     }
 
     @GetMapping
-    public List<ArticleResponse> getAllArticles(@RequestParam(required = false) String section) {
+    public Object handleHomePageRequests(
+            @RequestParam(name = "has-articles", required = false) String hasArticles,
+            @RequestParam(name = "section", required = false) String section) {
+
+        if (hasArticles != null) {
+            return hasArticles(hasArticles);
+        } else if (section != null) {
+            return getAllArticles(section);
+        } else {
+            return "Invalid request";
+        }
+    }
+
+    private Boolean hasArticles(String hasArticles) {
+        return articleService.hasArticles();
+    }
+
+    private List<ArticleResponse> getAllArticles(String section) {
         String allOrMostLikedArticles = "all-articles".equals(section) ? "all" : "most-liked";
         List<ArticleModel> articles = articleService.getAllArticles(allOrMostLikedArticles);
 
@@ -32,6 +48,7 @@ public class ArticleController {
             response.setTitle(article.getTitle());
             response.setContent(article.getContent());
             response.setCreatedAt(article.getCreatedAt());
+            response.setUpdatedAt(article.getUpdatedAt());
             response.setClaps(article.getClaps());
             response.setReadTime(article.getReadTime());
             response.setTopic(article.getTopic());
@@ -42,8 +59,23 @@ public class ArticleController {
         }).collect(Collectors.toList());
     }
 
-    @GetMapping("/{id}")
-    public ArticleModel getArticleById(@PathVariable String id) {
-        return articleService.getArticleById(id);
+    @GetMapping("/article-details")
+    public ArticleResponse getArticleBySlug(@RequestParam(name = "slug") String slug) {
+
+        ArticleModel article = articleService.getArticleBySlug(slug);
+
+        System.out.println("-----------------------slug: " + slug + " article: " + article);
+
+        ArticleResponse response = new ArticleResponse();
+        response.setTitle(article.getTitle());
+        response.setContent(article.getContent());
+        response.setCreatedAt(article.getCreatedAt());
+        response.setUpdatedAt(article.getUpdatedAt());
+        response.setClaps(article.getClaps());
+        response.setReadTime(article.getReadTime());
+        response.setTopic(article.getTopic());
+        response.setAuthorName(article.getAuthor().getName());
+        response.setAuthorSlug(article.getAuthor().getSlug());
+        return response;
     }
 }
