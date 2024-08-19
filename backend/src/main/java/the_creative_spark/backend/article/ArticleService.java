@@ -30,6 +30,8 @@ public class ArticleService {
     }
 
     public ArticleModel getArticleBySlug(String slug) {
+        System.out.println("-----------------------service>>" + slug);
+
         return articleRepository.findBySlug(slug);
     }
 }

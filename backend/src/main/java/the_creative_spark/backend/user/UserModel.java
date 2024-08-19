@@ -26,6 +26,9 @@ public class UserModel {
     @Column(name = "role", nullable = false, length = 1)
     private String role;
 
+    @Column(name = "description")
+    private String description;
+
     @Column(name = "image")
     private String image;
 
@@ -43,12 +46,13 @@ public class UserModel {
     }
 
     // Constructor to initialize all fields
-    public UserModel(String id, String name, String email, String password, String role, String image, String slug, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public UserModel(String id, String name, String email, String password, String role, String description, String image, String slug, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.description = description;
         this.image = image;
         this.slug = slug;
         this.createdAt = createdAt;
@@ -100,6 +104,15 @@ public class UserModel {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    // description---------------------
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     // image---------------------

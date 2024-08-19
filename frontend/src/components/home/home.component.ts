@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit{
   ngOnInit() {
     window.scrollTo(0, 0);
 
-    this.http.get('/api/?has-articles=1').subscribe((boolean: any) => {
+    this.http.get('/api/articles?has-articles=1').subscribe((boolean: any) => {
       this.hasArticles = boolean;
     });
   }

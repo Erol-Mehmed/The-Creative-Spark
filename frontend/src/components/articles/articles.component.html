@@ -17,7 +17,7 @@
           *ngIf="!authorArticles; else showAuthorArticles"
         >
           <img
-            src="../../assets/images/user-placeholder.jpg"
+            [src]="article.authorImage ? article.authorImage : '../../assets/images/user-placeholder.jpg'"
             alt="Article author."
             role="button"
             [routerLink]="article.authorSlug"
@@ -45,9 +45,9 @@
       </div>
 
       <div class="article-image">
-        <a routerLink="">
+        <a [routerLink]="[article.authorSlug, article.slug]">
           <img
-            src="../../assets/images/article-placeholder.jpg"
+            [src]="article.image ? article.image : '../../assets/images/article-placeholder.jpg'"
             alt="Article."
           />
         </a>

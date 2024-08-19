@@ -14,7 +14,7 @@ export class MostLikedArticlesComponent implements OnInit {
   mostLikedArticles: any = [];
 
   ngOnInit(): void {
-    this.http.get('/api/?section=most-liked-articles').subscribe({
+    this.http.get('/api/articles?section=most-liked-articles').subscribe({
       next: (data) => {
         this.mostLikedArticles = data;
       },

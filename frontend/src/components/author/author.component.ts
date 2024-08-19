@@ -11,6 +11,7 @@ export class AuthorComponent implements OnInit {
   author: Author = {
     name: '',
     description: '',
+    image: '',
   };
 
   ngOnInit() {

@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/articles")
 public class ArticleController {
 
     private final ArticleService articleService;
@@ -26,7 +26,7 @@ public class ArticleController {
             @RequestParam(name = "section", required = false) String section) {
 
         if (hasArticles != null) {
-            return hasArticles(hasArticles);
+            return hasArticles();
         } else if (section != null) {
             return getAllArticles(section);
         } else {
@@ -34,7 +34,7 @@ public class ArticleController {
         }
     }
 
-    private Boolean hasArticles(String hasArticles) {
+    private Boolean hasArticles() {
         return articleService.hasArticles();
     }
 
@@ -52,9 +52,11 @@ public class ArticleController {
             response.setClaps(article.getClaps());
             response.setReadTime(article.getReadTime());
             response.setTopic(article.getTopic());
+            response.setImage(article.getImage());
             response.setSlug(article.getSlug());
             response.setAuthorName(article.getAuthor().getName());
             response.setAuthorSlug(article.getAuthor().getSlug());
+            response.setAuthorImage(article.getAuthor().getImage());
             return response;
         }).collect(Collectors.toList());
     }
@@ -64,8 +66,6 @@ public class ArticleController {
 
         ArticleModel article = articleService.getArticleBySlug(slug);
 
-        System.out.println("-----------------------slug: " + slug + " article: " + article);
-
         ArticleResponse response = new ArticleResponse();
         response.setTitle(article.getTitle());
         response.setContent(article.getContent());
@@ -74,8 +74,10 @@ public class ArticleController {
         response.setClaps(article.getClaps());
         response.setReadTime(article.getReadTime());
         response.setTopic(article.getTopic());
+        response.setImage(article.getImage());
         response.setAuthorName(article.getAuthor().getName());
         response.setAuthorSlug(article.getAuthor().getSlug());
+        response.setAuthorImage(article.getAuthor().getImage());
         return response;
     }
 }

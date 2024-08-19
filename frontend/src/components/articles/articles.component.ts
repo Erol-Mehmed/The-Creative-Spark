@@ -26,40 +26,49 @@ export class ArticlesComponent implements OnInit {
   @Input() authorArticles: boolean = false;
   @Output() author = new EventEmitter<Author>();
 
-  currentArticles: any = [];
+  currentData: any;
   displayedArticles: any = [];
   articlesToShow: number = 10;
 
   transformCurrentArticles() {
-    console.log('articles:', this.currentArticles);
+    console.log('authorArticles>>', this.authorArticles);
 
     if (this.authorArticles) {
+      const author = this.currentData.author;
+
       this.author.emit({
-        name: this.currentArticles[0].authorName,
-        description: this.currentArticles[0].authorDescription,
+        name: author.name,
+        description: author.description,
+        image: author.image,
       });
+
+      this.currentData = this.currentData.articles;
     }
 
-    this.displayedArticles = this.currentArticles.slice(0, 10);
+    this.displayedArticles = this.currentData.slice(0, 10);
   }
 
   loadMoreArticles() {
-    this.displayedArticles = this.currentArticles.slice(
+    if (this.authorArticles) {
+      return;
+    }
+
+    this.displayedArticles = this.currentData.slice(
       0,
       (this.articlesToShow += 10)
     );
   }
 
   getArticles() {
-    const currentSection = this.authorArticles
-      ? `/author/?author=${this.route.snapshot.params['slug']}`
-      : '/?section=all-articles';
+    const currentEndpoint = this.authorArticles
+      ? `/author?slug=${this.route.snapshot.params['slug']}`
+      : '/articles?section=all-articles';
 
-    this.http.get(`/api${currentSection}`).subscribe({
+    this.http.get(`/api${currentEndpoint}`).subscribe({
       next: (data) => {
-        this.currentArticles = data;
+        this.currentData = data;
 
-        console.log('current articles:', this.currentArticles);
+        console.log('current articles:', this.currentData);
       },
       error: (err) => {
         console.log(err);

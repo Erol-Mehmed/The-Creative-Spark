@@ -10,11 +10,13 @@ public class ArticleResponse {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private String topic;
+    private String image;
     private int claps;
     private int readTime;
     private String slug;
     private String authorName;
     private String authorSlug;
+    private String authorImage;
 
     // Getters and setters
 
@@ -90,6 +92,15 @@ public class ArticleResponse {
         this.topic = topic;
     }
 
+    // image---------------------
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     // slug---------------------
     public String getSlug() {
         return slug;
@@ -115,5 +126,14 @@ public class ArticleResponse {
 
     public void setAuthorName(String authorName) {
         this.authorName = authorName;
+    }
+
+    // authorImage---------------------
+    public String getAuthorImage() {
+        return authorImage;
+    }
+
+    public void setAuthorImage(String authorImage) {
+        this.authorImage = authorImage;
     }
 }
