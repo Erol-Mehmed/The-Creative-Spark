@@ -11,9 +11,9 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public AuthorWithArticles getAuthorDataBySlug(String slug) {
+    public AuthorArticles getAuthorDataBySlug(String slug) {
         UserModel author = userRepository.findBySlug(slug);
 
-        return new AuthorWithArticles(author, userRepository.getArticlesById(author.getId()));
+        return new AuthorArticles(author, userRepository.getArticlesByAuthorId(author.getId()));
     }
 }

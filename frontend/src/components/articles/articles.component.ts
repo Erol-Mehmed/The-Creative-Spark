@@ -31,8 +31,6 @@ export class ArticlesComponent implements OnInit {
   articlesToShow: number = 10;
 
   transformCurrentArticles() {
-    console.log('authorArticles>>', this.authorArticles);
-
     if (this.authorArticles) {
       const author = this.currentData.author;
 
@@ -68,7 +66,7 @@ export class ArticlesComponent implements OnInit {
       next: (data) => {
         this.currentData = data;
 
-        console.log('current articles:', this.currentData);
+        console.log('current data:', this.currentData);
       },
       error: (err) => {
         console.log(err);

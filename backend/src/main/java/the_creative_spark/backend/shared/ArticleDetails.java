@@ -1,8 +1,8 @@
-package the_creative_spark.backend.article;
+package the_creative_spark.backend.shared;
 
 import java.time.LocalDateTime;
 
-public class ArticleResponse {
+public class ArticleDetails {
 
     private String id;
     private String title;
@@ -17,6 +17,27 @@ public class ArticleResponse {
     private String authorName;
     private String authorSlug;
     private String authorImage;
+
+    // No argument constructor
+    public ArticleDetails() {
+    }
+
+    // Constructor
+    public ArticleDetails(String id, String title, String content, LocalDateTime createdAt, LocalDateTime updatedAt, String topic, String image, int claps, int readTime, String slug, String authorName, String authorSlug, String authorImage) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.topic = topic;
+        this.image = image;
+        this.claps = claps;
+        this.readTime = readTime;
+        this.slug = slug;
+        this.authorName = authorName;
+        this.authorSlug = authorSlug;
+        this.authorImage = authorImage;
+    }
 
     // Getters and setters
 

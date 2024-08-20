@@ -43,9 +43,8 @@
           <p class="badge fw-normal text-black" role="button">{{ article.topic }}</p>
         </div>
       </div>
-
       <div class="article-image">
-        <a [routerLink]="[article.authorSlug, article.slug]">
+        <a [routerLink]="authorArticles ? article.slug : [article.authorSlug, article.slug]">
           <img
             [src]="article.image ? article.image : '../../assets/images/article-placeholder.jpg'"
             alt="Article."

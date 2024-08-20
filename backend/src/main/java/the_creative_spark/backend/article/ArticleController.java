@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestParam;
+import the_creative_spark.backend.shared.ArticleDetails;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,12 +39,12 @@ public class ArticleController {
         return articleService.hasArticles();
     }
 
-    private List<ArticleResponse> getAllArticles(String section) {
+    private List<ArticleDetails> getAllArticles(String section) {
         String allOrMostLikedArticles = "all-articles".equals(section) ? "all" : "most-liked";
         List<ArticleModel> articles = articleService.getAllArticles(allOrMostLikedArticles);
 
         return articles.stream().map(article -> {
-            ArticleResponse response = new ArticleResponse();
+            ArticleDetails response = new ArticleDetails();
             response.setId(article.getId());
             response.setTitle(article.getTitle());
             response.setContent(article.getContent());
@@ -62,11 +63,13 @@ public class ArticleController {
     }
 
     @GetMapping("/article-details")
-    public ArticleResponse getArticleBySlug(@RequestParam(name = "slug") String slug) {
+    public ArticleDetails getArticleBySlug(@RequestParam(name = "slug") String slug) {
 
         ArticleModel article = articleService.getArticleBySlug(slug);
 
-        ArticleResponse response = new ArticleResponse();
+        System.out.println("--------------------------------------------------------------------article>>" + article.getAuthor().getSlug());
+
+        ArticleDetails response = new ArticleDetails();
         response.setTitle(article.getTitle());
         response.setContent(article.getContent());
         response.setCreatedAt(article.getCreatedAt());

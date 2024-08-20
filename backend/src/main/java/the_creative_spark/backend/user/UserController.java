@@ -18,7 +18,7 @@ public class UserController {
     }
 
     @GetMapping
-    public AuthorWithArticles getAuthorDataBySlug(@RequestParam(name = "slug") String slug) {
+    public AuthorArticles getAuthorDataBySlug(@RequestParam(name = "slug") String slug) {
         return userService.getAuthorDataBySlug(slug);
     }
 }

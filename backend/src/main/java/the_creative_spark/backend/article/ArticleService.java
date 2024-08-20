@@ -23,15 +23,13 @@ public class ArticleService {
         if ("all".equals(allOrMostLikedArticles)) {
             return articleRepository.findAllByOrderByCreatedAtDesc();
         } else if ("most-liked".equals(allOrMostLikedArticles)) {
-            return articleRepository.findAllByOrderByClapsDesc();
+            return articleRepository.findTheSixMostLikedArticles();
         }
 
         return null;
     }
 
     public ArticleModel getArticleBySlug(String slug) {
-        System.out.println("-----------------------service>>" + slug);
-
         return articleRepository.findBySlug(slug);
     }
 }

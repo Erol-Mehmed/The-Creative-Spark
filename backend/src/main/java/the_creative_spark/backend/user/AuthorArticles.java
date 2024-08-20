@@ -1,14 +1,14 @@
 package the_creative_spark.backend.user;
 
-import the_creative_spark.backend.article.ArticleModel;
+import the_creative_spark.backend.shared.ArticleDetails;
 
 import java.util.List;
 
-public class AuthorWithArticles {
+public class AuthorArticles {
     private UserModel author;
-    private List<ArticleModel> articles;
+    private List<ArticleDetails> articles;
 
-    public AuthorWithArticles(UserModel author, List<ArticleModel> articles) {
+    public AuthorArticles(UserModel author, List<ArticleDetails> articles) {
         this.author = author;
         this.articles = articles;
     }
@@ -25,11 +25,11 @@ public class AuthorWithArticles {
     }
 
     // articles----------------------------
-    public List<ArticleModel> getArticles() {
+    public List<ArticleDetails> getArticles() {
         return articles;
     }
 
-    public void setArticles(List<ArticleModel> articles) {
+    public void setArticles(List<ArticleDetails> articles) {
         this.articles = articles;
     }
 }

@@ -9,8 +9,8 @@ import java.util.List;
 public interface ArticleRepository extends JpaRepository<ArticleModel, String> {
 
     List<ArticleModel> findAllByOrderByCreatedAtDesc();
-    List<ArticleModel> findAllByOrderByClapsDesc();
-
+    @Query(value = "SELECT a FROM ArticleModel  a ORDER BY a.claps DESC, a.createdAt DESC LIMIT 6")
+    List<ArticleModel> findTheSixMostLikedArticles();
     @Query ("SELECT a FROM ArticleModel a WHERE a.slug = :slug")
     ArticleModel findBySlug(String slug);
 }
