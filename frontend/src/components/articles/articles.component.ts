@@ -30,7 +30,7 @@ export class ArticlesComponent implements OnInit {
   displayedArticles: any = [];
   articlesToShow: number = 10;
 
-  transformCurrentArticles() {
+  processAndDisplayArticles() {
     if (this.authorArticles) {
       const author = this.currentData.author;
 
@@ -47,14 +47,12 @@ export class ArticlesComponent implements OnInit {
   }
 
   loadMoreArticles() {
-    if (this.authorArticles) {
-      return;
+    if (this.currentData) {
+      this.displayedArticles = this.currentData.slice(
+        0,
+        (this.articlesToShow += 10)
+      );
     }
-
-    this.displayedArticles = this.currentData.slice(
-      0,
-      (this.articlesToShow += 10)
-    );
   }
 
   getArticles() {
@@ -72,7 +70,7 @@ export class ArticlesComponent implements OnInit {
         console.log(err);
       },
       complete: () => {
-        this.transformCurrentArticles();
+        this.processAndDisplayArticles();
       },
     });
   }

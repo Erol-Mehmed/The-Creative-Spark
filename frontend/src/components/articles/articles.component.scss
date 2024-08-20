@@ -79,6 +79,36 @@
     }
   }
 
+  &.author {
+    padding: 0;
+
+    .row .article-wrapper {
+      padding: 0 !important;
+
+      .author-article-links {
+        padding: 0;
+
+        .published-date {
+          font-size: 14px;
+        }
+
+        .article-link {
+          margin-left: 0;
+
+          .link {
+            font-size: 20px !important;
+          }
+        }
+
+        .date-read-time {
+          flex-direction: row-reverse;
+          justify-content: start;
+          gap: 4px;
+        }
+      }
+    }
+  }
+
   .no-articles p {
     width: fit-content;
   }

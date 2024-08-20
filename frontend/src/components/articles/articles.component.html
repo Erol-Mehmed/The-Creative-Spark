@@ -1,5 +1,5 @@
 <div
-  class="articles container"
+  [ngClass]="{'container articles': true, 'author': authorArticles}"
   infiniteScroll
   [infiniteScrollDistance]="2"
   [infiniteScrollThrottle]="50"

@@ -10,13 +10,13 @@ interface IAppState {
 }
 
 const mainInitialState: IMainState = {
-  currentModalVersion: 'test'
+  currentModalVersion: ''
 };
 
 const MainReducer = createReducer<IMainState> (
   mainInitialState,
   on(setModalVersion, (state, action): IMainState => {
-    const { currentModalVersion } = action;    
+    const { currentModalVersion } = action;
     return { ...state, currentModalVersion: currentModalVersion };
   })
 );
