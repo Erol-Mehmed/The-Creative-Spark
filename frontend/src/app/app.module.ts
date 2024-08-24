@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from '../components/header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ModalComponent } from '../components/modal/modal.component';
+import { SignUpSignInModalComponent } from '../components/sign-up-sign-in-modal/sign-up-sign-in-modal.component';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from '../store';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -27,7 +27,7 @@ import { SharedModule } from 'src/shared/shared/shared.module';
   declarations: [
     AppComponent,
     HeaderComponent,
-    ModalComponent,
+    SignUpSignInModalComponent,
     MostLikedArticlesComponent,
     ArticlesComponent,
     HomeComponent,

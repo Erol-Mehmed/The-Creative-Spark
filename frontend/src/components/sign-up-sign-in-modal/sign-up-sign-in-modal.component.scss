@@ -1,23 +1,20 @@
-.model-content-wrapper {
+.modal-content-wrapper {
+  padding: 80px 0;
   text-align: center;
 
   header {
     h1 {
-      font-size: 20px;
-      margin-top: 50px;
+      font-size: 24px;
     }
   }
 
   .login-register {
     .subtitle {
-      font-size: 12px;
+      font-size: 15px;
       margin: 30px 0 0;
     }
 
     form {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       margin-top: 40px;
       gap: 8px;
 
@@ -33,12 +30,13 @@
           border: 1px solid grey;
           border-radius: 5px;
           outline: none;
+          padding-left: 10px;
 
           &:focus {
             border: 1.8px solid black;
           }
 
-          &:placeholder {
+          &::placeholder {
             margin-left: 10px;
           }
 
@@ -83,8 +81,6 @@
     }
 
     .sing-in-create-one {
-      display: flex;
-      justify-content: center;
       gap: 5px;
       margin-top: 40px;
 
@@ -104,8 +100,7 @@
         cursor: pointer;
 
         &:hover {
-          font-weight: 600;
-          color: var(--green-2);
+          text-shadow: 0 0 .65px var(--green-2), 0 0 .65px var(--green-2);
         }
 
         &:active {
