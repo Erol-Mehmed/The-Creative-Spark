@@ -5,80 +5,80 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { noWhiteSpaceValidator } from '../../shared/whitespace.validator';
 
 @Component({
-  selector: 'app-sign-up-sign-in-modal',
-  templateUrl: './sign-up-sign-in-modal.component.html',
-  styleUrls: ['./sign-up-sign-in-modal.component.scss']
+  selector: 'app-auth-modal',
+  templateUrl: './auth-modal.component.html',
+  styleUrls: ['./auth-modal.component.scss']
 })
 
-export class SignUpSignInModalComponent implements OnInit {
-  @Input() currentModalVersion: string | undefined;
+export class AuthModalComponent implements OnInit {
+  @Input() modalVersion: string | undefined;
 
   constructor (
     public activeModal: NgbActiveModal,
     private fb: FormBuilder,
     private userService: UserService,
     private cdr: ChangeDetectorRef
-  ) {
-    this.loginOrRegister = this.currentModalVersion === 'getStarted'
-      ?
-      {
-        title:  'Join The Creative Spark.',
-        upIn: 'up',
-        question: 'Already have an account?',
-        signInCreateOne: 'Sign in',
-      }
-      :
-      {
-        title: 'Welcome back.',
-        upIn: 'in',
-        question: 'No account?',
-        signInCreateOne: 'Create one',
-      };
-    this.registered = this.currentModalVersion === 'getStarted';
-    this.loginOrRegisterFormSubtitle = this.currentModalVersion === 'getStarted'
-      ? 'Enter your username, email and password to create an account.'
-      : 'Enter your email and password to sing in.';
-  }
+  ) {}
 
   registerForm!: FormGroup;
   loginForm!: FormGroup;
   loginOrRegister = {
     title: '',
-    upIn: '',
+    upOrIn: '',
     question: '',
     signInCreateOne: '',
   };
 
-  registered = true;
   loginOrRegisterFormSubtitle: string = '';
 
   modalChange() {
-    this.currentModalVersion = this.currentModalVersion === 'getStarted' ? 'signIn' : 'getStarted';
-    this.loginOrRegisterFormSubtitle = this.currentModalVersion === 'getStarted'
-      ? 'Enter your username, email and password to create an account.'
-      : 'Enter your email and password to sing in.';
+    this.loginOrRegisterFormSubtitle = this.modalVersion === 'getStarted'
+      ? 'Enter your email and password to sing in.'
+      : 'Enter your username, email and password to create an account.';
 
-    if (this.registered) {
+    if (this.modalVersion === 'getStarted') {
       this.loginOrRegister.title = 'Welcome back.';
-      this.loginOrRegister.upIn = 'in';
+      this.loginOrRegister.upOrIn = 'in';
       this.loginOrRegister.question = 'No account?';
       this.loginOrRegister.signInCreateOne = 'Create one';
     } else {
       this.loginOrRegister.title = 'Join The Creative Spark.';
-      this.loginOrRegister.upIn = 'up';
+      this.loginOrRegister.upOrIn = 'up';
       this.loginOrRegister.question = 'Already have an account?';
       this.loginOrRegister.signInCreateOne = 'Sign in';
     }
 
-    this.registered = !this.registered;
+    this.modalVersion = this.modalVersion === 'getStarted' ? 'signIn' : 'getStarted';
 
     this.cdr.detectChanges();
     document.querySelector('.modal-content-wrapper')?.querySelector('input')?.focus();
   }
 
   ngOnInit(): void {
-    console.log('currentModalVersion>>', this.currentModalVersion, this.activeModal);
+    // Initialize the form group
+    this.loginOrRegister = this.modalVersion === 'getStarted'
+      ?
+      {
+        title:  'Join The Creative Spark.',
+        upOrIn: 'up',
+        question: 'Already have an account?',
+        signInCreateOne: 'Sign in',
+      }
+      :
+      {
+        title: 'Welcome back.',
+        upOrIn: 'in',
+        question: 'No account?',
+        signInCreateOne: 'Create one',
+      };
 
+    this.loginOrRegisterFormSubtitle = this.modalVersion === 'getStarted'
+      ? 'Enter your username, email and password to create an account.'
+      : 'Enter your email and password to sing in.';
+
+    console.log('modalVersion>>', this.modalVersion, this.loginOrRegister, this.loginOrRegisterFormSubtitle);
+
+    // Set the validators for the forms
     this.registerForm = this.fb.group({
       name: ['', [Validators.required, noWhiteSpaceValidator]],
       email: ['', [Validators.required, Validators.email, noWhiteSpaceValidator]],

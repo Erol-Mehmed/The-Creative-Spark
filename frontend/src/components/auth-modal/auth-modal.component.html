@@ -2,22 +2,19 @@
   <header>
     <h1>{{ loginOrRegister.title }}</h1>
   </header>
+
   <div class="login-register">
     <p class="subtitle">{{ loginOrRegisterFormSubtitle }}</p>
-
     <form
-      *ngIf="currentModalVersion === 'getStarted'; else elseBlock"
+      *ngIf="modalVersion === 'getStarted'; else elseBlock"
       [formGroup]="registerForm"
       (ngSubmit)="onSubmit(registerForm)"
       class="d-flex flex-column align-items-center"
     >
       <div class="input-message">
-        <input formControlName="name" placeholder="Username" type="text" />
+        <input formControlName="name" placeholder="Username" type="text" [ngClass]="{'border-danger border-2': registerForm.get('name')?.invalid && registerForm.get('name')?.touched}" />
         <div
-          *ngIf="
-            registerForm.get('name')?.invalid &&
-            (registerForm.get('name')?.dirty)
-          "
+          *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched"
           class="invalid-input"
         >
           <p *ngIf="!registerForm.get('name')?.hasError('whitespace')">
@@ -32,8 +29,7 @@
         <input formControlName="email" placeholder="Email" type="text" />
         <div
           *ngIf="
-            registerForm.get('email')?.invalid &&
-            (registerForm.get('email')?.dirty)
+            registerForm.get('email')?.invalid && registerForm.get('email')?.touched
           "
           class="invalid-input"
         >
@@ -50,7 +46,7 @@
         <div
           *ngIf="
             registerForm.get('password')?.invalid &&
-            (registerForm.get('password')?.dirty)
+            (registerForm.get('password')?.touched)
           "
           class="invalid-input"
         >
@@ -72,7 +68,7 @@
         <div
           *ngIf="
             registerForm.get('confirmPassword')?.invalid &&
-            (registerForm.get('confirmPassword')?.dirty)
+            (registerForm.get('confirmPassword')?.touched)
           "
           class="invalid-input"
         >
@@ -93,8 +89,7 @@
           <input formControlName="email" placeholder="Email" type="text" />
           <div
             *ngIf="
-              loginForm.get('email')?.invalid &&
-              (loginForm.get('email')?.dirty)
+              loginForm.get('email')?.invalid && loginForm.get('email')?.touched
             "
             class="invalid-input"
           >
@@ -111,7 +106,7 @@
           <div
             *ngIf="
               loginForm.get('password')?.invalid &&
-              (loginForm.get('password')?.dirty)
+              (loginForm.get('password')?.touched)
             "
             class="invalid-input"
           >
