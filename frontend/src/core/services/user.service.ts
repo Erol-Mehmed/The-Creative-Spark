@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IUser } from 'src/shared/interfaces';
+import { User } from 'src/shared/interfaces';
 
 @Injectable()
 export class UserService  {
-  user : IUser | null | undefined = null;
+  user : User | null | undefined = null;
 
   constructor(private http: HttpClient) {}
 
@@ -13,7 +13,7 @@ export class UserService  {
     username: string;
     email: string;
     password: string;
-  }): Observable<IUser> {
-    return this.http.post<IUser>(`${'http://localhost:3000'}/api/register`, data);
+  }): Observable<User> {
+    return this.http.post<User>(`${'http://localhost:3000'}/api/register`, data);
   }
 }

@@ -4,6 +4,8 @@ from flask_cors import CORS
 from app.config import Config
 from app.extensions import api, db, jwt, migrate
 
+import app.models
+
 
 def create_app():
     app = Flask(__name__)

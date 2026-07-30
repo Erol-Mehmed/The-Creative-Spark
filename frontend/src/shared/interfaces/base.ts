@@ -1,4 +1,4 @@
-export interface IBase {
+export interface Base {
   _id: string;
   created_at: string;
   updatedAt: string;

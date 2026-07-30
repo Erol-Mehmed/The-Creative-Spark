@@ -1,6 +1,6 @@
-import { IBase } from "./base";
+import { Base } from "./base";
 
-export interface IUser extends IBase {
+export default interface User extends Base {
   username: string,
   email: string,
   profileImage: string,

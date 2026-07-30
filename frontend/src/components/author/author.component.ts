@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import Author from '../../shared/interfaces/author';
+import { Author } from '../../shared/interfaces';
 
 @Component({
   selector: 'app-author',
