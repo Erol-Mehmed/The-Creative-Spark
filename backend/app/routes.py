@@ -1,4 +1,8 @@
-from app.resources.auth import LoginResource, RegisterResource
+from app.resources.auth import (
+    LoginResource,
+    MeResource,
+    RegisterResource,
+)
 from app.resources.health import HealthResource
 
 
@@ -13,4 +17,9 @@ def register_routes(api):
     api.add_resource(
         LoginResource,
         "/api/auth/login",
+    )
+
+    api.add_resource(
+        MeResource,
+        "/api/auth/me",
     )
