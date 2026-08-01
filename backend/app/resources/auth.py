@@ -1,4 +1,5 @@
 from flask import request
+from flask_jwt_extended import get_jwt_identity, jwt_required
 from flask_restful import Resource
 from marshmallow import ValidationError
 
@@ -7,21 +8,19 @@ from app.exceptions.auth_exceptions import (
     UserAlreadyExistsError,
 )
 from app.schemas.auth_schema import LoginSchema, RegisterSchema
+from app.schemas.user_schema import UserResponseSchema
 from app.services.auth_service import AuthService
-from flask_jwt_extended import get_jwt_identity, jwt_required
 
 
 class RegisterResource(Resource):
+
     def post(self):
         try:
             data = RegisterSchema().load(request.get_json())
 
             user = AuthService.register(data)
 
-            return {
-                "message": "User registered successfully.",
-                "id": user.id,
-            }, 201
+            return UserResponseSchema().dump(user), 201
 
         except ValidationError as error:
             return {
@@ -36,6 +35,7 @@ class RegisterResource(Resource):
 
 
 class LoginResource(Resource):
+
     def post(self):
         try:
             data = LoginSchema().load(request.get_json())
@@ -44,6 +44,7 @@ class LoginResource(Resource):
 
             return {
                 "access_token": token,
+                "token_type": "Bearer",
             }, 200
 
         except ValidationError as error:
@@ -65,16 +66,7 @@ class MeResource(Resource):
         try:
             user = AuthService.me(int(get_jwt_identity()))
 
-            return {
-                "id": user.id,
-                "username": user.username,
-                "email": user.email,
-                "first_name": user.first_name,
-                "last_name": user.last_name,
-                "bio": user.bio,
-                "avatar_url": user.avatar_url,
-                "role": user.role,
-            }, 200
+            return UserResponseSchema().dump(user), 200
 
         except AuthenticationError as error:
             return {

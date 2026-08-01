@@ -37,7 +37,7 @@ export class ArticleComponent implements OnInit {
     [ ,slug] = data.map((x) => x.path);
   });
 
-    this.http.get(`/api/articles/article-details?slug=${slug}`).subscribe({
+    this.http.get(`/articles/article-details?slug=${slug}`).subscribe({
       next: (data) => {
         this.article = data;
         console.log('article>>', this.article);

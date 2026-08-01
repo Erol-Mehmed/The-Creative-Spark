@@ -9,10 +9,16 @@ import app.models
 
 def create_app():
     application = Flask(__name__)
-
     application.config.from_object(Config)
 
-    CORS(application)
+    CORS(
+        application,
+        resources={
+            r"/api/*": {
+                "origins": "http://localhost:4200"
+            }
+        }
+    )
 
     db.init_app(application)
     migrate.init_app(application, db)

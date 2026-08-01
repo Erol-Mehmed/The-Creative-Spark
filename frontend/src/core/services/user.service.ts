@@ -14,6 +14,6 @@ export class UserService  {
     email: string;
     password: string;
   }): Observable<User> {
-    return this.http.post<User>(`${'http://localhost:3000'}/api/register`, data);
+    return this.http.post<User>(`${'http://localhost:5000'}/api/auth/register`, data);
   }
 }

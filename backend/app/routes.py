@@ -7,7 +7,10 @@ from app.resources.health import HealthResource
 
 
 def register_routes(api):
-    api.add_resource(HealthResource, "/api/health")
+    api.add_resource(
+        HealthResource,
+        "/api/health",
+    )
 
     api.add_resource(
         RegisterResource,

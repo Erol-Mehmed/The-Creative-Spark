@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import UTC, datetime
 
 from app.extensions import db
 
@@ -17,19 +17,26 @@ class User(db.Model):
     bio = db.Column(db.Text)
     avatar_url = db.Column(db.String(255))
 
+    articles = db.relationship(
+        "Article",
+        back_populates="author",
+        lazy=True,
+    )
+
     role = db.Column(db.String(20), nullable=False, default="user")
 
     created_at = db.Column(
         db.DateTime,
         nullable=False,
-        default=datetime.utcnow,
+        default=lambda: datetime.now(UTC),
+        onupdate=lambda: datetime.now(UTC),
     )
 
     updated_at = db.Column(
         db.DateTime,
         nullable=False,
-        default=datetime.utcnow,
-        onupdate=datetime.utcnow,
+        default=lambda: datetime.now(UTC),
+        onupdate=lambda: datetime.now(UTC),
     )
 
     def __repr__(self):

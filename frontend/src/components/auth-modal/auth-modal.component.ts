@@ -24,7 +24,7 @@ export class AuthModalComponent implements OnInit {
   loginForm!: FormGroup;
   loginOrRegister = {
     title: '',
-    upOrIn: '',
+    signupOrLogin: '',
     question: '',
     signInCreateOne: '',
   };
@@ -38,12 +38,12 @@ export class AuthModalComponent implements OnInit {
 
     if (this.modalVersion === 'getStarted') {
       this.loginOrRegister.title = 'Welcome back.';
-      this.loginOrRegister.upOrIn = 'in';
+      this.loginOrRegister.signupOrLogin = 'in';
       this.loginOrRegister.question = 'No account?';
       this.loginOrRegister.signInCreateOne = 'Create one';
     } else {
       this.loginOrRegister.title = 'Join The Creative Spark.';
-      this.loginOrRegister.upOrIn = 'up';
+      this.loginOrRegister.signupOrLogin = 'up';
       this.loginOrRegister.question = 'Already have an account?';
       this.loginOrRegister.signInCreateOne = 'Sign in';
     }
@@ -60,14 +60,14 @@ export class AuthModalComponent implements OnInit {
       ?
       {
         title:  'Join The Creative Spark.',
-        upOrIn: 'up',
+        signupOrLogin: 'signup',
         question: 'Already have an account?',
         signInCreateOne: 'Sign in',
       }
       :
       {
         title: 'Welcome back.',
-        upOrIn: 'in',
+        signupOrLogin: 'login',
         question: 'No account?',
         signInCreateOne: 'Create one',
       };
