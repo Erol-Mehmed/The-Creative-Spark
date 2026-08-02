@@ -1,0 +1,2 @@
+class ArticleAlreadyExistsError(Exception):
+    pass

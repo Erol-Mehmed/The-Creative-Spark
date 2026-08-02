@@ -1,3 +1,7 @@
+from app.resources.article import (
+    ArticleDetailResource,
+    ArticleListResource,
+)
 from app.resources.auth import (
     LoginResource,
     MeResource,
@@ -25,4 +29,14 @@ def register_routes(api):
     api.add_resource(
         MeResource,
         "/api/auth/me",
+    )
+
+    api.add_resource(
+        ArticleListResource,
+        "/api/articles",
+    )
+
+    api.add_resource(
+        ArticleDetailResource,
+        "/api/articles/<string:slug>",
     )
