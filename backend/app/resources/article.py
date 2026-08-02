@@ -3,7 +3,7 @@ from flask_jwt_extended import get_jwt_identity, jwt_required
 from flask_restful import Resource
 from marshmallow import ValidationError
 
-from app.exceptions.article_exceptions import ArticleAlreadyExistsError
+from app.exceptions.article_exceptions import ArticleAlreadyExistsError, ArticleNotFoundError
 from app.schemas.article_schema import (
     ArticleCreateSchema,
     ArticleResponseSchema,
@@ -55,14 +55,15 @@ class ArticleListResource(Resource):
 class ArticleDetailResource(Resource):
 
     def get(self, slug):
-        article = ArticleService.get_by_slug(slug)
+        try:
+            article = ArticleService.get_by_slug(slug)
 
-        if article is None:
+            return (
+                ArticleResponseSchema().dump(article),
+                200,
+            )
+
+        except ArticleNotFoundError as error:
             return {
-                "message": "Article not found.",
+                "message": str(error),
             }, 404
-
-        return (
-            ArticleResponseSchema().dump(article),
-            200,
-        )

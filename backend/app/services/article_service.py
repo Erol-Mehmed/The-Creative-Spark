@@ -1,4 +1,8 @@
-from app.exceptions.article_exceptions import ArticleAlreadyExistsError
+from app.exceptions.article_exceptions import (
+    ArticleAlreadyExistsError,
+    ArticleNotFoundError,
+    ArticlePermissionDeniedError,
+)
 from app.models.article import Article
 from app.repositories.article_repository import ArticleRepository
 
@@ -11,7 +15,14 @@ class ArticleService:
 
     @staticmethod
     def get_by_slug(slug: str):
-        return ArticleRepository.get_by_slug(slug)
+        article = ArticleRepository.get_by_slug(slug)
+
+        if article is None:
+            raise ArticleNotFoundError(
+                "Article not found."
+            )
+
+        return article
 
     @staticmethod
     def create(data: dict, user_id: int):
@@ -29,3 +40,22 @@ class ArticleService:
         )
 
         return ArticleRepository.create(article)
+
+    @staticmethod
+    def get_owned_article(
+            article_id: int,
+            user_id: int,
+    ):
+        article = ArticleRepository.get_by_id(article_id)
+
+        if article is None:
+            raise ArticleNotFoundError(
+                "Article not found."
+            )
+
+        if article.author_id != user_id:
+            raise ArticlePermissionDeniedError(
+                "You are not allowed to modify this article."
+            )
+
+        return article
