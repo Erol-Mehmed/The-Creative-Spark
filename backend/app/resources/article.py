@@ -3,7 +3,11 @@ from flask_jwt_extended import get_jwt_identity, jwt_required
 from flask_restful import Resource
 from marshmallow import ValidationError
 
-from app.exceptions.article_exceptions import ArticleAlreadyExistsError, ArticleNotFoundError
+from app.exceptions.article_exceptions import (
+    ArticleAlreadyExistsError,
+    ArticleNotFoundError,
+    ArticlePermissionDeniedError
+)
 from app.schemas.article_schema import (
     ArticleCreateSchema,
     ArticleResponseSchema,
@@ -67,3 +71,65 @@ class ArticleDetailResource(Resource):
             return {
                 "message": str(error),
             }, 404
+
+
+class ArticleManageResource(Resource):
+
+    @jwt_required()
+    def put(self, article_id):
+        try:
+            data = ArticleCreateSchema().load(
+                request.get_json()
+            )
+
+            article = ArticleService.update(
+                article_id,
+                int(get_jwt_identity()),
+                data,
+            )
+
+            return (
+                ArticleResponseSchema().dump(article),
+                200,
+            )
+
+        except ValidationError as error:
+            return {
+                "message": "Validation failed.",
+                "errors": error.messages,
+            }, 400
+
+        except ArticleAlreadyExistsError as error:
+            return {
+                "message": str(error),
+            }, 409
+
+        except ArticleNotFoundError as error:
+            return {
+                "message": str(error),
+            }, 404
+
+        except ArticlePermissionDeniedError as error:
+            return {
+                "message": str(error),
+            }, 403
+
+    @jwt_required()
+    def delete(self, article_id):
+        try:
+            ArticleService.delete(
+                article_id,
+                int(get_jwt_identity()),
+            )
+
+            return "", 204
+
+        except ArticleNotFoundError as error:
+            return {
+                "message": str(error),
+            }, 404
+
+        except ArticlePermissionDeniedError as error:
+            return {
+                "message": str(error),
+            }, 403

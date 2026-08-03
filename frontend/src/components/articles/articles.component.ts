@@ -58,7 +58,7 @@ export class ArticlesComponent implements OnInit {
   getArticles() {
     const currentEndpoint = this.authorArticles
       ? `/author?slug=${this.route.snapshot.params['slug']}`
-      : '/articles?section=all-articles';
+      : '/articles';
 
     this.http.get(`/api${currentEndpoint}`).subscribe({
       next: (data) => {

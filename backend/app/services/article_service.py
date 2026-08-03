@@ -59,3 +59,41 @@ class ArticleService:
             )
 
         return article
+
+    @staticmethod
+    def update(
+            article_id: int,
+            user_id: int,
+            data: dict,
+    ):
+        article = ArticleService.get_owned_article(
+            article_id,
+            user_id,
+        )
+
+        if (
+                article.slug != data["slug"]
+                and ArticleRepository.get_by_slug(data["slug"])
+        ):
+            raise ArticleAlreadyExistsError(
+                "An article with this slug already exists."
+            )
+
+        article.title = data["title"]
+        article.slug = data["slug"]
+        article.content = data["content"]
+        article.image_url = data.get("image_url")
+
+        return ArticleRepository.update(article)
+
+    @staticmethod
+    def delete(
+            article_id: int,
+            user_id: int,
+    ):
+        article = ArticleService.get_owned_article(
+            article_id,
+            user_id,
+        )
+
+        ArticleRepository.delete(article)
