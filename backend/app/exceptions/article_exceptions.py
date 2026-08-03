@@ -12,3 +12,7 @@ class ArticleAlreadyExistsError(ArticleError):
 
 class ArticlePermissionDeniedError(ArticleError):
     pass
+
+
+class EmptyArticleUpdateError(ArticleError):
+    pass

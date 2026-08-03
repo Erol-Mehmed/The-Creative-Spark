@@ -17,9 +17,25 @@ class ArticleCreateSchema(Schema):
         validate=validate.Length(min=20),
     )
 
+    topic = fields.Str(
+        required=True,
+        validate=validate.Length(min=2, max=100),
+    )
+
     image_url = fields.Str(
         allow_none=True,
     )
+
+
+class ArticlePatchSchema(Schema):
+    title = fields.Str(required=False)
+    slug = fields.Str(required=False)
+    content = fields.Str(required=False)
+    topic = fields.Str(
+        required=False,
+        validate=validate.Length(min=2, max=100),
+    )
+    image_url = fields.Str(required=False, allow_none=True)
 
 
 class AuthorSchema(Schema):
@@ -42,21 +58,25 @@ class AuthorSchema(Schema):
 
 class ArticleResponseSchema(Schema):
     id = fields.Int()
-
     title = fields.Str()
-
-    slug = fields.Str()
-
     content = fields.Str()
+    topic = fields.Str()
 
-    image_url = fields.Str(
+    image = fields.Str(
+        attribute="image_url",
         allow_none=True,
     )
 
-    created_at = fields.DateTime()
+    claps = fields.Int()
 
-    updated_at = fields.DateTime()
+    readTime = fields.Int(
+        attribute="read_time",
+    )
+
+    createdAt = fields.DateTime(
+        attribute="created_at",
+    )
 
     author = fields.Nested(
-        AuthorSchema,
+        AuthorSchema
     )

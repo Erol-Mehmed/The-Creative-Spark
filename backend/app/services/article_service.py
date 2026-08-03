@@ -1,7 +1,7 @@
 from app.exceptions.article_exceptions import (
     ArticleAlreadyExistsError,
     ArticleNotFoundError,
-    ArticlePermissionDeniedError,
+    ArticlePermissionDeniedError, EmptyArticleUpdateError,
 )
 from app.models.article import Article
 from app.repositories.article_repository import ArticleRepository
@@ -35,6 +35,7 @@ class ArticleService:
             title=data["title"],
             slug=data["slug"],
             content=data["content"],
+            topic=data["topic"],
             image_url=data.get("image_url"),
             author_id=user_id,
         )
@@ -61,7 +62,7 @@ class ArticleService:
         return article
 
     @staticmethod
-    def update(
+    def patch(
             article_id: int,
             user_id: int,
             data: dict,
@@ -71,20 +72,35 @@ class ArticleService:
             user_id,
         )
 
-        if (
-                article.slug != data["slug"]
-                and ArticleRepository.get_by_slug(data["slug"])
-        ):
-            raise ArticleAlreadyExistsError(
-                "An article with this slug already exists."
+        if not data:
+            raise EmptyArticleUpdateError(
+                "At least one field must be provided."
             )
 
-        article.title = data["title"]
-        article.slug = data["slug"]
-        article.content = data["content"]
-        article.image_url = data.get("image_url")
+        if "slug" in data:
+            if (
+                    article.slug != data["slug"]
+                    and ArticleRepository.get_by_slug(data["slug"])
+            ):
+                raise ArticleAlreadyExistsError(
+                    "An article with this slug already exists."
+                )
 
-        return ArticleRepository.update(article)
+            article.slug = data["slug"]
+
+        if "title" in data:
+            article.title = data["title"]
+
+        if "content" in data:
+            article.content = data["content"]
+
+        if "topic" in data:
+            article.topic = data["topic"]
+
+        if "image_url" in data:
+            article.image_url = data["image_url"]
+
+        return ArticleRepository.patch(article)
 
     @staticmethod
     def delete(

@@ -6,11 +6,12 @@ from marshmallow import ValidationError
 from app.exceptions.article_exceptions import (
     ArticleAlreadyExistsError,
     ArticleNotFoundError,
-    ArticlePermissionDeniedError
+    ArticlePermissionDeniedError, EmptyArticleUpdateError
 )
 from app.schemas.article_schema import (
     ArticleCreateSchema,
     ArticleResponseSchema,
+    ArticlePatchSchema,
 )
 from app.services.article_service import ArticleService
 
@@ -76,13 +77,13 @@ class ArticleDetailResource(Resource):
 class ArticleManageResource(Resource):
 
     @jwt_required()
-    def put(self, article_id):
+    def patch(self, article_id):
         try:
-            data = ArticleCreateSchema().load(
+            data = ArticlePatchSchema().load(
                 request.get_json()
             )
 
-            article = ArticleService.update(
+            article = ArticleService.patch(
                 article_id,
                 int(get_jwt_identity()),
                 data,
@@ -113,6 +114,11 @@ class ArticleManageResource(Resource):
             return {
                 "message": str(error),
             }, 403
+
+        except EmptyArticleUpdateError as error:
+            return {
+                "message": str(error),
+            }, 400
 
     @jwt_required()
     def delete(self, article_id):

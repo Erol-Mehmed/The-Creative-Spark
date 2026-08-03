@@ -27,9 +27,24 @@ class Article(db.Model):
         nullable=False,
     )
 
+    topic = db.Column(
+        db.String(100),
+        nullable=False,
+    )
+
+    claps = db.Column(
+        db.Integer,
+        default=0,
+    )
+
     image_url = db.Column(
         db.String(255),
         nullable=True,
+    )
+
+    read_time = db.Column(
+        db.Integer,
+        default=0,
     )
 
     created_at = db.Column(

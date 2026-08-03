@@ -37,7 +37,7 @@ class ArticleRepository:
         return article
 
     @staticmethod
-    def update(article: Article) -> Article:
+    def patch(article: Article) -> Article:
         db.session.commit()
 
         return article
