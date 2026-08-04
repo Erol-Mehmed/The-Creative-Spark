@@ -31,12 +31,17 @@ class ArticleService:
                 "An article with this slug already exists."
             )
 
+        read_time = ArticleService.calculate_read_time(
+            data["content"]
+        )
+
         article = Article(
             title=data["title"],
             slug=data["slug"],
             content=data["content"],
             topic=data["topic"],
             image_url=data.get("image_url"),
+            read_time=read_time,
             author_id=user_id,
         )
 
@@ -94,6 +99,10 @@ class ArticleService:
         if "content" in data:
             article.content = data["content"]
 
+            article.read_time = ArticleService.calculate_read_time(
+                data["content"]
+            )
+
         if "topic" in data:
             article.topic = data["topic"]
 
@@ -113,3 +122,10 @@ class ArticleService:
         )
 
         ArticleRepository.delete(article)
+
+    @staticmethod
+    def calculate_read_time(content: str) -> int:
+        words = len(content.split())
+        read_time = words / 200
+
+        return max(1, round(read_time))

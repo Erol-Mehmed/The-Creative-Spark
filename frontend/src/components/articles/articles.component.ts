@@ -64,7 +64,7 @@ export class ArticlesComponent implements OnInit {
       next: (data) => {
         this.currentData = data;
 
-        console.log('current data:', this.currentData);
+        console.log('current data:', currentEndpoint, this.currentData);
       },
       error: (err) => {
         console.log(err);
