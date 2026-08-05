@@ -8,6 +8,7 @@ from app.resources.auth import (
     RegisterResource,
 )
 from app.resources.health import HealthResource
+from app.resources.upload import ImageUploadResource
 
 
 def register_routes(api):
@@ -44,4 +45,9 @@ def register_routes(api):
     api.add_resource(
         ArticleManageResource,
         "/api/articles/<int:article_id>",
+    )
+
+    api.add_resource(
+        ImageUploadResource,
+        "/api/uploads/image",
     )
