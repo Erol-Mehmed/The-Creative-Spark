@@ -1,6 +1,6 @@
 from app.resources.article import (
     ArticleDetailResource,
-    ArticleListResource, ArticleManageResource,
+    ArticleListResource, AuthorArticleListResource,
 )
 from app.resources.auth import (
     LoginResource,
@@ -46,8 +46,8 @@ def register_routes(api):
     )
 
     api.add_resource(
-        ArticleManageResource,
-        "/api/articles/<int:article_id>",
+        AuthorArticleListResource,
+        "/api/author",
     )
 
     api.add_resource(

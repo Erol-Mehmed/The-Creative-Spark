@@ -25,6 +25,71 @@ class ArticleService:
         return article
 
     @staticmethod
+    def get_by_author(author_id: int):
+        return ArticleRepository.get_by_author(author_id)
+
+    @staticmethod
+    def patch_by_slug(
+            slug: str,
+            user_id: int,
+            data: dict,
+    ):
+        article = ArticleService.get_by_slug(slug)
+
+        if article.author_id != user_id:
+            raise ArticlePermissionDeniedError(
+                "You are not allowed to modify this article."
+            )
+
+        if not data:
+            raise EmptyArticleUpdateError(
+                "At least one field must be provided."
+            )
+
+        if "slug" in data:
+            if (
+                    article.slug != data["slug"]
+                    and ArticleRepository.get_by_slug(data["slug"])
+            ):
+                raise ArticleAlreadyExistsError(
+                    "An article with this slug already exists."
+                )
+
+            article.slug = data["slug"]
+
+        if "title" in data:
+            article.title = data["title"]
+
+        if "content" in data:
+            article.content = data["content"]
+
+            article.read_time = ArticleService.calculate_read_time(
+                data["content"]
+            )
+
+        if "topic" in data:
+            article.topic = data["topic"]
+
+        if "image_url" in data:
+            article.image_url = data["image_url"]
+
+        return ArticleRepository.patch(article)
+
+    @staticmethod
+    def delete_by_slug(
+            slug: str,
+            user_id: int,
+    ):
+        article = ArticleService.get_by_slug(slug)
+
+        if article.author_id != user_id:
+            raise ArticlePermissionDeniedError(
+                "You are not allowed to modify this article."
+            )
+
+        ArticleRepository.delete(article)
+
+    @staticmethod
     def create(data: dict, user_id: int):
         if ArticleRepository.get_by_slug(data["slug"]):
             raise ArticleAlreadyExistsError(

@@ -33,17 +33,12 @@ def test_article_crud_flow(client):
     assert rv.status_code == 200
 
     # patch article
-    # find article id from list
-    rv = client.get('/api/articles')
-    a = rv.get_json()[0]
-    article_id = a['id']
-
-    rv = client.patch(f'/api/articles/{article_id}', json={'title': 'Updated'}, headers={'Authorization': f'Bearer {token}'})
+    rv = client.patch(f"/api/articles/{article_payload['slug']}", json={'title': 'Updated'}, headers={'Authorization': f'Bearer {token}'})
     assert rv.status_code == 200
     assert rv.get_json()['title'] == 'Updated'
 
     # delete
-    rv = client.delete(f'/api/articles/{article_id}', headers={'Authorization': f'Bearer {token}'})
+    rv = client.delete(f"/api/articles/{article_payload['slug']}", headers={'Authorization': f'Bearer {token}'})
     assert rv.status_code == 204
 
     # ensure deleted

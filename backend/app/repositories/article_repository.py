@@ -30,6 +30,14 @@ class ArticleRepository:
         return db.session.execute(statement).scalar_one_or_none()
 
     @staticmethod
+    def get_by_author(author_id: int) -> list[Article]:
+        statement = select(Article).where(
+            Article.author_id == author_id
+        ).order_by(Article.created_at.desc())
+
+        return db.session.execute(statement).scalars().all()
+
+    @staticmethod
     def create(article: Article) -> Article:
         db.session.add(article)
         db.session.commit()

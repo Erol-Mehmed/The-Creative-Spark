@@ -14,6 +14,8 @@ from app.schemas.article_schema import (
     ArticlePatchSchema,
 )
 from app.services.article_service import ArticleService
+from app.repositories.user_repository import UserRepository
+from app.exceptions.user_exceptions import UserNotFoundError
 
 
 class ArticleListResource(Resource):
@@ -73,18 +75,15 @@ class ArticleDetailResource(Resource):
                 "message": str(error),
             }, 404
 
-
-class ArticleManageResource(Resource):
-
     @jwt_required()
-    def patch(self, article_id):
+    def patch(self, slug):
         try:
             data = ArticlePatchSchema().load(
                 request.get_json()
             )
 
-            article = ArticleService.patch(
-                article_id,
+            article = ArticleService.patch_by_slug(
+                slug,
                 int(get_jwt_identity()),
                 data,
             )
@@ -121,10 +120,107 @@ class ArticleManageResource(Resource):
             }, 400
 
     @jwt_required()
-    def delete(self, article_id):
+    def delete(self, slug):
         try:
-            ArticleService.delete(
-                article_id,
+            ArticleService.delete_by_slug(
+                slug,
+                int(get_jwt_identity()),
+            )
+
+            return "", 204
+
+        except ArticleNotFoundError as error:
+            return {
+                "message": str(error),
+            }, 404
+
+        except ArticlePermissionDeniedError as error:
+            return {
+                "message": str(error),
+            }, 403
+
+class AuthorArticleListResource(Resource):
+
+    def get(self):
+        username = request.args.get('username')
+        if not username:
+            return {
+                "message": "username query parameter is required",
+            }, 400
+
+        try:
+            user = UserRepository.get_by_username(username)
+            if not user:
+                raise UserNotFoundError("User not found.")
+                
+            articles = ArticleService.get_by_author(user.id)
+
+            return {
+                "author": {
+                    "name": f"{user.first_name or ''} {user.last_name or ''}".strip() or user.username,
+                    "description": user.bio or "",
+                    "image": user.image_url or "",
+                },
+                "articles": ArticleResponseSchema(many=True).dump(articles),
+            }, 200
+
+        except UserNotFoundError as error:
+            return {
+                "message": str(error),
+            }, 404
+
+
+class ArticleManageResource(Resource):
+
+    @jwt_required()
+    def patch(self, slug):
+        try:
+            data = ArticlePatchSchema().load(
+                request.get_json()
+            )
+
+            article = ArticleService.patch_by_slug(
+                slug,
+                int(get_jwt_identity()),
+                data,
+            )
+
+            return (
+                ArticleResponseSchema().dump(article),
+                200,
+            )
+
+        except ValidationError as error:
+            return {
+                "message": "Validation failed.",
+                "errors": error.messages,
+            }, 400
+
+        except ArticleAlreadyExistsError as error:
+            return {
+                "message": str(error),
+            }, 409
+
+        except ArticleNotFoundError as error:
+            return {
+                "message": str(error),
+            }, 404
+
+        except ArticlePermissionDeniedError as error:
+            return {
+                "message": str(error),
+            }, 403
+
+        except EmptyArticleUpdateError as error:
+            return {
+                "message": str(error),
+            }, 400
+
+    @jwt_required()
+    def delete(self, slug):
+        try:
+            ArticleService.delete_by_slug(
+                slug,
                 int(get_jwt_identity()),
             )
 
