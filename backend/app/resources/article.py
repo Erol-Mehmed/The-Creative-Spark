@@ -21,7 +21,12 @@ from app.exceptions.user_exceptions import UserNotFoundError
 class ArticleListResource(Resource):
 
     def get(self):
-        articles = ArticleService.get_all()
+        topic = request.args.get('topic')
+        
+        if topic:
+            articles = ArticleService.get_by_topic(topic)
+        else:
+            articles = ArticleService.get_all()
 
         return (
             ArticleResponseSchema(

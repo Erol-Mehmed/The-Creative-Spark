@@ -29,6 +29,10 @@ class ArticleService:
         return ArticleRepository.get_by_author(author_id)
 
     @staticmethod
+    def get_by_topic(topic: str):
+        return ArticleRepository.get_by_topic(topic)
+
+    @staticmethod
     def patch_by_slug(
             slug: str,
             user_id: int,

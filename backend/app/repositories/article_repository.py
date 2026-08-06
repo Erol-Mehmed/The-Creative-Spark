@@ -38,6 +38,14 @@ class ArticleRepository:
         return db.session.execute(statement).scalars().all()
 
     @staticmethod
+    def get_by_topic(topic: str) -> list[Article]:
+        statement = select(Article).where(
+            Article.topic == topic
+        ).order_by(Article.created_at.desc())
+
+        return db.session.execute(statement).scalars().all()
+
+    @staticmethod
     def create(article: Article) -> Article:
         db.session.add(article)
         db.session.commit()

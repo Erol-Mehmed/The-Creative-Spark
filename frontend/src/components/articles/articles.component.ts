@@ -29,6 +29,8 @@ export class ArticlesComponent implements OnInit {
   currentData: any;
   displayedArticles: any = [];
   articlesToShow: number = 10;
+  topics: string[] = [];
+  selectedTopic: string | null = null;
 
   processAndDisplayArticles() {
     if (this.authorArticles) {
@@ -43,6 +45,10 @@ export class ArticlesComponent implements OnInit {
       this.currentData = this.currentData.articles;
     }
 
+    // Extract unique topics from articles
+    const uniqueTopics = [...new Set(this.currentData.map((article: any) => article.topic))].sort();
+    this.topics = uniqueTopics;
+
     this.displayedArticles = this.currentData.slice(0, 10);
   }
 
@@ -55,12 +61,24 @@ export class ArticlesComponent implements OnInit {
     }
   }
 
-  getArticles() {
-    const currentEndpoint = this.authorArticles
-      ? `/author?username=${this.route.snapshot.params['username']}`
-      : '/articles';
+  filterByTopic(topic: string | null) {
+    this.selectedTopic = topic;
+    this.articlesToShow = 10;
+    this.getArticles();
+  }
 
-    this.http.get(`/api${currentEndpoint}`).subscribe({
+  getArticles() {
+    let endpoint = '';
+    
+    if (this.authorArticles) {
+      endpoint = `/api/author?username=${this.route.snapshot.params['username']}`;
+    } else if (this.selectedTopic) {
+      endpoint = `/api/articles?topic=${encodeURIComponent(this.selectedTopic)}`;
+    } else {
+      endpoint = '/api/articles';
+    }
+
+    this.http.get(endpoint).subscribe({
       next: (data) => {
         this.currentData = data;
       },
