@@ -1,14 +1,37 @@
+import sys
+from pathlib import Path
+
+# Add backend directory to Python path
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
 import pytest
-from app import create_app
-from app.extensions import db as _db
+from flask import Flask
+from app.config import Config
+from app.extensions import db as _db, jwt, bcrypt, migrate
+from flask_cors import CORS
+from flask_restful import Api
 
 
 @pytest.fixture
 def app():
-    app = create_app()
+    """Create a fresh Flask app for each test to avoid route conflicts."""
+    app = Flask(__name__)
     app.config['TESTING'] = True
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
-    app.config['JWT_SECRET_KEY'] = 'test-secret'
+    app.config['JWT_SECRET_KEY'] = 'test-secret-key-32-chars-minimum!'  # 32+ chars
+    app.config['SECRET_KEY'] = 'test-secret-key-32-chars-minimum!'
+
+    CORS(app, resources={r"/api/*": {"origins": "http://localhost:4200"}})
+
+    _db.init_app(app)
+    jwt.init_app(app)
+    bcrypt.init_app(app)
+    migrate.init_app(app, _db)
+
+    # Create fresh API and register routes
+    api = Api(app)
+    from app.routes import register_routes
+    register_routes(api)
 
     with app.app_context():
         _db.create_all()

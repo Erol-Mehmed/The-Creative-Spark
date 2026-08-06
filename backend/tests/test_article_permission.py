@@ -6,7 +6,7 @@ def create_user_and_article(client, username='owner'):
 
     payload = {
         'title': 'Owner article',
-        'slug': f'{username}-article',
+        'slug': f'{username.lower()}-article-test',
         'content': 'Content ' * 50,
         'topic': 'test',
     }
