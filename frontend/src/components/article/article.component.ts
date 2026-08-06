@@ -20,20 +20,10 @@ export class ArticleComponent implements OnInit {
   ) {
   }
 
-  article: any = {
-    title: '',
-    content: '',
-    topic: '',
-    image: '',
-    claps: 0,
-    readTime: 0,
-    createdAt: '',
-    authorName: '',
-    authorImage: '',
-    authorSlug: '',
-  };
+  article: any = null;
 
   currentUser: any = null;
+  loading = true;
 
   ngOnInit() {
     this.userService.me$()?.subscribe({
@@ -43,20 +33,20 @@ export class ArticleComponent implements OnInit {
     const article_slug = this.route.snapshot.params['article_slug'];
 
     this.http.get(`/api/articles/${article_slug}`).subscribe({
-      next: (data) => {
+      next: (data: any) => {
         this.article = data;
       },
       error: (err) => {
-        // error state handled by component
+        console.error('Article not found', err);
       },
       complete: () => {
-        // loading complete
+        this.loading = false;
       },
     });
   }
 
   isOwner(): boolean {
-    return this.currentUser && this.article.author_id === this.currentUser.id;
+    return this.currentUser && this.article?.author_id === this.currentUser.id;
   }
 
   editArticle() {

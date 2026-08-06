@@ -83,3 +83,20 @@ class ArticleResponseSchema(Schema):
     author = fields.Nested(
         AuthorSchema
     )
+
+    # Flattened author fields for frontend compatibility
+    author_id = fields.Int()
+    authorName = fields.Method('get_author_name')
+    authorImage = fields.Method('get_author_image')
+    authorSlug = fields.Method('get_author_slug')
+
+    def get_author_name(self, obj):
+        if obj.author:
+            return f"{obj.author.first_name or ''} {obj.author.last_name or ''}".strip() or obj.author.username
+        return ''
+
+    def get_author_image(self, obj):
+        return obj.author.image_url if obj.author else None
+
+    def get_author_slug(self, obj):
+        return obj.author.username if obj.author else ''
