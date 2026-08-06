@@ -12,7 +12,7 @@
     </div>
     <div class="col-4 info">
       <div class="sticky-wrapper">
-        <div class="img-name">
+        <div class="img-name d-flex align-items-center gap-2">
           <img
             [src]="author.image ? author.image : '../../assets/images/user-placeholder.jpg'"
             alt="Article author."
@@ -20,10 +20,15 @@
           <p>
             {{ author.name }}
           </p>
+          <button *ngIf="isOwner()" class="btn btn-sm btn-outline-primary" (click)="toggleEdit()">Edit profile</button>
         </div>
         <p class="description">
           {{ author.description }}
         </p>
+
+        <div *ngIf="editing">
+          <app-profile-edit></app-profile-edit>
+        </div>
       </div>
     </div>
   </div>

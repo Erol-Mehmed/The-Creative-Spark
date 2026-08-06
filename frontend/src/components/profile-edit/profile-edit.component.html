@@ -1,0 +1,33 @@
+<div class="profile-edit">
+  <h3>Edit profile</h3>
+
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <div class="mb-3">
+      <label class="form-label">Profile image</label>
+      <div class="d-flex align-items-center gap-3">
+        <img *ngIf="imagePreview" [src]="imagePreview" alt="preview" class="rounded-circle" width="64" height="64">
+        <input type="file" (change)="onFileChange($event)" accept="image/*" />
+        <div *ngIf="uploading">Uploading...</div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">First name</label>
+      <input class="form-control" formControlName="first_name" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Last name</label>
+      <input class="form-control" formControlName="last_name" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Bio</label>
+      <textarea class="form-control" formControlName="bio" rows="4"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="saving">Save</button>
+  </form>
+</div>

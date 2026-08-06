@@ -1,5 +1,7 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Author } from '../../shared/interfaces';
+import { ActivatedRoute } from '@angular/router';
+import { UserService } from 'src/core/services/user.service';
 
 @Component({
   selector: 'app-author',
@@ -14,11 +16,33 @@ export class AuthorComponent implements OnInit {
     image: '',
   };
 
+  currentUser: any = null;
+  editing = false;
+
+  constructor(
+    private route: ActivatedRoute,
+    private userService: UserService,
+  ) {}
+
   ngOnInit() {
     window.scrollTo(0, 0);
+
+    this.userService.me$()?.subscribe({
+      next: (user) => this.currentUser = user,
+      error: () => (this.currentUser = null),
+    });
   };
 
   setAuthorInfo($event: Author) {
     this.author = $event;
   };
+
+  isOwner() {
+    const slug = this.route.snapshot.params['slug'];
+    return this.currentUser && this.currentUser.username === slug;
+  }
+
+  toggleEdit() {
+    this.editing = !this.editing;
+  }
 }

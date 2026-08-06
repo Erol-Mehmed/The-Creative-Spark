@@ -18,10 +18,18 @@ export class AppInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     if (req.url.startsWith('/api')) {
+      const token = localStorage.getItem('access_token');
+
+      const headers: { [name: string]: string } = {};
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+
       return next.handle(
         req.clone({
           url: req.url.replace('/api', Api_Url),
           withCredentials: false,
+          setHeaders: headers,
         })
       );
     }

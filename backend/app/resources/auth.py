@@ -8,8 +8,9 @@ from app.exceptions.auth_exceptions import (
     UserAlreadyExistsError,
 )
 from app.schemas.auth_schema import LoginSchema, RegisterSchema
-from app.schemas.user_schema import UserResponseSchema
+from app.schemas.user_schema import UserResponseSchema, UserPatchSchema
 from app.services.auth_service import AuthService
+from app.services.user_service import UserService
 
 
 class RegisterResource(Resource):
@@ -67,6 +68,29 @@ class MeResource(Resource):
             user = AuthService.me(int(get_jwt_identity()))
 
             return UserResponseSchema().dump(user), 200
+
+        except AuthenticationError as error:
+            return {
+                "message": str(error),
+            }, 401
+
+    @jwt_required()
+    def patch(self):
+        try:
+            data = UserPatchSchema().load(request.get_json())
+
+            user = UserService.update(
+                int(get_jwt_identity()),
+                data,
+            )
+
+            return UserResponseSchema().dump(user), 200
+
+        except ValidationError as error:
+            return {
+                "message": "Validation failed.",
+                "errors": error.messages,
+            }, 400
 
         except AuthenticationError as error:
             return {

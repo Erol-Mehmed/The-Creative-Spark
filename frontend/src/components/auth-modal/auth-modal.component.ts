@@ -93,6 +93,56 @@ export class AuthModalComponent implements OnInit {
   }
 
   onSubmit(registerOrLoginForm: FormGroup) {
-    console.log('modal form>>', registerOrLoginForm.value);
+    if (this.modalVersion === 'getStarted') {
+      // Register flow
+      const payload = {
+        username: registerOrLoginForm.value.name,
+        email: registerOrLoginForm.value.email,
+        password: registerOrLoginForm.value.password,
+      };
+
+      this.userService.register$(payload).subscribe({
+        next: (user) => {
+          // After successful register, log the user in
+          this.userService.login$({ email: payload.email, password: payload.password }).subscribe({
+            next: (res: any) => {
+              localStorage.setItem('access_token', res.access_token);
+
+              // fetch current user and set in service
+              this.userService.me$().subscribe({
+                next: (me) => {
+                  (this.userService as any).user = me;
+                },
+                error: () => {},
+                complete: () => this.activeModal.close(),
+              });
+            },
+            error: (err) => console.log('login after register failed', err),
+          });
+        },
+        error: (err) => console.log('register failed', err),
+      });
+    } else {
+      // Login flow
+      const payload = {
+        email: registerOrLoginForm.value.email,
+        password: registerOrLoginForm.value.password,
+      };
+
+      this.userService.login$(payload).subscribe({
+        next: (res: any) => {
+          localStorage.setItem('access_token', res.access_token);
+
+          this.userService.me$().subscribe({
+            next: (me) => {
+              (this.userService as any).user = me;
+            },
+            error: () => {},
+            complete: () => this.activeModal.close(),
+          });
+        },
+        error: (err) => console.log('login failed', err),
+      });
+    }
   }
 }

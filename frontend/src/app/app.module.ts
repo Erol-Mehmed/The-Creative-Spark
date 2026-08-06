@@ -20,6 +20,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { AuthorComponent } from '../components/author/author.component';
 import { HeroSectionComponent } from 'src/components/hero-section/hero-section.component';
 import { ArticleComponent } from 'src/components/article/article.component';
+import { ProfileEditComponent } from 'src/components/profile-edit/profile-edit.component';
+import { ArticleEditorComponent } from 'src/components/article-editor/article-editor.component';
 import { NgOptimizedImage } from "@angular/common";
 import { SharedModule } from 'src/shared/shared/shared.module';
 
@@ -35,6 +37,8 @@ import { SharedModule } from 'src/shared/shared/shared.module';
     AuthorComponent,
     HeroSectionComponent,
     ArticleComponent,
+    ProfileEditComponent,
+    ArticleEditorComponent,
   ],
     imports: [
         BrowserModule,

@@ -32,3 +32,10 @@ class UserRepository:
     @staticmethod
     def get_by_identity(user_id: int) -> User | None:
         return db.session.get(User, user_id)
+
+    @staticmethod
+    def update(user: User) -> User:
+        db.session.add(user)
+        db.session.commit()
+
+        return user

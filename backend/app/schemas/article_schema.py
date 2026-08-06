@@ -1,20 +1,21 @@
 from marshmallow import Schema, fields, validate
+from app.validators import NotOnlyWhitespace, SlugFormat
 
 
 class ArticleCreateSchema(Schema):
     title = fields.Str(
         required=True,
-        validate=validate.Length(min=5, max=150),
+        validate=[validate.Length(min=5, max=150), NotOnlyWhitespace()],
     )
 
     slug = fields.Str(
         required=True,
-        validate=validate.Length(min=5, max=150),
+        validate=[validate.Length(min=5, max=150), SlugFormat()],
     )
 
     content = fields.Str(
         required=True,
-        validate=validate.Length(min=20),
+        validate=[validate.Length(min=20), NotOnlyWhitespace()],
     )
 
     topic = fields.Str(
@@ -28,9 +29,9 @@ class ArticleCreateSchema(Schema):
 
 
 class ArticlePatchSchema(Schema):
-    title = fields.Str(required=False)
-    slug = fields.Str(required=False)
-    content = fields.Str(required=False)
+    title = fields.Str(required=False, validate=NotOnlyWhitespace())
+    slug = fields.Str(required=False, validate=SlugFormat())
+    content = fields.Str(required=False, validate=NotOnlyWhitespace())
     topic = fields.Str(
         required=False,
         validate=validate.Length(min=2, max=100),

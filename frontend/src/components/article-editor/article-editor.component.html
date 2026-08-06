@@ -1,0 +1,38 @@
+<div class="article-editor">
+  <h3>Create article</h3>
+
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <div class="mb-3">
+      <label class="form-label">Image</label>
+      <div class="d-flex align-items-center gap-3">
+        <img *ngIf="imagePreview" [src]="imagePreview" alt="preview" width="128" />
+        <input type="file" (change)="onFileChange($event)" accept="image/*" />
+        <div *ngIf="uploading">Uploading...</div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Title</label>
+      <input class="form-control" formControlName="title" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Slug</label>
+      <input class="form-control" formControlName="slug" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Topic</label>
+      <input class="form-control" formControlName="topic" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Content</label>
+      <textarea class="form-control" formControlName="content" rows="8"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="saving">Create</button>
+  </form>
+</div>
