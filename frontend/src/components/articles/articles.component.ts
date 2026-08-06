@@ -46,7 +46,7 @@ export class ArticlesComponent implements OnInit {
     }
 
     // Extract unique topics from articles
-    const uniqueTopics = [...new Set(this.currentData.map((article: any) => article.topic))].sort();
+    const uniqueTopics = [...new Set(this.currentData.map((article: any) => article.topic))].sort() as string[];
     this.topics = uniqueTopics;
 
     this.displayedArticles = this.currentData.slice(0, 10);
