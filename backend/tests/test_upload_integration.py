@@ -10,13 +10,12 @@ def test_upload_endpoint_mocked(monkeypatch, client):
     monkeypatch.setattr(uploader, 'upload', fake_upload)
 
     # create user and token
-    client.post('/api/auth/register', json={'username':'u2','email':'u2@example.com','password':'pass1234'})
-    rv = client.post('/api/auth/login', json={'email':'u2@example.com','password':'pass1234'})
-    token = rv.get_json()['access_token']
+    reg_res = client.post('/api/auth/register', json={'username':'u2','email':'u2@example.com','password':'pass1234'})
+    assert reg_res.status_code == 201
 
-    data = {
-        'image': (bytes('fake', 'utf-8'), 'test.jpg')
-    }
+    login_res = client.post('/api/auth/login', json={'email':'u2@example.com','password':'pass1234'})
+    assert login_res.status_code == 200
+    token = login_res.get_json()['access_token']
 
     # use files upload via test client
     from io import BytesIO

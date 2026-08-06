@@ -61,6 +61,7 @@ class AuthorSchema(Schema):
 class ArticleResponseSchema(Schema):
     id = fields.Int()
     title = fields.Str()
+    slug = fields.Str()
     content = fields.Str()
     topic = fields.Str()
 
