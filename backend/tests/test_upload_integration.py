@@ -10,7 +10,7 @@ def test_upload_endpoint_mocked(monkeypatch, client):
     monkeypatch.setattr(uploader, 'upload', fake_upload)
 
     # create user and token
-    reg_res = client.post('/api/auth/register', json={'username':'u2','email':'u2@example.com','password':'pass1234'})
+    reg_res = client.post('/api/auth/register', json={'username':'user2','email':'u2@example.com','password':'pass1234'})
     assert reg_res.status_code == 201
 
     login_res = client.post('/api/auth/login', json={'email':'u2@example.com','password':'pass1234'})
