@@ -9,7 +9,7 @@ class UserResponseSchema(Schema):
     first_name = fields.Str(allow_none=True)
     last_name = fields.Str(allow_none=True)
     bio = fields.Str(allow_none=True)
-    avatar_url = fields.Str(allow_none=True)
+    image_url = fields.Str(allow_none=True)
 
     role = fields.Str()
 

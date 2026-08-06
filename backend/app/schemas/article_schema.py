@@ -51,7 +51,8 @@ class AuthorSchema(Schema):
         allow_none=True,
     )
 
-    avatar_url = fields.Str(
+    image = fields.Str(
+        attribute="image_url",
         allow_none=True,
     )
 

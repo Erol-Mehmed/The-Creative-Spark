@@ -15,7 +15,10 @@ class User(db.Model):
     first_name = db.Column(db.String(50))
     last_name = db.Column(db.String(50))
     bio = db.Column(db.Text)
-    avatar_url = db.Column(db.String(255))
+    image_url = db.Column(
+        db.String(255),
+        nullable=True,
+    )
 
     articles = db.relationship(
         "Article",
