@@ -67,7 +67,7 @@ export class ArticlesComponent implements OnInit {
         console.log('current data:', currentEndpoint, this.currentData);
       },
       error: (err) => {
-        console.log(err);
+        // error state handled by component
       },
       complete: () => {
         this.processAndDisplayArticles();

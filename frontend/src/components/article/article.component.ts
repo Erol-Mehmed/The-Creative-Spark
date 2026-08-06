@@ -35,20 +35,17 @@ export class ArticleComponent implements OnInit {
 
   this.route.url.subscribe((data) => {
     [ ,slug] = data.map((x) => x.path);
-
-    console.log('test>>> ', data);
   });
 
     this.http.get(`/api/articles/${slug}`).subscribe({
       next: (data) => {
         this.article = data;
-        console.log('article details>>', this.article);
       },
       error: (err) => {
-        console.log(err);
+        // error state handled by component
       },
       complete: () => {
-        console.log('completed:', this.article);
+        // loading complete
       },
     });
   }

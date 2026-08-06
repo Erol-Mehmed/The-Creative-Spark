@@ -117,10 +117,14 @@ export class AuthModalComponent implements OnInit {
                 complete: () => this.activeModal.close(),
               });
             },
-            error: (err) => console.log('login after register failed', err),
+            error: (err) => {
+              console.error('Login after register failed');
+            },
           });
         },
-        error: (err) => console.log('register failed', err),
+        error: (err) => {
+          console.error('Register failed');
+        },
       });
     } else {
       // Login flow
@@ -141,7 +145,9 @@ export class AuthModalComponent implements OnInit {
             complete: () => this.activeModal.close(),
           });
         },
-        error: (err) => console.log('login failed', err),
+        error: (err) => {
+          console.error('Login failed');
+        },
       });
     }
   }

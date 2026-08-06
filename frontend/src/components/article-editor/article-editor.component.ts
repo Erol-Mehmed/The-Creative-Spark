@@ -54,7 +54,7 @@ export class ArticleEditorComponent {
 
     this.http.post('/api/articles', this.form.value).subscribe({
       next: (article) => {
-        console.log('Article created', article);
+        // article created successfully
       },
       error: (err) => {
         this.error = err?.error?.message || 'Save failed.';

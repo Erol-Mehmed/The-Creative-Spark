@@ -71,7 +71,6 @@ export class ProfileEditComponent implements OnInit {
 
     this.userService.updateProfile(this.form.value).subscribe({
       next: (user) => {
-        // Optionally: update app state or emit event
         console.log('Profile updated', user);
       },
       error: (err) => {
