@@ -64,6 +64,19 @@ Testing
 - Tests are under backend/tests using pytest. To run locally:
   pytest backend/tests
 
+Common make targets (Makefile)
+
+- install: create a virtualenv and install backend dependencies
+    make install
+- migrate: run alembic migrations (requires .env and DB access)
+    make migrate
+- run: start the Flask backend
+    make run
+- test: run pytest
+    make test
+- lint: run black check
+    make lint
+
 Notes
 
 - Cloudinary is used for image hosting; ensure credentials in .env.
