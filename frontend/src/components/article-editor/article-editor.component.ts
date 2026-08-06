@@ -51,9 +51,9 @@ export class ArticleEditorComponent implements OnInit {
           slug: article.slug,
           topic: article.topic,
           content: article.content,
-          image_url: article.image_url,
+          image_url: article.image,
         });
-        this.imagePreview = article.image_url;
+        this.imagePreview = article.image;
       },
       error: (err) => {
         this.error = 'Failed to load article.';
