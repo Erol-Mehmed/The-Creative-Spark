@@ -29,7 +29,6 @@ export class AuthorComponent implements OnInit {
 
     this.userService.me$()?.subscribe({
       next: (user) => this.currentUser = user,
-      error: () => (this.currentUser = null),
     });
   };
 

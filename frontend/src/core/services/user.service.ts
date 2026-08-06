@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { User } from 'src/shared/interfaces';
 
 @Injectable()
@@ -32,7 +32,11 @@ export class UserService  {
     return this.http.patch<User>(`/api/auth/me`, data);
   }
 
-  me$(): Observable<User> {
+  me$(): Observable<User | null> {
+    const token = localStorage.getItem('access_token');
+    if (!token) {
+      return of(null);
+    }
     return this.http.get<User>(`/api/auth/me`);
   }
 }

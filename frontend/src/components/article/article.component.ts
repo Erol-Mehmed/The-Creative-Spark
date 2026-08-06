@@ -38,7 +38,6 @@ export class ArticleComponent implements OnInit {
   ngOnInit() {
     this.userService.me$()?.subscribe({
       next: (user) => this.currentUser = user,
-      error: () => (this.currentUser = null),
     });
 
     const article_slug = this.route.snapshot.params['article_slug'];

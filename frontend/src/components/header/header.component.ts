@@ -27,10 +27,6 @@ export class HeaderComponent implements OnInit {
         next: (user) => {
           this.currentUser = user;
         },
-        error: () => {
-          localStorage.removeItem('access_token');
-          this.currentUser = null;
-        },
       });
     }
   }
