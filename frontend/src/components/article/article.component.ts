@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import {FormatDatePipe} from "../../shared/pipes/format-date.pipe";
+import { UserService } from 'src/core/services/user.service';
 
 @Component({
   selector: 'app-article',
@@ -13,7 +14,9 @@ export class ArticleComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private formatDatePipe: FormatDatePipe,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private userService: UserService,
+    private router: Router,
   ) {
   }
 
@@ -30,14 +33,17 @@ export class ArticleComponent implements OnInit {
     authorSlug: '',
   };
 
+  currentUser: any = null;
+
   ngOnInit() {
-    let slug = '';
+    this.userService.me$()?.subscribe({
+      next: (user) => this.currentUser = user,
+      error: () => (this.currentUser = null),
+    });
 
-  this.route.url.subscribe((data) => {
-    [ ,slug] = data.map((x) => x.path);
-  });
+    const article_slug = this.route.snapshot.params['article_slug'];
 
-    this.http.get(`/api/articles/${slug}`).subscribe({
+    this.http.get(`/api/articles/${article_slug}`).subscribe({
       next: (data) => {
         this.article = data;
       },
@@ -48,5 +54,13 @@ export class ArticleComponent implements OnInit {
         // loading complete
       },
     });
+  }
+
+  isOwner(): boolean {
+    return this.currentUser && this.article.author_id === this.currentUser.id;
+  }
+
+  editArticle() {
+    this.router.navigate(['/edit', this.article.slug]);
   }
 }

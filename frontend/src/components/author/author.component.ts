@@ -38,8 +38,8 @@ export class AuthorComponent implements OnInit {
   };
 
   isOwner() {
-    const slug = this.route.snapshot.params['slug'];
-    return this.currentUser && this.currentUser.username === slug;
+    const username = this.route.snapshot.params['username'];
+    return this.currentUser && this.currentUser.username === username;
   }
 
   toggleEdit() {

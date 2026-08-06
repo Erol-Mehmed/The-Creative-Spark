@@ -57,14 +57,12 @@ export class ArticlesComponent implements OnInit {
 
   getArticles() {
     const currentEndpoint = this.authorArticles
-      ? `/author?slug=${this.route.snapshot.params['slug']}`
+      ? `/author?username=${this.route.snapshot.params['username']}`
       : '/articles';
 
     this.http.get(`/api${currentEndpoint}`).subscribe({
       next: (data) => {
         this.currentData = data;
-
-        console.log('current data:', currentEndpoint, this.currentData);
       },
       error: (err) => {
         // error state handled by component

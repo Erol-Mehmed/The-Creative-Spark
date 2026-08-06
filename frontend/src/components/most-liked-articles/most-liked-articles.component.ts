@@ -21,9 +21,6 @@ export class MostLikedArticlesComponent implements OnInit {
       error: (err) => {
         console.error(err);
       },
-      complete: () => {
-        console.log('most liked articles:', this.mostLikedArticles);
-      },
     });
   }
 }

@@ -8,8 +8,9 @@ import { ArticleEditorComponent } from 'src/components/article-editor/article-ed
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'create', component: ArticleEditorComponent },
-  { path: ':slug', component: AuthorComponent },
-  { path: ':slug/:slug', component: ArticleComponent },
+  { path: 'edit/:slug', component: ArticleEditorComponent },
+  { path: ':username/:article_slug', component: ArticleComponent },
+  { path: ':username', component: AuthorComponent },
 ];
 
 @NgModule({

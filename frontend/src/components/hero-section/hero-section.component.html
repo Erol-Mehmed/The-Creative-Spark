@@ -1,11 +1,22 @@
 <div class="hero-section container d-flex justify-content-center border-bottom border-dark">
   <div class="row">
     <div class="col-12">
-      <h2>Join a community where knowledge is boundless.</h2>
-      <p class="sub-heading">
-        A platform for curious minds to share their knowledge and connect.
-      </p>
-      <button class="btn btn-dark">Join</button>
+      <ng-container *ngIf="!currentUser">
+        <!-- Guest state -->
+        <h2>Join a community where knowledge is boundless.</h2>
+        <p class="sub-heading">
+          A platform for curious minds to share their knowledge and connect.
+        </p>
+        <button class="btn btn-dark" (click)="document.getElementById('auth-modal')?.click()">Join</button>
+      </ng-container>
+      <ng-container *ngIf="currentUser">
+        <!-- Logged-in state -->
+        <h2>Welcome back, {{ currentUser.first_name || currentUser.username }}!</h2>
+        <p class="sub-heading">
+          Ready to share your ideas? Start writing and inspire others.
+        </p>
+        <button class="btn btn-dark" routerLink="/create">Write an Article</button>
+      </ng-container>
     </div>
   </div>
 </div>

@@ -76,8 +76,6 @@ export class AuthModalComponent implements OnInit {
       ? 'Enter your username, email and password to create an account.'
       : 'Enter your email and password to sing in.';
 
-    console.log('modalVersion>>', this.modalVersion, this.loginOrRegister, this.loginOrRegisterFormSubtitle);
-
     // Set the validators for the forms
     this.registerForm = this.fb.group({
       name: ['', [Validators.required, noWhiteSpaceValidator]],
