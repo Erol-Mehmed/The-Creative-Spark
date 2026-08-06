@@ -17,4 +17,9 @@ export class HeroSectionComponent implements OnInit {
       error: () => (this.currentUser = null),
     });
   }
+
+  openAuthModal() {
+    const modal = document.getElementById('auth-modal') as HTMLButtonElement;
+    modal?.click();
+  }
 }

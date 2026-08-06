@@ -7,7 +7,7 @@
         <p class="sub-heading">
           A platform for curious minds to share their knowledge and connect.
         </p>
-        <button class="btn btn-dark" (click)="document.getElementById('auth-modal')?.click()">Join</button>
+        <button class="btn btn-dark" (click)="openAuthModal()">Join</button>
       </ng-container>
       <ng-container *ngIf="currentUser">
         <!-- Logged-in state -->
