@@ -37,6 +37,19 @@
             <img src="../../assets/svg/bookmark.svg" alt="Add bookmark icon.">
           </div>
         </div>
+        <div class="topics-container mt-3" *ngIf="article.topics && article.topics.length > 0">
+          <div class="d-flex gap-2 flex-wrap">
+            <span
+              *ngFor="let topic of article.topics"
+              class="badge bg-light text-dark cursor-pointer"
+              [routerLink]="'/'"
+              [queryParams]="{ topic: topic }"
+              style="cursor: pointer;"
+            >
+              {{ topic }}
+            </span>
+          </div>
+        </div>
     </div>
   </div>
 

@@ -57,7 +57,14 @@
           <p class="mx-1">-</p>
           <p class="read-time">{{ article.readTime }} min read</p>
           <p class="mx-1">-</p>
-          <p class="badge fw-normal text-black" role="button">{{ article.topic }}</p>
+          <span 
+            *ngFor="let topic of (article.topics || [article.topic])"
+            class="badge bg-light text-dark me-2" 
+            role="button"
+            (click)="filterByTopic(topic)"
+            style="cursor: pointer;">
+            {{ topic }}
+          </span>
         </div>
       </div>
       <div class="article-image">

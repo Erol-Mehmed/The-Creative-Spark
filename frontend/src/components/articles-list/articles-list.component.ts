@@ -11,12 +11,12 @@ import Author from '../../shared/interfaces/author';
 import { FormatDatePipe } from "../../shared/pipes/format-date.pipe";
 
 @Component({
-  selector: 'app-articles',
-  templateUrl: './articles.component.html',
-  styleUrls: ['./articles.component.scss'],
+  selector: 'app-articles-list',
+  templateUrl: './articles-list.component.html',
+  styleUrls: ['./articles-list.component.scss'],
   providers: [FormatDatePipe],
 })
-export class ArticlesComponent implements OnInit {
+export class ArticlesListComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private formatDatePipe: FormatDatePipe,
@@ -45,9 +45,16 @@ export class ArticlesComponent implements OnInit {
       this.currentData = this.currentData.articles;
     }
 
-    // Extract unique topics from articles
-    const uniqueTopics = [...new Set(this.currentData.map((article: any) => article.topic))].sort() as string[];
-    this.topics = uniqueTopics;
+    // Extract unique topics from articles (handle both single topic and topics array)
+    const allTopics = new Set<string>();
+    this.currentData.forEach((article: any) => {
+      if (article.topics && Array.isArray(article.topics)) {
+        article.topics.forEach((t: string) => allTopics.add(t));
+      } else if (article.topic) {
+        allTopics.add(article.topic);
+      }
+    });
+    this.topics = Array.from(allTopics).sort();
 
     this.displayedArticles = this.currentData.slice(0, 10);
   }
@@ -92,6 +99,12 @@ export class ArticlesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getArticles();
+    // Check for topic query parameter
+    this.route.queryParams.subscribe((params) => {
+      if (params['topic']) {
+        this.selectedTopic = params['topic'];
+      }
+      this.getArticles();
+    });
   }
 }

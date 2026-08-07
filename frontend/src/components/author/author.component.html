@@ -5,10 +5,10 @@
         {{ author.name }}
       </h2>
       <h3 class="articles-header">Stories</h3>
-      <app-articles
+      <app-articles-list
         [authorArticles]="true"
         (author)="setAuthorInfo($event)"
-      ></app-articles>
+      ></app-articles-list>
     </div>
     <div class="col-4 info">
       <div class="sticky-wrapper">

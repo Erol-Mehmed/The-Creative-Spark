@@ -5,12 +5,12 @@ import {FormatDatePipe} from "../../shared/pipes/format-date.pipe";
 import { UserService } from 'src/core/services/user.service';
 
 @Component({
-  selector: 'app-article',
-  templateUrl: './article.component.html',
-  styleUrls: ['./article.component.scss'],
+  selector: 'app-article-details',
+  templateUrl: './article-details.component.html',
+  styleUrls: ['./article-details.component.scss'],
   providers: [FormatDatePipe],
 })
-export class ArticleComponent implements OnInit {
+export class ArticleDetailsComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private formatDatePipe: FormatDatePipe,

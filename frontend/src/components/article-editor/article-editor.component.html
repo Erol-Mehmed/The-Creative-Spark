@@ -24,8 +24,20 @@
     </div>
 
     <div class="mb-3">
-      <label class="form-label">Topic</label>
-      <input class="form-control" formControlName="topic" />
+      <label class="form-label">Topics</label>
+      <div class="d-flex flex-wrap gap-2">
+        <button
+          *ngFor="let topic of topics"
+          type="button"
+          (click)="toggleTopic(topic.name)"
+          [class.active]="isTopicSelected(topic.name)"
+          class="btn btn-sm"
+          [ngClass]="isTopicSelected(topic.name) ? 'btn-primary' : 'btn-outline-secondary'"
+        >
+          {{ topic.name }}
+        </button>
+      </div>
+      <small class="text-muted d-block mt-2">Selected: {{ selectedTopics.join(', ') || 'None' }}</small>
     </div>
 
     <div class="mb-3">

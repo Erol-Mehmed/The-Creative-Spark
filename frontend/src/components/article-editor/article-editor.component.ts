@@ -84,9 +84,9 @@ export class ArticleEditorComponent implements OnInit {
           content: article.content,
           image_url: article.image,
         });
-        // Load topics if available
+        // Load topics if available - handle both array of strings and array of objects
         if (article.topics && Array.isArray(article.topics)) {
-          this.selectedTopics = [...article.topics];
+          this.selectedTopics = article.topics.map((t: any) => typeof t === 'string' ? t : t.name);
           this.form.patchValue({ topics: this.selectedTopics });
         }
         this.imagePreview = article.image;

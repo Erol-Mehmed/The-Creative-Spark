@@ -12,14 +12,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MostLikedArticlesComponent } from '../components/most-liked-articles/most-liked-articles.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from 'src/core/core.module';
-import { ArticlesComponent } from 'src/components/articles/articles.component';
+import { ArticlesListComponent } from 'src/components/articles-list/articles-list.component';
 import { HomeComponent } from 'src/components/home/home.component';
 import { TopicsComponent } from 'src/components/topics/topics.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { AuthorComponent } from '../components/author/author.component';
 import { HeroSectionComponent } from 'src/components/hero-section/hero-section.component';
-import { ArticleComponent } from 'src/components/article/article.component';
+import { ArticleDetailsComponent } from 'src/components/article-details/article-details.component';
 import { ProfileEditComponent } from 'src/components/profile-edit/profile-edit.component';
 import { ArticleEditorComponent } from 'src/components/article-editor/article-editor.component';
 import { NgOptimizedImage } from "@angular/common";
@@ -31,12 +31,12 @@ import { SharedModule } from 'src/shared/shared/shared.module';
     HeaderComponent,
     AuthModalComponent,
     MostLikedArticlesComponent,
-    ArticlesComponent,
+    ArticlesListComponent,
     HomeComponent,
     TopicsComponent,
     AuthorComponent,
     HeroSectionComponent,
-    ArticleComponent,
+    ArticleDetailsComponent,
     ProfileEditComponent,
     ArticleEditorComponent,
   ],
