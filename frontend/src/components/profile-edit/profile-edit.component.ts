@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { UploadService } from 'src/core/services/upload.service';
 import { UserService } from 'src/core/services/user.service';
@@ -14,6 +14,8 @@ export class ProfileEditComponent implements OnInit {
   saving = false;
   error: string | null = null;
   imagePreview: string | null = null;
+
+  @Output() close = new EventEmitter<void>();
 
   constructor(
     private fb: FormBuilder,
@@ -71,12 +73,17 @@ export class ProfileEditComponent implements OnInit {
 
     this.userService.updateProfile(this.form.value).subscribe({
       next: (user) => {
-        console.log('Profile updated', user);
+        // Update user in service cache and emit close event
+        this.close.emit();
       },
       error: (err) => {
         this.error = err?.error?.message || 'Save failed.';
+        this.saving = false;
       },
-      complete: () => (this.saving = false),
     });
+  }
+
+  cancel() {
+    this.close.emit();
   }
 }

@@ -20,12 +20,20 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    // Subscribe to user state changes
+    this.userService.currentUser$.subscribe({
+      next: (user) => {
+        this.currentUser = user;
+      },
+    });
+
     // Check if user is already logged in
     const token = localStorage.getItem('access_token');
     if (token) {
       this.userService.me$().subscribe({
         next: (user) => {
           this.currentUser = user;
+          this.userService.setCurrentUser(user);
         },
       });
     }
@@ -41,7 +49,10 @@ export class HeaderComponent implements OnInit {
         const token = localStorage.getItem('access_token');
         if (token) {
           this.userService.me$().subscribe({
-            next: (user) => this.currentUser = user,
+            next: (user) => {
+              this.currentUser = user;
+              this.userService.setCurrentUser(user);
+            },
             error: () => {},
           });
         }
@@ -51,8 +62,11 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    localStorage.removeItem('access_token');
-    this.currentUser = null;
-    this.router.navigate(['']);
+    if (confirm('Are you sure you want to logout?')) {
+      localStorage.removeItem('access_token');
+      this.currentUser = null;
+      this.userService.setCurrentUser(null);
+      this.router.navigate(['']);
+    }
   }
 }

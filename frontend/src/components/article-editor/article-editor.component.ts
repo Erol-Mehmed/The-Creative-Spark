@@ -84,8 +84,11 @@ export class ArticleEditorComponent implements OnInit {
     this.saving = true;
     this.error = null;
 
+    // Ensure slug is lowercase
+    const formValue = { ...this.form.value, slug: this.form.value.slug.toLowerCase() };
+
     if (this.isEditing && this.articleSlug) {
-      this.http.patch(`/api/articles/${this.articleSlug}`, this.form.value).subscribe({
+      this.http.patch(`/api/articles/${this.articleSlug}`, formValue).subscribe({
         next: (article: any) => {
           this.router.navigate(['/']);
         },
@@ -95,7 +98,7 @@ export class ArticleEditorComponent implements OnInit {
         },
       });
     } else {
-      this.http.post('/api/articles', this.form.value).subscribe({
+      this.http.post('/api/articles', formValue).subscribe({
         next: () => {
           this.router.navigate(['/']);
         },

@@ -109,7 +109,7 @@ export class AuthModalComponent implements OnInit {
               // fetch current user and set in service
               this.userService.me$().subscribe({
                 next: (me) => {
-                  (this.userService as any).user = me;
+                  this.userService.setCurrentUser(me);
                 },
                 error: () => {},
                 complete: () => this.activeModal.close(),
@@ -137,7 +137,7 @@ export class AuthModalComponent implements OnInit {
 
           this.userService.me$().subscribe({
             next: (me) => {
-              (this.userService as any).user = me;
+              this.userService.setCurrentUser(me);
             },
             error: () => {},
             complete: () => this.activeModal.close(),

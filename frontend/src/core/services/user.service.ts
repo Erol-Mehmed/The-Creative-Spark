@@ -1,13 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { User } from 'src/shared/interfaces';
 
 @Injectable()
 export class UserService  {
   user : User | null | undefined = null;
+  private currentUserSubject = new BehaviorSubject<User | null>(null);
+  public currentUser$ = this.currentUserSubject.asObservable();
 
   constructor(private http: HttpClient) {}
+
+  setCurrentUser(user: User | null) {
+    this.currentUserSubject.next(user);
+  }
 
   register$(data: {
     username: string;
