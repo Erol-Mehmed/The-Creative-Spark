@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -11,6 +11,7 @@ export class HomeComponent implements OnInit{
   constructor(
     private http: HttpClient,
     private route: ActivatedRoute,
+    private router: Router,
   ) {}
 
   hasArticles: boolean = false;
@@ -29,6 +30,10 @@ export class HomeComponent implements OnInit{
   }
 
   onTopicChange(topic: string | null): void {
-    this.selectedTopic = topic;
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { topic: topic || null },
+      queryParamsHandling: 'merge',
+    });
   }
 }

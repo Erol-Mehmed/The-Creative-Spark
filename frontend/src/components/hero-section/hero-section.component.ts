@@ -17,10 +17,19 @@ export class HeroSectionComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.userService.currentUser$.subscribe({
+      next: (user) => {
+        this.currentUser = user;
+      },
+    });
+
     const token = localStorage.getItem('access_token');
     if (token) {
-      this.userService.me$()?.subscribe({
-        next: (user) => this.currentUser = user,
+      this.userService.me$().subscribe({
+        next: (user) => {
+          this.currentUser = user;
+          this.userService.setCurrentUser(user);
+        },
         error: () => (this.currentUser = null),
       });
     }
@@ -28,14 +37,17 @@ export class HeroSectionComponent implements OnInit {
 
   openAuthModal() {
     const modalRef = this.modalService.open(AuthModalComponent, { centered: true, size: 'lg' });
-    modalRef.componentInstance.modalVersion = 'login';
+    modalRef.componentInstance.modalVersion = 'getStarted';
 
     modalRef.result.then(
       () => {
         const token = localStorage.getItem('access_token');
         if (token) {
           this.userService.me$().subscribe({
-            next: (user) => this.currentUser = user,
+            next: (user) => {
+              this.currentUser = user;
+              this.userService.setCurrentUser(user);
+            },
             error: () => {},
           });
         }

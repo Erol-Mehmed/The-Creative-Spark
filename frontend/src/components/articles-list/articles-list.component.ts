@@ -87,7 +87,7 @@ export class ArticlesListComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (this.authorArticles || !changes['selectedTopic'] || changes['selectedTopic'].firstChange) {
+    if (this.authorArticles || !changes['selectedTopic']) {
       return;
     }
 
