@@ -12,6 +12,7 @@ from app.resources.upload import (
     ArticleImageUploadResource,
     UserImageUploadResource,
 )
+from app.resources.topic import TopicListResource
 
 
 def register_routes(api):
@@ -59,3 +60,9 @@ def register_routes(api):
         UserImageUploadResource,
         "/api/uploads/users",
     )
+
+    api.add_resource(
+        TopicListResource,
+        "/api/topics",
+    )
+

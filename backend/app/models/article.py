@@ -2,6 +2,13 @@ from datetime import UTC, datetime
 
 from app.extensions import db
 
+# Association table for Article-Topic many-to-many relationship
+article_topic = db.Table(
+    'article_topic',
+    db.Column('article_id', db.Integer, db.ForeignKey('articles.id', ondelete='CASCADE'), primary_key=True),
+    db.Column('topic_id', db.Integer, db.ForeignKey('topics.id', ondelete='CASCADE'), primary_key=True),
+)
+
 
 class Article(db.Model):
     __tablename__ = "articles"
@@ -29,7 +36,7 @@ class Article(db.Model):
 
     topic = db.Column(
         db.String(100),
-        nullable=False,
+        nullable=True,  # Made nullable as we're moving to topics table
     )
 
     claps = db.Column(
@@ -69,6 +76,13 @@ class Article(db.Model):
     author = db.relationship(
         "User",
         back_populates="articles",
+    )
+
+    # Many-to-many relationship with topics
+    topics = db.relationship(
+        "Topic",
+        secondary=article_topic,
+        backref="articles",
     )
 
     def __repr__(self):

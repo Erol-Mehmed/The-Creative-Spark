@@ -5,6 +5,7 @@ from app.exceptions.article_exceptions import (
 )
 from app.models.article import Article
 from app.repositories.article_repository import ArticleRepository
+from app.services.topic_service import TopicService
 
 
 class ArticleService:
@@ -74,6 +75,13 @@ class ArticleService:
         if "topic" in data:
             article.topic = data["topic"]
 
+        if "topics" in data:
+            # Clear existing topics and add new ones
+            article.topics.clear()
+            for topic_name in data.get("topics", []):
+                topic = TopicService.get_or_create(topic_name)
+                article.topics.append(topic)
+
         if "image_url" in data:
             article.image_url = data["image_url"]
 
@@ -108,11 +116,17 @@ class ArticleService:
             title=data["title"],
             slug=data["slug"],
             content=data["content"],
-            topic=data["topic"],
+            topic=data.get("topic"),  # Keep for backward compatibility
             image_url=data.get("image_url"),
             read_time=read_time,
             author_id=user_id,
         )
+
+        # Handle topics array if provided
+        if data.get("topics"):
+            for topic_name in data.get("topics", []):
+                topic = TopicService.get_or_create(topic_name)
+                article.topics.append(topic)
 
         return ArticleRepository.create(article)
 

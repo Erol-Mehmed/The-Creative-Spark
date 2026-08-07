@@ -19,8 +19,14 @@ class ArticleCreateSchema(Schema):
     )
 
     topic = fields.Str(
-        required=True,
+        required=False,  # Made optional as we're using topics array
         validate=validate.Length(min=2, max=100),
+    )
+
+    topics = fields.List(
+        fields.Str(validate=validate.Length(min=1, max=100)),
+        required=False,
+        load_default=[],
     )
 
     image_url = fields.Str(
@@ -64,6 +70,7 @@ class ArticleResponseSchema(Schema):
     slug = fields.Str()
     content = fields.Str()
     topic = fields.Str()
+    topics = fields.Method('get_topics')
 
     image = fields.Str(
         attribute="image_url",
@@ -94,6 +101,18 @@ class ArticleResponseSchema(Schema):
         if obj.author:
             return f"{obj.author.first_name or ''} {obj.author.last_name or ''}".strip() or obj.author.username
         return ''
+
+    def get_author_image(self, obj):
+        return obj.author.image_url if obj.author else None
+
+    def get_author_slug(self, obj):
+        return obj.author.username if obj.author else ''
+
+    def get_topics(self, obj):
+        """Return topic names as array"""
+        if obj.topics:
+            return [topic.name for topic in obj.topics]
+        return []
 
     def get_author_image(self, obj):
         return obj.author.image_url if obj.author else None
