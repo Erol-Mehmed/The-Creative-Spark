@@ -17,6 +17,8 @@ export class ArticleEditorComponent implements OnInit {
   imagePreview: string | null = null;
   isEditing = false;
   articleSlug: string | null = null;
+  topics: any[] = [];
+  selectedTopics: string[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -29,18 +31,47 @@ export class ArticleEditorComponent implements OnInit {
       title: [''],
       slug: [''],
       topic: [''],
+      topics: [[]],
       content: [''],
       image_url: [''],
     });
   }
 
   ngOnInit() {
+    // Load topics from backend
+    this.loadTopics();
+
     const slug = this.route.snapshot.params['slug'];
     if (slug) {
       this.isEditing = true;
       this.articleSlug = slug;
       this.loadArticle(slug);
     }
+  }
+
+  loadTopics() {
+    this.http.get<any[]>('/api/topics').subscribe({
+      next: (topics) => {
+        this.topics = topics;
+      },
+      error: () => {
+        console.error('Failed to load topics');
+      },
+    });
+  }
+
+  toggleTopic(topicName: string) {
+    const index = this.selectedTopics.indexOf(topicName);
+    if (index > -1) {
+      this.selectedTopics.splice(index, 1);
+    } else {
+      this.selectedTopics.push(topicName);
+    }
+    this.form.patchValue({ topics: this.selectedTopics });
+  }
+
+  isTopicSelected(topicName: string): boolean {
+    return this.selectedTopics.includes(topicName);
   }
 
   loadArticle(slug: string) {
@@ -53,6 +84,11 @@ export class ArticleEditorComponent implements OnInit {
           content: article.content,
           image_url: article.image,
         });
+        // Load topics if available
+        if (article.topics && Array.isArray(article.topics)) {
+          this.selectedTopics = [...article.topics];
+          this.form.patchValue({ topics: this.selectedTopics });
+        }
         this.imagePreview = article.image;
       },
       error: (err) => {
