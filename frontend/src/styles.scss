@@ -1,4 +1,22 @@
-/* You can add global styles to this file, and also import other style files */
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';
+
+:root {
+  --main-color: #85c5ef;
+  --main-color-2: #65aad8;
+  --main-color-3: #428ec2;
+  --main-black: #171717;
+  --main-white: #fff;
+  --main-font-family: "Merriweather", Roboto, "Helvetica Neue", sans-serif;
+  --green: #1a8917;
+  --green-2: #176d14;
+  --green-3: #156612;
+  --surface: #ffffff;
+  --surface-muted: #f8f9fb;
+  --border: #e5e7eb;
+  --text-muted: #6b7280;
+  --shadow-sm: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
 
 html,
 body {
@@ -8,38 +26,22 @@ body {
 body {
   margin: 0;
   font-family: var(--main-font-family);
-  background: #f8f8ff;
+  color: var(--main-black);
+  background: linear-gradient(180deg, #f5f9ff 0%, #f8f8ff 50%, #ffffff 100%);
 }
 
-:root {
-  --main-color: #85c5ef;
-  --main-color-2: #65aad8;
-  --main-color-3: #428ec2;
-  --main-black: #000;
-  --main-white: #fff;
-  --main-font-family: "Merriweather", Roboto, "Helvetica Neue", sans-serif;
-  --green: #1a8917;
-  --green-2: #176d14;
-  --green-3: #156612;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-html,
-body {
-  height: 100%;
-}
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+.btn {
+  border-radius: 999px;
+  font-weight: 600;
 }
 
-html,
-body {
-  height: 100%;
+.form-control,
+textarea {
+  border-radius: 12px;
 }
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}
-
-/* Importing Bootstrap SCSS file. */
-@import 'bootstrap/scss/bootstrap';

@@ -5,23 +5,6 @@
   [infiniteScrollThrottle]="50"
   (scrolled)="loadMoreArticles()"
 >
-  <!-- Topic filter -->
-  <div *ngIf="topics.length > 0 && !authorArticles" class="d-flex gap-2 mb-4 flex-wrap">
-    <button 
-      class="btn btn-sm"
-      [ngClass]="selectedTopic === null ? 'btn-dark' : 'btn-outline-dark'"
-      (click)="filterByTopic(null)">
-      All
-    </button>
-    <button 
-      *ngFor="let topic of topics"
-      class="btn btn-sm"
-      [ngClass]="selectedTopic === topic ? 'btn-dark' : 'btn-outline-dark'"
-      (click)="filterByTopic(topic)">
-      {{ topic }}
-    </button>
-  </div>
-
   <div *ngIf="displayedArticles.length > 0; else noArticles" class="articles-wrapper d-flex flex-column align-items-center">
   <div
     class="row col-12"
@@ -59,10 +42,7 @@
           <p class="mx-1">-</p>
           <span 
             *ngFor="let topic of (article.topics || [article.topic])"
-            class="badge bg-light text-dark me-2" 
-            role="button"
-            (click)="filterByTopic(topic)"
-            style="cursor: pointer;">
+            class="badge bg-light text-dark me-2">
             {{ topic }}
           </span>
         </div>

@@ -1,10 +1,20 @@
 .articles {
   .articles-wrapper {
-    gap: 20px;
+    gap: 16px;
 
     .row {
       .article-wrapper {
-        padding-left: 53px;
+        padding: 18px;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        background: var(--surface);
+        box-shadow: var(--shadow-sm);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+        &:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+        }
 
         .author-article-links {
           gap: 2px;
@@ -35,7 +45,7 @@
             margin-left: 2.5px;
 
             .title {
-              font-size: 15px;
+              font-size: 19px;
             }
 
             .content {
@@ -44,7 +54,8 @@
               -webkit-box-orient: vertical;
               text-overflow: ellipsis;
               font-size: 14px;
-              color: #6B6B6B;
+              line-height: 1.45;
+              color: var(--text-muted);
             }
           }
 
@@ -74,6 +85,8 @@
         .article-image a img {
           width: 200px;
           height: 134px;
+          object-fit: cover;
+          border-radius: 12px;
         }
       }
     }
@@ -111,5 +124,9 @@
 
   .no-articles p {
     width: fit-content;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
   }
 }

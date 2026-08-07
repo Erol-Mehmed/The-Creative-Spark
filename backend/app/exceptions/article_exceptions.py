@@ -16,3 +16,7 @@ class ArticlePermissionDeniedError(ArticleError):
 
 class EmptyArticleUpdateError(ArticleError):
     pass
+
+
+class InvalidArticleTopicError(ArticleError):
+    pass

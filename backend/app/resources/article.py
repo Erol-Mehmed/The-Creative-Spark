@@ -6,7 +6,8 @@ from marshmallow import ValidationError
 from app.exceptions.article_exceptions import (
     ArticleAlreadyExistsError,
     ArticleNotFoundError,
-    ArticlePermissionDeniedError, EmptyArticleUpdateError
+    ArticlePermissionDeniedError, EmptyArticleUpdateError,
+    InvalidArticleTopicError,
 )
 from app.schemas.article_schema import (
     ArticleCreateSchema,
@@ -62,6 +63,11 @@ class ArticleListResource(Resource):
             return {
                 "message": str(error),
             }, 409
+
+        except InvalidArticleTopicError as error:
+            return {
+                "message": str(error),
+            }, 400
 
 
 class ArticleDetailResource(Resource):
@@ -120,6 +126,11 @@ class ArticleDetailResource(Resource):
             }, 403
 
         except EmptyArticleUpdateError as error:
+            return {
+                "message": str(error),
+            }, 400
+
+        except InvalidArticleTopicError as error:
             return {
                 "message": str(error),
             }, 400
@@ -217,6 +228,11 @@ class ArticleManageResource(Resource):
             }, 403
 
         except EmptyArticleUpdateError as error:
+            return {
+                "message": str(error),
+            }, 400
+
+        except InvalidArticleTopicError as error:
             return {
                 "message": str(error),
             }, 400

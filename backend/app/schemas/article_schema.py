@@ -25,8 +25,8 @@ class ArticleCreateSchema(Schema):
 
     topics = fields.List(
         fields.Str(validate=validate.Length(min=1, max=100)),
-        required=False,
-        load_default=[],
+        required=True,
+        validate=validate.Length(min=1),
     )
 
     image_url = fields.Str(
@@ -41,6 +41,11 @@ class ArticlePatchSchema(Schema):
     topic = fields.Str(
         required=False,
         validate=validate.Length(min=2, max=100),
+    )
+    topics = fields.List(
+        fields.Str(validate=validate.Length(min=1, max=100)),
+        required=False,
+        validate=validate.Length(min=1),
     )
     image_url = fields.Str(required=False, allow_none=True)
 

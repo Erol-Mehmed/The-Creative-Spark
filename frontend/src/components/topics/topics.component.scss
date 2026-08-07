@@ -13,6 +13,7 @@
       background: #F2F2F2;
       border: 1px solid #F2F2F2;
       cursor: pointer;
+      transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
 
       &:hover {
         background: #dbdada;
@@ -20,6 +21,12 @@
 
       &:active {
         background: #b8b7b7;
+      }
+
+      &.selected {
+        color: #fff;
+        background: #111827;
+        border-color: #111827;
       }
     }
   }

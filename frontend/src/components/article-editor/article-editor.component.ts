@@ -17,7 +17,7 @@ export class ArticleEditorComponent implements OnInit {
   imagePreview: string | null = null;
   isEditing = false;
   articleSlug: string | null = null;
-  topics: any[] = [];
+  topics: Array<{ id: number; name: string }> = [];
   selectedTopics: string[] = [];
 
   constructor(
@@ -38,7 +38,6 @@ export class ArticleEditorComponent implements OnInit {
   }
 
   ngOnInit() {
-    // Load topics from backend
     this.loadTopics();
 
     const slug = this.route.snapshot.params['slug'];
@@ -50,7 +49,7 @@ export class ArticleEditorComponent implements OnInit {
   }
 
   loadTopics() {
-    this.http.get<any[]>('/api/topics').subscribe({
+    this.http.get<Array<{ id: number; name: string }>>('/api/topics').subscribe({
       next: (topics) => {
         this.topics = topics;
       },
@@ -77,21 +76,23 @@ export class ArticleEditorComponent implements OnInit {
   loadArticle(slug: string) {
     this.http.get(`/api/articles/${slug}`).subscribe({
       next: (article: any) => {
+        const articleTopics =
+          article.topics && Array.isArray(article.topics)
+            ? article.topics.map((t: any) => (typeof t === 'string' ? t : t.name))
+            : [];
+
         this.form.patchValue({
           title: article.title,
           slug: article.slug,
-          topic: article.topic,
+          topic: articleTopics[0] || article.topic || '',
+          topics: articleTopics,
           content: article.content,
           image_url: article.image,
         });
-        // Load topics if available - handle both array of strings and array of objects
-        if (article.topics && Array.isArray(article.topics)) {
-          this.selectedTopics = article.topics.map((t: any) => typeof t === 'string' ? t : t.name);
-          this.form.patchValue({ topics: this.selectedTopics });
-        }
+        this.selectedTopics = articleTopics;
         this.imagePreview = article.image;
       },
-      error: (err) => {
+      error: () => {
         this.error = 'Failed to load article.';
       },
     });
@@ -120,12 +121,32 @@ export class ArticleEditorComponent implements OnInit {
     this.saving = true;
     this.error = null;
 
-    // Ensure slug is lowercase
-    const formValue = { ...this.form.value, slug: this.form.value.slug.toLowerCase() };
+    if (this.selectedTopics.length === 0) {
+      this.error = 'Please select at least one topic.';
+      this.saving = false;
+      return;
+    }
+
+    const primaryTopic = this.selectedTopics[0];
+    const formValue: any = {
+      ...this.form.value,
+      slug: (this.form.value.slug || '').toLowerCase(),
+      topics: [...this.selectedTopics],
+    };
+
+    if (primaryTopic) {
+      formValue.topic = primaryTopic;
+    } else {
+      delete formValue.topic;
+    }
 
     if (this.isEditing && this.articleSlug) {
       this.http.patch(`/api/articles/${this.articleSlug}`, formValue).subscribe({
         next: (article: any) => {
+          if (article?.authorSlug && article?.slug) {
+            this.router.navigate(['/', article.authorSlug, article.slug]);
+            return;
+          }
           this.router.navigate(['/']);
         },
         error: (err) => {
@@ -144,5 +165,13 @@ export class ArticleEditorComponent implements OnInit {
         },
       });
     }
+  }
+
+  get pageTitle(): string {
+    return this.isEditing ? 'Edit article' : 'Create article';
+  }
+
+  get submitLabel(): string {
+    return this.isEditing ? 'Save changes' : 'Publish article';
   }
 }

@@ -8,7 +8,7 @@ def create_user_and_article(client, username='owner'):
         'title': 'Owner article',
         'slug': f'{username.lower()}-article-test',
         'content': 'Content ' * 50,
-        'topic': 'test',
+        'topics': ['Life'],
     }
 
     rv = client.post('/api/articles', json=payload, headers={'Authorization': f'Bearer {token}'})

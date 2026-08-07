@@ -13,7 +13,23 @@
       <button class="btn btn-link fw-medium text-black text-decoration-none" routerLink="/create">
         Write
       </button>
-      <button class="btn btn-outline-dark fw-medium" (click)="logout()">Logout</button>
+      <button class="btn btn-outline-dark fw-medium" (click)="openLogoutConfirmation(logoutConfirmModal)">Logout</button>
     </ng-container>
   </nav>
 </header>
+
+<ng-template #logoutConfirmModal let-modal>
+  <div class="logout-modal">
+    <div class="modal-header">
+      <h5 class="modal-title">Confirm logout</h5>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+      Are you sure you want to logout?
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss()">Cancel</button>
+      <button type="button" class="btn btn-dark" (click)="logout(modal)">Logout</button>
+    </div>
+  </div>
+</ng-template>

@@ -76,11 +76,11 @@ class ArticleService:
             article.topic = data["topic"]
 
         if "topics" in data:
-            # Clear existing topics and add new ones
-            article.topics.clear()
-            for topic_name in data.get("topics", []):
-                topic = TopicService.get_or_create(topic_name)
-                article.topics.append(topic)
+            article_topics = TopicService.resolve_existing(
+                data.get("topics", [])
+            )
+            article.topics = article_topics
+            article.topic = article_topics[0].name
 
         if "image_url" in data:
             article.image_url = data["image_url"]
@@ -108,6 +108,10 @@ class ArticleService:
                 "An article with this slug already exists."
             )
 
+        article_topics = TopicService.resolve_existing(
+            data.get("topics", [])
+        )
+
         read_time = ArticleService.calculate_read_time(
             data["content"]
         )
@@ -116,17 +120,13 @@ class ArticleService:
             title=data["title"],
             slug=data["slug"],
             content=data["content"],
-            topic=data.get("topic"),  # Keep for backward compatibility
+            topic=article_topics[0].name,
             image_url=data.get("image_url"),
             read_time=read_time,
             author_id=user_id,
         )
 
-        # Handle topics array if provided
-        if data.get("topics"):
-            for topic_name in data.get("topics", []):
-                topic = TopicService.get_or_create(topic_name)
-                article.topics.append(topic)
+        article.topics = article_topics
 
         return ArticleRepository.create(article)
 

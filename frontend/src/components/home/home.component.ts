@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import { HttpClient } from "@angular/common/http";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +8,13 @@ import { HttpClient } from "@angular/common/http";
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit{
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private route: ActivatedRoute,
+  ) {}
 
   hasArticles: boolean = false;
+  selectedTopic: string | null = null;
 
   ngOnInit() {
     window.scrollTo(0, 0);
@@ -17,5 +22,13 @@ export class HomeComponent implements OnInit{
     this.http.get('/api/articles?has-articles=1').subscribe((boolean: any) => {
       this.hasArticles = boolean;
     });
+
+    this.route.queryParams.subscribe((params) => {
+      this.selectedTopic = params['topic'] || null;
+    });
+  }
+
+  onTopicChange(topic: string | null): void {
+    this.selectedTopic = topic;
   }
 }

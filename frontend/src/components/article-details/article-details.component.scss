@@ -43,6 +43,31 @@
         }
       }
 
+      .topics-container {
+        .topic-chip {
+          display: inline-block;
+          padding: 6px 12px;
+          font-size: 14px;
+          font-weight: 500;
+          color: #1f2937;
+          background: #f3f4f6;
+          border: 1px solid #e5e7eb;
+          border-radius: 999px;
+          transition: all 0.18s ease;
+
+          &:hover {
+            background: #e5e7eb;
+            border-color: #cbd5e1;
+            color: #111827;
+          }
+
+          &:active {
+            background: #d1d5db;
+            border-color: #9ca3af;
+          }
+        }
+      }
+
       .claps-comments-topics {
         height: 50px;
         margin-top: 30px;

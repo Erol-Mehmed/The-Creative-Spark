@@ -31,6 +31,6 @@ class TopicRepository:
         """Get topic by name or create if doesn't exist"""
         topic = TopicRepository.get_by_name(name)
         if not topic:
-            topic = Topic(name=name.strip().lower())
+            topic = Topic(name=name.strip())
             TopicRepository.create(topic)
         return topic

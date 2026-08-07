@@ -27,8 +27,18 @@ export class AuthorComponent implements OnInit {
   ngOnInit() {
     window.scrollTo(0, 0);
 
+    this.userService.currentUser$.subscribe({
+      next: (user) => {
+        this.currentUser = user;
+        this.applyCurrentUserToAuthor(user);
+      },
+    });
+
     this.userService.me$()?.subscribe({
-      next: (user) => this.currentUser = user,
+      next: (user) => {
+        this.currentUser = user;
+        this.userService.setCurrentUser(user);
+      },
     });
   };
 
@@ -43,5 +53,26 @@ export class AuthorComponent implements OnInit {
 
   toggleEdit() {
     this.editing = !this.editing;
+  }
+
+  onProfileEditClose(updatedUser: any) {
+    this.editing = false;
+    if (updatedUser) {
+      this.applyCurrentUserToAuthor(updatedUser);
+    }
+  }
+
+  private applyCurrentUserToAuthor(user: any) {
+    if (!user || !this.isOwner()) {
+      return;
+    }
+
+    const name = `${user.first_name || ''} ${user.last_name || ''}`.trim() || user.username;
+    this.author = {
+      ...this.author,
+      name,
+      description: user.bio || '',
+      image: user.image_url || '',
+    };
   }
 }

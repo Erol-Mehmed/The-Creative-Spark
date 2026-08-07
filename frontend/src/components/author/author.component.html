@@ -27,7 +27,7 @@
         </p>
 
         <div *ngIf="editing">
-          <app-profile-edit (close)="toggleEdit()"></app-profile-edit>
+          <app-profile-edit (close)="onProfileEditClose($event)"></app-profile-edit>
         </div>
       </div>
     </div>

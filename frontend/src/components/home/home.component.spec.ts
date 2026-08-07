@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ActivatedRoute } from '@angular/router';
 
 import { HomeComponent } from './home.component';
 
@@ -8,6 +10,13 @@ describe('HomeComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: { queryParams: { subscribe: () => {} } },
+        },
+      ],
       declarations: [HomeComponent]
     });
     fixture = TestBed.createComponent(HomeComponent);

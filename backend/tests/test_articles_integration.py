@@ -20,7 +20,7 @@ def test_article_crud_flow(client):
         'title': 'My Test Article',
         'slug': 'my-test-article',
         'content': 'This is a test article content ' * 10,
-        'topic': 'testing',
+        'topics': ['Life'],
     }
 
     rv = client.post('/api/articles', json=article_payload, headers={'Authorization': f'Bearer {token}'})
@@ -44,3 +44,16 @@ def test_article_crud_flow(client):
     # ensure deleted
     rv = client.get(f"/api/articles/{article_payload['slug']}")
     assert rv.status_code == 404
+
+
+def test_article_create_requires_topics(client):
+    token = create_user_and_token(client)
+
+    article_payload = {
+        'title': 'Article Without Topics',
+        'slug': 'article-without-topics',
+        'content': 'This is a test article content ' * 10,
+    }
+
+    rv = client.post('/api/articles', json=article_payload, headers={'Authorization': f'Bearer {token}'})
+    assert rv.status_code == 400

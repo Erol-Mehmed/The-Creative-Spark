@@ -1,15 +1,24 @@
 <div class="topics-container">
   <h1>Topics</h1>
   <div class="topics">
-    <span class="badge m-1">Life</span>
-    <span class="badge m-1">Work</span>
-    <span class="badge m-1">Science</span>
-    <span class="badge m-1">Technology</span>
-    <span class="badge m-1">Media</span>
-    <span class="badge m-1">Society</span>
-    <span class="badge m-1">Culture</span>
-    <span class="badge m-1">Nature</span>
-    <span class="badge m-1">Sport</span>
-    <span class="badge m-1">World</span>
+    <span
+      class="badge m-1"
+      role="button"
+      [class.selected]="selectedTopic === null"
+      [attr.aria-pressed]="selectedTopic === null"
+      (click)="selectTopic(null)"
+    >
+      All Topics
+    </span>
+    <span
+      *ngFor="let topic of topics"
+      class="badge m-1"
+      role="button"
+      [class.selected]="selectedTopic === topic.name"
+      [attr.aria-pressed]="selectedTopic === topic.name"
+      (click)="selectTopic(topic.name)"
+    >
+      {{ topic.name }}
+    </span>
   </div>
 </div>

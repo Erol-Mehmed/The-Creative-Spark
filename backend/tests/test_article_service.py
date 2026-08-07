@@ -30,4 +30,4 @@ def test_create_duplicate_slug_raises(db):
     ArticleRepository.create(article)
 
     with pytest.raises(ArticleAlreadyExistsError):
-        ArticleService.create({'title': 't2', 'slug': 'dup-slug', 'content': 'x' * 300, 'topic': 't'}, user.id)
+        ArticleService.create({'title': 't2', 'slug': 'dup-slug', 'content': 'x' * 300, 'topics': ['Life']}, user.id)

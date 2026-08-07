@@ -1,6 +1,8 @@
 import {
   Component,
   OnInit,
+  OnChanges,
+  SimpleChanges,
   Input,
   Output,
   EventEmitter,
@@ -16,7 +18,7 @@ import { FormatDatePipe } from "../../shared/pipes/format-date.pipe";
   styleUrls: ['./articles-list.component.scss'],
   providers: [FormatDatePipe],
 })
-export class ArticlesListComponent implements OnInit {
+export class ArticlesListComponent implements OnInit, OnChanges {
   constructor(
     private http: HttpClient,
     private formatDatePipe: FormatDatePipe,
@@ -24,13 +26,12 @@ export class ArticlesListComponent implements OnInit {
   ) {}
 
   @Input() authorArticles: boolean = false;
+  @Input() selectedTopic: string | null = null;
   @Output() author = new EventEmitter<Author>();
 
   currentData: any;
   displayedArticles: any = [];
   articlesToShow: number = 10;
-  topics: string[] = [];
-  selectedTopic: string | null = null;
 
   processAndDisplayArticles() {
     if (this.authorArticles) {
@@ -45,17 +46,6 @@ export class ArticlesListComponent implements OnInit {
       this.currentData = this.currentData.articles;
     }
 
-    // Extract unique topics from articles (handle both single topic and topics array)
-    const allTopics = new Set<string>();
-    this.currentData.forEach((article: any) => {
-      if (article.topics && Array.isArray(article.topics)) {
-        article.topics.forEach((t: string) => allTopics.add(t));
-      } else if (article.topic) {
-        allTopics.add(article.topic);
-      }
-    });
-    this.topics = Array.from(allTopics).sort();
-
     this.displayedArticles = this.currentData.slice(0, 10);
   }
 
@@ -66,12 +56,6 @@ export class ArticlesListComponent implements OnInit {
         (this.articlesToShow += 10)
       );
     }
-  }
-
-  filterByTopic(topic: string | null) {
-    this.selectedTopic = topic;
-    this.articlesToShow = 10;
-    this.getArticles();
   }
 
   getArticles() {
@@ -99,12 +83,15 @@ export class ArticlesListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Check for topic query parameter
-    this.route.queryParams.subscribe((params) => {
-      if (params['topic']) {
-        this.selectedTopic = params['topic'];
-      }
-      this.getArticles();
-    });
+    this.getArticles();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.authorArticles || !changes['selectedTopic'] || changes['selectedTopic'].firstChange) {
+      return;
+    }
+
+    this.articlesToShow = 10;
+    this.getArticles();
   }
 }

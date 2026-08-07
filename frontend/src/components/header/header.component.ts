@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthModalComponent } from '../auth-modal/auth-modal.component';
 import { UserService } from 'src/core/services/user.service';
@@ -61,12 +61,15 @@ export class HeaderComponent implements OnInit {
     );
   }
 
-  logout() {
-    if (confirm('Are you sure you want to logout?')) {
-      localStorage.removeItem('access_token');
-      this.currentUser = null;
-      this.userService.setCurrentUser(null);
-      this.router.navigate(['']);
-    }
+  openLogoutConfirmation(logoutModal: TemplateRef<unknown>) {
+    this.modalService.open(logoutModal, { centered: true });
+  }
+
+  logout(modal: { close: () => void }) {
+    localStorage.removeItem('access_token');
+    this.currentUser = null;
+    this.userService.setCurrentUser(null);
+    modal.close();
+    this.router.navigate(['']);
   }
 }

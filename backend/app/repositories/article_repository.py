@@ -1,7 +1,8 @@
-from sqlalchemy import select
+from sqlalchemy import or_, select
 
 from app.extensions import db
 from app.models.article import Article
+from app.models.topic import Topic
 
 
 class ArticleRepository:
@@ -39,9 +40,18 @@ class ArticleRepository:
 
     @staticmethod
     def get_by_topic(topic: str) -> list[Article]:
-        statement = select(Article).where(
-            Article.topic == topic
-        ).order_by(Article.created_at.desc())
+        statement = (
+            select(Article)
+            .outerjoin(Article.topics)
+            .where(
+                or_(
+                    Article.topic.ilike(topic),
+                    Topic.name.ilike(topic),
+                )
+            )
+            .order_by(Article.created_at.desc())
+            .distinct()
+        )
 
         return db.session.execute(statement).scalars().all()
 

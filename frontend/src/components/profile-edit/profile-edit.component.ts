@@ -15,7 +15,7 @@ export class ProfileEditComponent implements OnInit {
   error: string | null = null;
   imagePreview: string | null = null;
 
-  @Output() close = new EventEmitter<void>();
+  @Output() close = new EventEmitter<any>();
 
   constructor(
     private fb: FormBuilder,
@@ -73,8 +73,8 @@ export class ProfileEditComponent implements OnInit {
 
     this.userService.updateProfile(this.form.value).subscribe({
       next: (user) => {
-        // Update user in service cache and emit close event
-        this.close.emit();
+        this.userService.setCurrentUser(user);
+        this.close.emit(user);
       },
       error: (err) => {
         this.error = err?.error?.message || 'Save failed.';
@@ -84,6 +84,6 @@ export class ProfileEditComponent implements OnInit {
   }
 
   cancel() {
-    this.close.emit();
+    this.close.emit(null);
   }
 }
